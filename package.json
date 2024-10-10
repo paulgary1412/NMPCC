@@ -12,6 +12,8 @@
     "cors": "^2.8.5",
     "emailjs-com": "^2.6.4",
     "express": "^4.21.1",
+    "highcharts": "^11.4.8",
+    "highcharts-react-official": "^3.2.1",
     "mongoose": "^8.7.1",
     "react": "^17.0.1",
     "react-bootstrap": "^2.10.5",

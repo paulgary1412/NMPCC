@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { BrowserRouter as Router, Route, Routes } from "react-router-dom"; // Importing Routes instead of Switch
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import { Navigation } from "./components/navigation";
 import { Header } from "./components/header";
 import { About } from "./components/about";
@@ -13,6 +13,12 @@ import JsonData from "./data/data.json";
 import SmoothScroll from "smooth-scroll";
 import "./App.css";
 
+// New service pages
+//import {Wordpress} from "./components/Wordpress";
+import Shopping from "./components/Shopping";
+import Pharmacy from "./components/Pharmacy";
+import Dashboard from "./components/Dashboard";
+
 export const scroll = new SmoothScroll('a[href*="#"]', {
   speed: 1000,
   speedAsDuration: true,
@@ -20,7 +26,7 @@ export const scroll = new SmoothScroll('a[href*="#"]', {
 
 const App = () => {
   const [landingPageData, setLandingPageData] = useState({});
-  
+
   useEffect(() => {
     setLandingPageData(JsonData);
   }, []);
@@ -28,19 +34,30 @@ const App = () => {
   return (
     <Router>
       <Navigation />
-      <Routes> {/* Using Routes for routing */}
-        <Route path="/" element={
-          <>
-            <Header data={landingPageData.Header} />
-            <About data={landingPageData.About} />
-            <Services data={landingPageData.Services} />
-            <Gallery data={landingPageData.Gallery} />
-            <Testimonials data={landingPageData.Testimonials} />
-            <Contact data={landingPageData.Contact} />
-          </>
-        } />
-        <Route path="/login" element={<Login />} /> {/* Correctly pointing to login */}
+      <Routes>
+        <Route
+          path="/"
+          element={
+            <>
+              <Header data={landingPageData.Header} />
+              <About data={landingPageData.About} />
+              <Services data={landingPageData.Services} />
+              <Gallery data={landingPageData.Gallery} />
+              <Testimonials data={landingPageData.Testimonials} />
+              <Contact data={landingPageData.Contact} />
+              
+              </>
+          }
+        />
+        {/* Authentication Routes */}
+        <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
+        
+        {/* Service Routes */}
+
+        <Route path="/shopping" element={<Shopping />} />
+        <Route path="/pharmacy" element={<Pharmacy />} />
+        <Route path="/dashboard" element={<Dashboard />} />
       </Routes>
     </Router>
   );

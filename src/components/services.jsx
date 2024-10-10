@@ -1,6 +1,13 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 export const Services = (props) => {
+  const servicesData = [
+    { icon: "fa-wordpress", title: "Pharmacy", link: "/pharmacy", description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis sed dapibus leo nec ornare diam." },
+    { icon: "fa-shopping-cart", title: "Grocery", link: "/shopping", description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis sed dapibus leo nec ornare diam." },
+    { icon: "fa-database", title: "Database", link: "/dashboard", description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis sed dapibus leo nec ornare diam." },
+  ];
+
   return (
     <div id="services" className="text-center">
       <div className="container">
@@ -12,18 +19,15 @@ export const Services = (props) => {
           </p>
         </div>
         <div className="row">
-          {props.data
-            ? props.data.map((d, i) => (
-                <div key={`${d.name}-${i}`} className="col-md-4">
-                  {" "}
-                  <i className={d.icon}></i>
-                  <div className="service-desc">
-                    <h3>{d.name}</h3>
-                    <p>{d.text}</p>
-                  </div>
-                </div>
-              ))
-            : "loading"}
+          {servicesData.map((service, index) => (
+            <div key={index} className="col-md-4">
+              <Link to={service.link}>
+                <i className={`fa ${service.icon}`}></i>
+                <h3>{service.title}</h3>
+                <p>{service.description}</p>
+              </Link>
+            </div>
+          ))}
         </div>
       </div>
     </div>
