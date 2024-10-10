@@ -23,9 +23,9 @@ const SignUp = () => {
     } else {
       try {
         const response = await axios.post('http://localhost:5000/signup', formData);
-        console.log(response.data); // Handle success (e.g., show a message)
+        console.log(response.data); 
       } catch (error) {
-        console.error(error); // Handle error
+        console.error(error); 
       }
     }
   };
