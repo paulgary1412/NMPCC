@@ -11,6 +11,7 @@ export const Navigation = (props) => {
       position: 'fixed',
       width: '100%',
       zIndex: 1000,
+      top:'0px'
     },
     navLink: {
       color: 'white',
@@ -52,23 +53,23 @@ export const Navigation = (props) => {
         <div className="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
           <ul className="nav navbar-nav navbar-right">
             <li>
-              <a href="/#features" className="page-scroll" style={styles.navLink}>
+              <a href="/" className="page-scroll" style={styles.navLink}>
                 
               </a>
             </li>
             <li>
-              <a href="/#about" className="page-scroll" style={styles.navLink}>
-                About
+              <a href="/#header" className="page-scroll" style={styles.navLink}>
+                Home
               </a>
             </li>
             <li>
               <a href="/#services" className="page-scroll" style={styles.navLink}>
-                Services
+              Services
               </a>
             </li>
             <li>
               <a href="/#portfolio" className="page-scroll" style={styles.navLink}>
-                Gallery
+                News and Events
               </a>
             </li>
             <li>

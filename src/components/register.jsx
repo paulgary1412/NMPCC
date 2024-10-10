@@ -1,5 +1,9 @@
+
 import React, { useState } from 'react';
 import axios from 'axios';
+import { useNavigate } from "react-router-dom"; // Import useNavigate
+
+
 
 const SignUp = () => {
   const [formData, setFormData] = useState({
@@ -10,11 +14,13 @@ const SignUp = () => {
   });
 
   const handleChange = (e) => {
-    setFormData({
+    setFormData({ 
       ...formData,
       [e.target.name]: e.target.value,
     });
   };
+
+  const navigate = useNavigate(); // Initialize useNavigate
 
   const handleSignUp = async (e) => {
     e.preventDefault();
@@ -28,6 +34,7 @@ const SignUp = () => {
         console.error(error); 
       }
     }
+    navigate("/login");
   };
 
   return (

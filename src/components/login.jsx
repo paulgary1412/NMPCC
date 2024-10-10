@@ -1,14 +1,20 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom"; // Import useNavigate
 import logo from "../assets/logo2.jpg"; // Adjust the path based on your structure
 
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  
+  const navigate = useNavigate(); // Initialize useNavigate
 
   const handleLogin = (e) => {
     e.preventDefault();
     console.log("Email:", email);
     console.log("Password:", password);
+
+    // Assuming you want to navigate to the header route after login
+    navigate("/#header"); // Navigate to Header.jsx
   };
 
   return (
