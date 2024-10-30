@@ -26,22 +26,17 @@ const SignUp = () => {
     e.preventDefault();
     if (formData.password !== formData.confirmPassword) {
       alert("Passwords do not match!");
-      return;
-    }
-    
-    try {
-      const response = await axios.post('http://localhost:5000/signup', formData);
-      console.log(response.data);
-       // Show success message
-      navigate("/login");
-    } catch (error) {
-      if (error.response && error.response.status === 400) {
-        alert(error.response.data.message); // Show error message for duplicate username/email
-      } else {
-        alert("An error occurred during sign-up. Please try again."); // Show generic error message
+    } else {
+      try {
+        const response = await axios.post('http://localhost:5000/signup', formData);
+        console.log(response.data); 
+      } catch (error) {
+        console.error(error); 
       }
     }
+    navigate("/login");
   };
+
   return (
     <div style={styles.container}>
       <div style={styles.formBox}>
