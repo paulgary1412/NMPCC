@@ -31,10 +31,7 @@ const Login = () => {
     }
   };
 
-  const handleLogout = () => {
-    localStorage.removeItem("token"); // Clear the token from local storage
-    navigate("/"); // Redirect to the home page
-  };
+
 
   return (
     <div style={styles.container}>
@@ -70,7 +67,7 @@ const Login = () => {
               Don't have an account? <a href="/register">Register</a>
             </p>
           </form>
-          <button onClick={handleLogout} style={styles.button}>Logout</button> {/* Logout button */}
+         
         </div>
       </div>
     </div>
