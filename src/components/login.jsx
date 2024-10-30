@@ -18,7 +18,7 @@ const Login = () => {
       const { token } = response.data; 
       localStorage.setItem("token", token); // Store the token in local storage
 
-      alert(response.data.message);
+     
      
       navigate("/#header"); // Redirect to /#header after successful login
       window.location.reload();
