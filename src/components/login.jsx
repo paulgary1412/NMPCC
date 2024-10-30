@@ -1,21 +1,29 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom"; // Import useNavigate
 import logo from "../assets/logo2.jpg"; // Adjust the path based on your structure
-
+import axios from 'axios';
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   
   const navigate = useNavigate(); // Initialize useNavigate
-
-  const handleLogin = (e) => {
+  const handleLogin = async (e) => {
     e.preventDefault();
-    console.log("Email:", email);
-    console.log("Password:", password);
-
-    // Assuming you want to navigate to the header route after login
-    navigate("/#header"); // Navigate to Header.jsx
+    
+    try {
+      const response = await axios.post('http://localhost:5000/login', { email, password });
+      alert(response.data.message);
+      navigate("/#header");
+    } catch (error) {
+      if (error.response && error.response.data) {
+        // Log the error message from the server response
+        alert(error.response.data.message); 
+      } else {
+        alert("An error occurred during login. Please try again.");
+      }
+    }
   };
+  
 
   return (
     <div style={styles.container}>
