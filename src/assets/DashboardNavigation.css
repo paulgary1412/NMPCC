@@ -1,0 +1,33 @@
+/* DashboardNavigation.css */
+.dashboard-nav-buttons {
+    display: flex;
+    flex-direction: column; /* Change to column for vertical layout */
+    align-items: center; /* Center the buttons */
+    margin-bottom: 20px;
+    position: absolute;
+    margin-left:50px ;
+    margin-top: 80px;
+}
+
+.dashboard-nav-buttons button {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    background-color: #007bff; /* Bootstrap primary color */
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    height: 50px;
+    width: 100%; /* Make buttons full width */
+    max-width: 200px; /* Optional: set a max width */
+    margin: 5px 0; /* Add margin for spacing between buttons */
+}
+
+.dashboard-nav-buttons button:hover {
+    background-color: #0056b3; /* Darker shade on hover */
+}
+
+.dashboard-nav-buttons button:focus {
+    outline: none; /* Remove outline on focus */
+}

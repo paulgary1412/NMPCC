@@ -108,7 +108,76 @@
     } catch (error) {
       res.status(400).json({ error: "Error updating profile" });
     }
+  });const Listing = require("./src/models/Listing");
+
+  // Fetch all listings
+  app.get("/listing", authenticateJWT, async (req, res) => {
+    try {
+      const listings = await Listing.find(); // Fetch all listings from the database
+      res.json(listings);
+    } catch (error) {
+      console.error("Error fetching listings:", error);
+      res.status(500).json({ message: "Error fetching listings" });
+    }
   });
+  
+  // Create a new listing
+  app.post("/listing/create", authenticateJWT, async (req, res) => {
+    try {
+      const { name, quantity, type, price } = req.body;
+  
+      const listing = new Listing({
+        name,
+        quantity,
+        type,
+        price
+      });
+  
+      await listing.save();
+      res.status(201).json({ message: "Listing created successfully" });
+    } catch (error) {
+      console.error("Error saving listing:", error);
+      res.status(500).json({ error: "Error creating listing" });
+    }
+  });
+  
+  // Update a listing// Update a listing
+app.put("/listing/update/:id", authenticateJWT, async (req, res) => {
+  const { id } = req.params;
+  const { name, quantity, type, price } = req.body;
+
+  try {
+    const updatedListing = await Listing.findByIdAndUpdate(
+      id,
+      { name, quantity, type, price },
+      { new: true, runValidators: true }
+    );
+    if (!updatedListing) {
+      return res.status(404).json({ error: "Listing not found" });
+    }
+    res.json(updatedListing);
+  } catch (error) {
+    console.error("Error updating listing:", error);
+    res.status(500).json({ error: "Error updating listing" });
+  }
+});
+
+  
+  // Delete a listing
+  app.delete("/listing/delete/:id", authenticateJWT, async (req, res) => {
+    try {
+      const listing = await Listing.findByIdAndDelete(req.params.id);
+      if (listing) {
+        res.json({ message: "Listing deleted successfully" });
+      } else {
+        res.status(404).json({ error: "Listing not found" });
+      }
+    } catch (error) {
+      console.error("Error deleting listing:", error);
+      res.status(500).json({ error: "Error deleting listing" });
+    }
+  });
+  
 
   // Start the server
   app.listen(PORT, () => {
