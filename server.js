@@ -180,10 +180,30 @@ app.delete("/listing/delete/:id", authenticateJWT, async (req, res) => {
 });
 
 // Fetch all packages
+// Fetch all packages with populated productId details
 app.get("/package", authenticateJWT, async (req, res) => {
   try {
-    const packages = await Package.find().populate("items.productId");
-    res.json(packages);
+    const packages = await Package.find().populate({
+      path: "items._id",
+      select: "name price", // Only retrieve name and price from Listing
+    });
+
+    // Process packages to check for missing productId references
+    const processedPackages = packages.map(pkg => {
+      const processedItems = pkg.items.map(item => {
+        if (!item.productId) {
+          return {
+            ...item._doc,
+            name: "Product Not Found",
+            price: "N/A",
+          };
+        }
+        return item;
+      });
+      return { ...pkg._doc, items: processedItems };
+    });
+
+    res.json(processedPackages);
   } catch (error) {
     console.error("Error fetching packages:", error);
     res.status(500).json({ message: "Error fetching packages" });

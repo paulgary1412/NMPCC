@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
+import "../assets/Package.css"; // Import the CSS file
 import axios from "axios";
-import "../assets/Dashboard.css";
+
 
 const Packages = () => {
   const [showPackageForm, setShowPackageForm] = useState(false);
@@ -101,7 +102,7 @@ const Packages = () => {
   };
 
   return (
-    <div className="dashboard-container">
+    <div className="dashboard-container1">
       <h1>Create Package</h1>
       <button className="add-package-button" onClick={handleAddPackageClick}>
         + Add Package

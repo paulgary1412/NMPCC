@@ -1,0 +1,122 @@
+/* Packages.css */
+
+.packages-container {
+    padding: 20px;
+    margin-top: 150px;
+    width: 100%;
+    position: relative;
+  }
+  .dashboard-container1 {
+    padding: 20px;
+   
+  
+    margin-top: 50px;
+    width: 100%;
+    position: relative;
+  }
+  
+  h1 {
+    margin-bottom: 20px;
+    color: #333;
+   
+  }
+  
+  .add-package-button {
+    background-color: green;
+    color: white;
+    border: none;
+    padding: 10px 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-bottom: 20px;
+    font-size: 12px;
+    width: 120px;
+    height: 40px; /* Adjusted height for better sizing */
+    transition: background-color 0.3s ease;
+  }
+  
+  .add-package-button:hover {
+    background-color: #0056b3; /* Darker green on hover */
+  }
+  
+  .package-form {
+    padding: 20px;
+    background-color: white;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    margin: auto;
+    position: relative;
+    width: 550px;
+  }
+  
+  .package-form h2 {
+    margin-bottom: 10px;
+  }
+  
+  .package-form label {
+    display: block;
+    margin-bottom: 10px;
+    font-weight: bold;
+    margin-left: 10px;
+  }
+  
+  .package-form input[type="text"],
+  .package-form input[type="number"] {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+  
+  .product-selection {
+    margin-bottom: 20px;
+  }
+  
+  .product-selection div {
+    margin-bottom: 10px;
+  }
+  
+  .product-selection input[type="checkbox"] {
+    margin-right: 10px;
+  }
+  
+  .submit-button,
+  .cancel-button {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-right: 10px;
+    font-size: 16px;
+    width: 200px;
+    height: 50px; /* Adjusted height for better sizing */
+  }
+  
+  .cancel-button {
+    background-color: #dc3545;
+  }
+  
+  .cancel-button:hover {
+    background-color: #c82333;
+  }
+  
+  .submit-button:hover {
+    background-color: #0056b3;
+  }
+  
+  /* Styles for the list of packages */
+  .package-list {
+    margin-top: 20px;
+  }
+  
+  .package-list li {
+    margin-bottom: 10px;
+  }
+  
+  .package-list strong {
+    color: #007bff;
+  }
+  
