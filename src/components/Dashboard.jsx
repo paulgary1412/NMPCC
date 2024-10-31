@@ -185,7 +185,7 @@ const Dashboard = () => {
           )}
 
           <div className="listing-container">
-            <h3>Products</h3>
+            <h2>Products</h2>
             <div className="card-container">
               {listings.length > 0 ? (
                 listings.map((listing) => (

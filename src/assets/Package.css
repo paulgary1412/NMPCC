@@ -8,31 +8,37 @@
   }
   .dashboard-container1 {
     padding: 20px;
-   
-  
-    margin-top: 50px;
+ 
+
+    margin-top: 150px;
     width: 100%;
     position: relative;
   }
   
-  h1 {
+  h2 {
     margin-bottom: 20px;
     color: #333;
+font-size: 20px;
+
+ margin-top:    10px;
    
   }
   
   .add-package-button {
-    background-color: green;
-    color: white;
-    border: none;
-    padding: 10px 10px;
-    border-radius: 5px;
-    cursor: pointer;
-    margin-bottom: 20px;
-    font-size: 12px;
-    width: 120px;
-    height: 40px; /* Adjusted height for better sizing */
-    transition: background-color 0.3s ease;
+    background-color:green;
+  color: white;
+  border: none;
+  padding: 10px 10px ;
+  border-radius: 5px;
+  cursor: pointer;
+
+  margin-left:54px;
+  margin-top: -150px;
+  font-size: 12px;
+  width: 120px;
+  height: 40px; /* Adjusted height for better sizing */
+  transition: background-color 0.3s ease;
+  position:absolute;
   }
   
   .add-package-button:hover {
@@ -40,13 +46,16 @@
   }
   
   .package-form {
-    padding: 20px;
-    background-color: white;
-    border-radius: 5px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    margin: auto;
-    position: relative;
-    width: 550px;
+   
+  padding: 20px;
+  background-color: white;
+  border-radius: 5px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  margin: auto;
+  position:relative;
+  height: 800px;
+  width: 550px;
+  z-index: 2;
   }
   
   .package-form h2 {
@@ -109,7 +118,8 @@
   
   /* Styles for the list of packages */
   .package-list {
-    margin-top: 20px;
+    margin-top: -50px;
+    margin-left: 60px;
   }
   
   .package-list li {
@@ -118,5 +128,53 @@
   
   .package-list strong {
     color: #007bff;
+  }
+  /* Packages.css (Additions for table) */
+
+.package-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: -50px;
+    margin-left: 50px;
+  position: absolute;
+
+  z-index: 1;
+  }
+  
+  .package-table th, .package-table td {
+    border: 1px solid #e9ecef;
+    padding: 10px;
+    text-align: left;
+  }
+  
+  .package-table th {
+    background-color: #f8f9fa;
+  }
+  
+  .package-table tr:hover {
+    background-color: #f1f1f1;
+  }
+  
+  .update-button,
+  .delete-button {
+    background-color: #28a745; /* Green for update */
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-right: 5px;
+  }
+  
+  .delete-button {
+    background-color: #dc3545; /* Red for delete */
+  }
+  
+  .update-button:hover {
+    background-color: #218838; /* Darker green on hover */
+  }
+  
+  .delete-button:hover {
+    background-color: #c82333; /* Darker red on hover */
   }
   

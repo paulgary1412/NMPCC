@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import "../assets/Package.css"; // Import the CSS file
 import axios from "axios";
 
-
 const Packages = () => {
   const [showPackageForm, setShowPackageForm] = useState(false);
   const [products, setProducts] = useState([]);
@@ -101,9 +100,28 @@ const Packages = () => {
     }
   };
 
+  const handleUpdatePackage = async (pkgId) => {
+    // Implement your update package logic here
+    console.log("Update package:", pkgId);
+  };
+
+  const handleDeletePackage = async (pkgId) => {
+    const token = localStorage.getItem("token");
+    try {
+      await axios.delete(`http://localhost:5000/package/${pkgId}`, {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      alert("Package deleted successfully!");
+      fetchPackages(); // Refresh the packages list after deletion
+    } catch (error) {
+      console.error("Error deleting package:", error);
+      alert("Error deleting package. Please try again.");
+    }
+  };
+
   return (
-    <div className="dashboard-container1">
-      <h1>Create Package</h1>
+    <div className="packages-container">
+    
       <button className="add-package-button" onClick={handleAddPackageClick}>
         + Add Package
       </button>
@@ -172,29 +190,55 @@ const Packages = () => {
         </form>
       )}
 
-      {/* Display Created Packages */}
-      <h2>Created Packages</h2>
-      <ul className="package-list">
-        {packages.length > 0 ? (
-          packages.map((pkg) => (
-            <li key={pkg._id}>
-              <strong>{pkg.name}</strong> - Price: ${pkg.price.toFixed(2)}
-              <ul>
-                {pkg.items.map((item) => (
-                  <li key={item.productId}>
-                    {
-                      // Displaying the product name for each item in the package
-                      products.find(p => p._id === item.productId)?.name || "Product Not Found"
-                    } - Quantity: {item.quantity} - Price: ${products.find(p => p._id === item.productId)?.price.toFixed(2) || "N/A"}
-                  </li>
-                ))}
-              </ul>
-            </li>
-          ))
-        ) : (
-          <p>No packages created yet.</p>
-        )}
-      </ul>
+      {/* Display Created Packages in a Table */}
+  
+      <table className="package-table">
+        <thead>
+          <tr>
+            <th>Package Name</th>
+            <th>Price</th>
+            <th>Items</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          {packages.length > 0 ? (
+            packages.map((pkg) => (
+              <tr key={pkg._id}>
+                <td><strong>{pkg.name}</strong></td>
+                <td>${pkg.price.toFixed(2)}</td>
+                <td>
+                  <ul>
+                    {pkg.items.map((item) => (
+                      <li key={item.productId}>
+                        {products.find(p => p._id === item.productId)?.name || "Product Not Found"} - Quantity: {item.quantity}
+                      </li>
+                    ))}
+                  </ul>
+                </td>
+                <td>
+                  <button
+                    className="update-button"
+                    onClick={() => handleUpdatePackage(pkg._id)}
+                  >
+                    Update
+                  </button>
+                  <button
+                    className="delete-button"
+                    onClick={() => handleDeletePackage(pkg._id)}
+                  >
+                    Delete
+                  </button>
+                </td>
+              </tr>
+            ))
+          ) : (
+            <tr>
+              <td colSpan="4">No packages created yet.</td>
+            </tr>
+          )}
+        </tbody>
+      </table>
     </div>
   );
 };
