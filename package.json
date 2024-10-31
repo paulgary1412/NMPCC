@@ -17,7 +17,7 @@
     "highcharts": "^11.4.8",
     "highcharts-react-official": "^3.2.1",
     "jsonwebtoken": "^9.0.2",
-    "mongoose": "^8.7.1",
+    "mongoose": "^8.7.3",
     "react": "^17.0.1",
     "react-bootstrap": "^2.10.5",
     "react-dom": "^17.0.1",
