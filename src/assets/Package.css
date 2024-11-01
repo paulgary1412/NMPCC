@@ -14,7 +14,7 @@
     width: 100%;
     position: relative;
   }
-  
+  /** dashboard text*/
   h2 {
     margin-bottom: 20px;
     color: #333;
@@ -23,7 +23,7 @@ font-size: 20px;
  margin-top:    10px;
    
   }
-  
+  /** add package button*/
   .add-package-button {
     background-color:green;
   color: white;
@@ -44,7 +44,7 @@ font-size: 20px;
   .add-package-button:hover {
     background-color: #0056b3; /* Darker green on hover */
   }
-  
+  /** add package form input needed to be centered and arrange properly*/
   .package-form {
    
   padding: 20px;
@@ -57,18 +57,18 @@ font-size: 20px;
   width: 550px;
   z-index: 2;
   }
-  
+  /** package text */
   .package-form h2 {
     margin-bottom: 10px;
   }
-  
+  /**package label format*/
   .package-form label {
     display: block;
     margin-bottom: 10px;
     font-weight: bold;
     margin-left: 10px;
   }
-  
+  /** arrange input*/
   .package-form input[type="text"],
   .package-form input[type="number"] {
     width: 100%;
