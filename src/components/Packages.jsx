@@ -104,7 +104,7 @@ const Packages = () => {
     // Implement your update package logic here
     console.log("Update package:", pkgId);
   };
-
+//cant delete atm need to implement
   const handleDeletePackage = async (pkgId) => {
     const token = localStorage.getItem("token");
     try {
@@ -118,14 +118,14 @@ const Packages = () => {
       alert("Error deleting package. Please try again.");
     }
   };
-
+//need to be centered this form below
   return (
     <div className="packages-container">
     
       <button className="add-package-button" onClick={handleAddPackageClick}>
         + Add Package
       </button>
-
+      
       {showPackageForm && (
         <form onSubmit={handlePackageFormSubmit} className="package-form">
           <h2>Create New Package</h2>
