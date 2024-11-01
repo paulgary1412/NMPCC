@@ -12,7 +12,7 @@ const app = express();
 const PORT = process.env.PORT || 5000;
 const JWT_SECRET = "your_jwt_secret"; // Replace with your own secret
 
-// Middleware
+// Middlewarehehe
 app.use(cors()); // Enable CORS for all routes
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
