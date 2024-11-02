@@ -1,10 +1,8 @@
 .dashboard-container {
   padding: 20px;
- 
+ height: 100%;
 
-  margin-top: 150px;
-  width: 100%;
-  position: relative;
+ position: relative;
 }
 
 h1 {
@@ -27,13 +25,13 @@ margin-top: 10px;
   border-radius: 5px;
   cursor: pointer;
 
-  margin-left: 250px;
-  margin-top: 20px;
+ left:160px;
+  top: 100px;
   font-size: 12px;
-  width: 120px;
+  width:200px;
   height: 40px; /* Adjusted height for better sizing */
   transition: background-color 0.3s ease;
-  position:absolute;
+  position:relative;
 }
 
 
@@ -85,15 +83,17 @@ position: relative;
 }
 
 .listing-form {
-
+  
   padding: 20px;
   background-color: white;
   border-radius: 5px;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-  margin: auto;
-  position:relative;
+ top: 300px;
+ left: 670px;
+  position:absolute;
   height: 450px;
   width: 550px;
+  
   z-index: 2;
 }
 
@@ -115,26 +115,31 @@ position: relative;
 }
 
 .listing-container {
- margin-left: 250px;
-  position: absolute;
-margin-top: 70px;
+position: relative;
+top: 150;
+left: 50px;
+
+margin: auto;
+right: 300px;
   z-index: 1;
 }
 
 .card-container {
   display: flex;
   flex-wrap: wrap;
-  gap: 20px;
+  gap: 50px;
+  margin: auto;
 }
 
 .card {
-  width: 200px;
+  width:350px;
   border: 1px solid #e9ecef;
   border-radius: 5px;
   padding: 10px;
   background-color: white;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
   transition: transform 0.2s;
+
 }
 
 .card:hover {

@@ -1,33 +1,79 @@
 /* DashboardNavigation.css */
-.dashboard-nav-buttons {
-    display: flex;
-    flex-direction: column; /* Change to column for vertical layout */
-    align-items: center; /* Center the buttons */
-    margin-bottom: 20px;
-    position: absolute;
-    margin-left:50px ;
-    margin-top: 80px;
-}
 
+.dashboard-nav-buttons {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+height: 100%;
+ 
+  left: -20;
+  width: 200px;
+  background-color: #800000; /* Dark red background */
+  padding: 10px 0;
+  height: 100vh;
+  transition: width 0.3s ease;
+  border-radius: 0;
+  padding-left: 10px;
+  padding-right: 10px;
+  top:-30;
+  position: relative;
+  z-index: 10001;
+}
+span{
+    color:silver;
+    
+}
+.dashboard-nav-buttons.collapsed {
+  width: 100px;
+  padding-left: 10px;
+  padding-right: 10px;
+  top:0;
+  left: 0;
+  position: fixed;
+  z-index: 10001;
+  
+}
+span.collapsed{
+padding-left: -10px;
+
+}
+span{
+   padding-top: 10;
+    padding-right: 50px;
+    padding-bottom: 10px;
+}
 .dashboard-nav-buttons button {
-    padding: 10px 20px;
-    border: none;
-    border-radius: 5px;
-    background-color: #007bff; /* Bootstrap primary color */
-    color: white;
-    font-size: 16px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-    height: 50px;
-    width: 100%; /* Make buttons full width */
-    max-width: 200px; /* Optional: set a max width */
-    margin: 5px 0; /* Add margin for spacing between buttons */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 90%;
+  padding: 10px;
+  background-color: #d3d3d3; /* Light grey button color */
+  color: #800000; /* Dark red text color */
+  border: none;
+  border-radius: 5px;
+  font-weight: bold;
+  cursor: pointer;
+  margin: 10px 0;
+  transition: background-color 0.3s ease;
 }
 
 .dashboard-nav-buttons button:hover {
-    background-color: #0056b3; /* Darker shade on hover */
+  background-color: #b0b0b0; /* Slightly darker grey on hover */
 }
 
-.dashboard-nav-buttons button:focus {
-    outline: none; /* Remove outline on focus */
+.dashboard-nav-buttons button .icon {
+  display: none;
+}
+
+.dashboard-nav-buttons.collapsed button .icon {
+  display: inline; /* Show icon when collapsed */
+}
+
+.dashboard-nav-buttons.collapsed button {
+  justify-content: center;
+}
+
+.dashboard-nav-buttons button:hover {
+  background-color: #b0b0b0; /* Slightly darker grey on hover */
 }

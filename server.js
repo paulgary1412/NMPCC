@@ -223,7 +223,6 @@ app.post("/package/create", authenticateJWT, async (req, res) => {
     res.status(500).json({ error: "Error creating package" });
   }
 });
-
 // Update a package
 app.put("/package/update/:id", authenticateJWT, async (req, res) => {
   const { id } = req.params;
@@ -245,11 +244,11 @@ app.put("/package/update/:id", authenticateJWT, async (req, res) => {
   }
 });
 
-// Delete a package
-app.delete("/package/delete/:id", authenticateJWT, async (req, res) => {
+// Delete a package (already implemented as shown in your code)
+app.delete("/package/:id", authenticateJWT, async (req, res) => {
   try {
-    const package = await Package.findByIdAndDelete(req.params.id);
-    if (package) {
+    const pkg = await Package.findByIdAndDelete(req.params.id);
+    if (pkg) {
       res.json({ message: "Package deleted successfully" });
     } else {
       res.status(404).json({ error: "Package not found" });
@@ -259,6 +258,7 @@ app.delete("/package/delete/:id", authenticateJWT, async (req, res) => {
     res.status(500).json({ error: "Error deleting package" });
   }
 });
+
 
 // Start the server
 app.listen(PORT, () => {

@@ -1,3 +1,5 @@
+// Packages.js
+
 import React, { useState, useEffect } from "react";
 import "../assets/Package.css"; // Import the CSS file
 import axios from "axios";
@@ -9,6 +11,7 @@ const Packages = () => {
   const [newPackageName, setNewPackageName] = useState("");
   const [discount, setDiscount] = useState(0);
   const [packages, setPackages] = useState([]);
+  const [editingPackage, setEditingPackage] = useState(null); // State to store the package being edited
 
   useEffect(() => {
     fetchProducts(); // Load products for package selection
@@ -82,29 +85,42 @@ const Packages = () => {
         items,
       };
 
-      await axios.post("http://localhost:5000/package/create", packageData, {
-        headers: { Authorization: `Bearer ${token}` },
-      });
+      if (editingPackage) {
+        await axios.put(`http://localhost:5000/package/update/${editingPackage._id}`, packageData, {
+          headers: { Authorization: `Bearer ${token}` },
+        });
+        alert("Package updated successfully!");
+        setEditingPackage(null);
+      } else {
+        await axios.post("http://localhost:5000/package/create", packageData, {
+          headers: { Authorization: `Bearer ${token}` },
+        });
+        alert("Package created successfully!");
+      }
 
-      alert("Package created successfully!");
       setShowPackageForm(false);
       setNewPackageName("");
       setSelectedProducts([]);
       setDiscount(0);
 
-      // Fetch packages again to refresh the list
       fetchPackages();
     } catch (error) {
-      console.error("Error creating package:", error);
-      alert("Error creating package. Please try again.");
+      console.error("Error creating/updating package:", error);
+      alert("Error creating/updating package. Please try again.");
     }
   };
-//cant update atm need implement
-  const handleUpdatePackage = async (pkgId) => {
-    // Implement your update package logic here
-    console.log("Update package:", pkgId);
+
+  const handleUpdatePackage = (pkg) => {
+    setEditingPackage(pkg);
+    setNewPackageName(pkg.name);
+    setDiscount(pkg.discount || 0);
+    setSelectedProducts(pkg.items.map(item => ({
+      productId: item.productId,
+      quantity: item.quantity,
+    })));
+    setShowPackageForm(true);
   };
-//cant delete atm need to implement
+
   const handleDeletePackage = async (pkgId) => {
     const token = localStorage.getItem("token");
     try {
@@ -112,23 +128,25 @@ const Packages = () => {
         headers: { Authorization: `Bearer ${token}` },
       });
       alert("Package deleted successfully!");
-      fetchPackages(); // Refresh the packages list after deletion
+      fetchPackages();
     } catch (error) {
       console.error("Error deleting package:", error);
       alert("Error deleting package. Please try again.");
     }
   };
-//need to be centered this form below
+
   return (
     <div className="packages-container">
-    
       <button className="add-package-button" onClick={handleAddPackageClick}>
         + Add Package
       </button>
-      
+      <div className="pack-label">
+        <p><span>Packages</span></p>
+      </div>
+
       {showPackageForm && (
         <form onSubmit={handlePackageFormSubmit} className="package-form">
-          <h2>Create New Package</h2>
+          <h2>{editingPackage ? "Edit Package" : "Create New Package"}</h2>
           <label>
             Package Name:
             <input
@@ -145,9 +163,10 @@ const Packages = () => {
               <div key={product._id}>
                 <input
                   type="checkbox"
+                  checked={selectedProducts.some(item => item.productId === product._id)}
                   onChange={(e) => {
                     if (e.target.checked) {
-                      handleProductSelection(product._id, 1); // Default to 1 quantity
+                      handleProductSelection(product._id, 1);
                     } else {
                       setSelectedProducts((prev) =>
                         prev.filter((item) => item.productId !== product._id)
@@ -159,7 +178,7 @@ const Packages = () => {
                 <input
                   type="number"
                   min="1"
-                  defaultValue="1"
+                  value={selectedProducts.find(item => item.productId === product._id)?.quantity || 1}
                   onChange={(e) =>
                     handleProductSelection(product._id, parseInt(e.target.value))
                   }
@@ -179,19 +198,22 @@ const Packages = () => {
 
           <h3>Total Price: ${calculateTotal().toFixed(2)}</h3>
 
-          <button type="submit" className="submit-button">Create Package</button>
+          <button type="submit" className="submit-button">
+            {editingPackage ? "Update Package" : "Create Package"}
+          </button>
           <button
             type="button"
             className="cancel-button"
-            onClick={() => setShowPackageForm(false)}
+            onClick={() => {
+              setShowPackageForm(false);
+              setEditingPackage(null);
+            }}
           >
             Cancel
           </button>
         </form>
       )}
 
-      {/* Display Created Packages in a Table */}
-  
       <table className="package-table">
         <thead>
           <tr>
@@ -219,7 +241,7 @@ const Packages = () => {
                 <td>
                   <button
                     className="update-button"
-                    onClick={() => handleUpdatePackage(pkg._id)}
+                    onClick={() => handleUpdatePackage(pkg)}
                   >
                     Update
                   </button>

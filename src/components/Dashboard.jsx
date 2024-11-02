@@ -119,7 +119,7 @@ const Dashboard = () => {
 
   return (
     <div className="dashboard-container">
-      <h1>Dashboard</h1>
+
 
       {/* Dashboard Navigation */}
       <DashboardNavigation setActiveSection={setActiveSection} />

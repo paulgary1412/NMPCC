@@ -2,8 +2,9 @@
 
 .packages-container {
     padding: 20px;
-    margin-top: 150px;
+    margin-top: 230px;
     width: 100%;
+    left: 85px;
     position: relative;
   }
   .dashboard-container1 {
@@ -52,7 +53,7 @@ font-size: 20px;
   border-radius: 5px;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
   margin: auto;
-  position:relative;
+  position:absolute;
   height: 800px;
   width: 550px;
   z-index: 2;
@@ -132,29 +133,52 @@ font-size: 20px;
   /* Packages.css (Additions for table) */
 
 .package-table {
-    width: 100%;
+    width: 90%;
     border-collapse: collapse;
     margin-top: -50px;
     margin-left: 50px;
-  position: absolute;
+  position:absolute;
 
   z-index: 1;
   }
-  
-  .package-table th, .package-table td {
+span{
+  margin-bottom: 20px;
+  color: #333;
+  font-size: 20px;
+  margin-top: 10px;
+  margin-left: 50px;
+  font-weight: bold;
+  text-transform: uppercase;
+}
+.pack-label{
+  margin-top: -90px;
+  position: absolute;
+}
+  .package-table th {
     border: 1px solid #e9ecef;
     padding: 10px;
     text-align: left;
+    width: 200px;
   }
+
   
   .package-table th {
     background-color: #f8f9fa;
+width: 200px;
   }
   
   .package-table tr:hover {
     background-color: #f1f1f1;
   }
-  
+  .package-table tr{
+  width: 200px;
+  }
+  .package-table td{
+    border: 1px solid #e9ecef;
+    padding: 10px;
+  width: 200px;
+    text-align: left;
+  }
   .update-button,
   .delete-button {
     background-color: #28a745; /* Green for update */

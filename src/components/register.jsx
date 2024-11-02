@@ -37,7 +37,7 @@ const Register = () => {
       }
     } catch (error) {
       console.error("Error during registration:", error);
-      alert("Registration failed. Try again.");
+      alert("Email already used.");
     }
   };
 

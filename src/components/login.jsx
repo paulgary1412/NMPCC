@@ -11,25 +11,41 @@ const Login = () => {
 
   const handleLogin = async (e) => {
     e.preventDefault();
-    
+
     try {
       const response = await axios.post('http://localhost:5000/login', { email, password });
-      
-      const { token } = response.data; 
-      localStorage.setItem("token", token); // Store the token in local storage
 
-     
-     
-      navigate("/#header"); // Redirect to /#header after successful login
-      window.location.reload();
+
+        if (response.data.token) {
+            localStorage.setItem("token", response.data.token);
+            navigate("/#header");
+            window.location.reload(); 
+        } else {
+            alert("Login failed: No token received.");
+        }
     } catch (error) {
-      if (error.response && error.response.data) {
-        alert(error.response.data.message); 
-      } else {
-        alert("An error occurred during login. Please try again.");
-      }
+        // Log the error details for debugging
+        console.error("Login error:", error); 
+
+        // Check for response errors
+        if (error.response) {
+            // The request was made and the server responded with a status code
+            console.error("Response data:", error.response.data);
+            console.error("Response status:", error.response.status);
+            console.error("Response headers:", error.response.headers);
+            alert(error.response.data.message || "An error occurred during login. Please try again.");
+        } else if (error.request) {
+            // The request was made but no response was received
+            console.error("Request data:", error.request);
+            alert("No response received from server. Please check your connection.");
+        } else {
+            // Something happened in setting up the request that triggered an error
+            console.error("Error message:", error.message);
+            alert("Error: " + error.message);
+        }
     }
-  };
+};
+
 
 
 
