@@ -1,38 +1,40 @@
-// Modal.js
 import React from "react";
-import "../assets/Modal.css"; // Optional: Add styles for your modal
+import "../assets/Modal.css";
 
 const Modal = ({ showModal, onClose, onSubmit, product, handleInputChange }) => {
   if (!showModal) return null;
 
   return (
-    <div className="modal-overlay">
-      <div className="modal-content">
+    <div className="modal-overlay" onClick={onClose}>
+      <div className="modal-content" onClick={(e) => e.stopPropagation()}>
         <h2>Update Product</h2>
         <form onSubmit={onSubmit}>
-          <label>
-            Name:
+          <div className="form-group">
+            <label htmlFor="name">Name:</label>
             <input
               type="text"
+              id="name"
               name="name"
               value={product.name}
               onChange={handleInputChange}
               required
             />
-          </label>
-          <label>
-            Quantity:
+          </div>
+          <div className="form-group">
+            <label htmlFor="quantity">Quantity:</label>
             <input
               type="number"
+              id="quantity"
               name="quantity"
               value={product.quantity}
               onChange={handleInputChange}
               required
             />
-          </label>
-          <label>
-            Type:
+          </div>
+          <div className="form-group">
+            <label htmlFor="type">Type:</label>
             <select
+              id="type"
               name="type"
               value={product.type}
               onChange={handleInputChange}
@@ -42,19 +44,22 @@ const Modal = ({ showModal, onClose, onSubmit, product, handleInputChange }) => 
               <option value="Pharmacy">Pharmacy</option>
               <option value="Grocery">Grocery</option>
             </select>
-          </label>
-          <label>
-            Price:
+          </div>
+          <div className="form-group">
+            <label htmlFor="price">Price:</label>
             <input
               type="number"
+              id="price"
               name="price"
               value={product.price}
               onChange={handleInputChange}
               required
             />
-          </label>
-          <button type="submit">Update Listing</button>
-          <button type="button" onClick={onClose}>Cancel</button>
+          </div>
+          <div className="button-group">
+            <button type="submit" className="submit-button">Update Listing</button>
+            <button type="button" onClick={onClose} className="cancel-button">Cancel</button>
+          </div>
         </form>
       </div>
     </div>
