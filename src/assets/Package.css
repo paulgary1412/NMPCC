@@ -141,6 +141,93 @@ font-size: 20px;
 
   z-index: 1;
   }
+  .package-form {
+    background-color: #f9f9f9;
+    border: 1px solid #ccc;
+    padding: 20px;
+    border-radius: 8px;
+    max-width: 500px;
+    margin: 0 auto;
+  }
+  
+  .package-form h2 {
+    margin-bottom: 10px;
+    font-size: 1.2em;
+    color: #333;
+  }
+  
+  .package-form label {
+    display: block;
+    margin: 10px 0;
+  }
+  
+  .package-form input, .package-form select {
+    width: 100%;
+    padding: 8px;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+  }
+  
+  .add-product-button {
+    display: block;
+    width: 100%;
+    padding: 8px;
+    background-color: #4caf50;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-top: 10px;
+  }
+  
+  .selected-products-list h3 {
+    margin-top: 15px;
+  }
+  
+  .selected-products-list ul {
+    list-style-type: none;
+    padding: 0;
+  }
+  
+  .selected-products-list li {
+    padding: 8px;
+    background-color: #f1f1f1;
+    border: 1px solid #ddd;
+    margin: 5px 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .remove-product-button {
+    background-color: #e74c3c;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  .submit-button, .cancel-button {
+    width: 48%;
+    padding: 8px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-top: 10px;
+  }
+  
+  .submit-button {
+    background-color: #4caf50;
+    color: white;
+  }
+  
+  .cancel-button {
+    background-color: #e74c3c;
+    color: white;
+  }
+  
+  
 span{
   margin-bottom: 20px;
   color: #333;

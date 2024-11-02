@@ -8,14 +8,16 @@ const Packages = () => {
   const [showPackageForm, setShowPackageForm] = useState(false);
   const [products, setProducts] = useState([]);
   const [selectedProducts, setSelectedProducts] = useState([]);
+  const [selectedProductId, setSelectedProductId] = useState("");
+  const [quantity, setQuantity] = useState(1);
   const [newPackageName, setNewPackageName] = useState("");
   const [discount, setDiscount] = useState(0);
   const [packages, setPackages] = useState([]);
   const [editingPackage, setEditingPackage] = useState(null); // State to store the package being edited
 
   useEffect(() => {
-    fetchProducts(); // Load products for package selection
-    fetchPackages(); // Load existing packages
+    fetchProducts();
+    fetchPackages();
   }, []);
 
   const fetchProducts = async () => {
@@ -42,19 +44,6 @@ const Packages = () => {
     }
   };
 
-  const handleProductSelection = (productId, quantity) => {
-    setSelectedProducts((prev) => {
-      const exists = prev.find(item => item.productId === productId);
-      if (exists) {
-        return prev.map(item => 
-          item.productId === productId ? { ...item, quantity } : item
-        );
-      } else {
-        return [...prev, { productId, quantity }];
-      }
-    });
-  };
-
   const calculateTotal = () => {
     let total = 0;
     selectedProducts.forEach(product => {
@@ -64,6 +53,27 @@ const Packages = () => {
       }
     });
     return total - discount;
+  };
+
+  const handleAddProduct = () => {
+    const exists = selectedProducts.find(item => item.productId === selectedProductId);
+    if (exists) {
+      setSelectedProducts(prev =>
+        prev.map(item =>
+          item.productId === selectedProductId
+            ? { ...item, quantity }
+            : item
+        )
+      );
+    } else {
+      setSelectedProducts(prev => [...prev, { productId: selectedProductId, quantity }]);
+    }
+    setSelectedProductId("");
+    setQuantity(1);
+  };
+
+  const handleRemoveProduct = (productId) => {
+    setSelectedProducts(prev => prev.filter(item => item.productId !== productId));
   };
 
   const handleAddPackageClick = () => {
@@ -140,9 +150,6 @@ const Packages = () => {
       <button className="add-package-button" onClick={handleAddPackageClick}>
         + Add Package
       </button>
-      <div className="pack-label">
-        <p><span>Packages</span></p>
-      </div>
 
       {showPackageForm && (
         <form onSubmit={handlePackageFormSubmit} className="package-form">
@@ -157,34 +164,57 @@ const Packages = () => {
             />
           </label>
 
-          <h3>Select Products to Include:</h3>
-          <div className="product-selection">
-            {products.map((product) => (
-              <div key={product._id}>
-                <input
-                  type="checkbox"
-                  checked={selectedProducts.some(item => item.productId === product._id)}
-                  onChange={(e) => {
-                    if (e.target.checked) {
-                      handleProductSelection(product._id, 1);
-                    } else {
-                      setSelectedProducts((prev) =>
-                        prev.filter((item) => item.productId !== product._id)
-                      );
-                    }
-                  }}
-                />
-                {product.name} - ${product.price.toFixed(2)}
-                <input
-                  type="number"
-                  min="1"
-                  value={selectedProducts.find(item => item.productId === product._id)?.quantity || 1}
-                  onChange={(e) =>
-                    handleProductSelection(product._id, parseInt(e.target.value))
-                  }
-                />
-              </div>
-            ))}
+          <label>
+            Select Product:
+            <select
+              value={selectedProductId}
+              onChange={(e) => setSelectedProductId(e.target.value)}
+              required
+            >
+              <option value="">-- Select a Product --</option>
+              {products.map((product) => (
+                <option key={product._id} value={product._id}>
+                  {product.name} - ${product.price.toFixed(2)}
+                </option>
+              ))}
+            </select>
+          </label>
+
+          <label>
+            Quantity:
+            <input
+              type="number"
+              min="1"
+              value={quantity}
+              onChange={(e) => setQuantity(parseInt(e.target.value))}
+              required
+            />
+          </label>
+          <button
+            type="button"
+            className="add-product-button"
+            onClick={handleAddProduct}
+            disabled={!selectedProductId}
+          >
+            Add Product
+          </button>
+
+          <div className="selected-products-list">
+            <h3>Selected Products</h3>
+            <ul>
+              {selectedProducts.map((item) => (
+                <li key={item.productId}>
+                  {products.find((p) => p._id === item.productId)?.name} - Quantity: {item.quantity}
+                  <button
+                    type="button"
+                    className="remove-product-button"
+                    onClick={() => handleRemoveProduct(item.productId)}
+                  >
+                    Remove
+                  </button>
+                </li>
+              ))}
+            </ul>
           </div>
 
           <label>
@@ -212,9 +242,10 @@ const Packages = () => {
             Cancel
           </button>
         </form>
+        
       )}
 
-      <table className="package-table">
+<table className="package-table">
         <thead>
           <tr>
             <th>Package Name</th>
