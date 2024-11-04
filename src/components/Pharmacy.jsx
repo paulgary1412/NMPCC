@@ -1,93 +1,73 @@
+// Pharmacy.jsx
+import React, { useEffect, useState } from "react";
+import axios from "axios";
+import "../assets/pharmacy.css";
 
-
-import React, { useState } from 'react';
 const Pharmacy = () => {
-const products = [
-    { id: 1, name: "Product 1", price: 500, sold: "0 sold", image: "img/placeholder.png", category: "Mobile", shippedFrom: "China" },
-    { id: 2, name: "Product 2", price: 1000, sold: "10 sold", image: "img/placeholder.png", category: "Laptop", shippedFrom: "Philippines" },
-    { id: 3, name: "Product 3", price: 1500, sold: "20 sold", image: "img/placeholder.png", category: "Tablet", shippedFrom: "USA" },
-    { id: 4, name: "Product 4", price: 2000, sold: "5 sold", image: "img/placeholder.png", category: "Accessories", shippedFrom: "Japan" },
-  ];
+  const [data, setData] = useState({ products: [], packages: [] });
+  const [error, setError] = useState(null);
+  const [filter, setFilter] = useState("");
 
-  const [category, setCategory] = useState('');
-  const [shippedFrom, setShippedFrom] = useState('');
-  const [priceRange, setPriceRange] = useState({ min: '', max: '' });
+  useEffect(() => {
+    axios.get("http://localhost:5000/pharmacy")
+      .then((response) => setData(response.data))
+      .catch((error) => setError("Error fetching products and packages"));
+  }, []);
 
-  const handleCategoryChange = (event) => setCategory(event.target.value);
-  const handleShippedFromChange = (event) => setShippedFrom(event.target.value);
-  const handlePriceChange = (event) => {
-    const { name, value } = event.target;
-    setPriceRange({ ...priceRange, [name]: value });
-  };
-
-  const filteredProducts = products.filter(product => {
-    const inCategory = category === '' || product.category === category;
-    const inShippedFrom = shippedFrom === '' || product.shippedFrom === shippedFrom;
-    const inPriceRange = (!priceRange.min || product.price >= priceRange.min) && (!priceRange.max || product.price <= priceRange.max);
-    return inCategory && inShippedFrom && inPriceRange;
-  });
+  // Filtered items based on the static filter
+  const filteredProducts = data.products.filter(product =>
+    product.name.toLowerCase().includes(filter.toLowerCase())
+  );
+  const filteredPackages = data.packages.filter(pkg =>
+    pkg.name.toLowerCase().includes(filter.toLowerCase())
+  );
 
   return (
-    <div className="shopping-page">
-      <div className="filter-section">
-        <h3>Filters</h3>
-        {/* Category Filter */}
-        <div className="filter-category">
-          <h4>Category</h4>
-          <select value={category} onChange={handleCategoryChange}>
-            <option value="">All</option>
-            <option value="Mobile">Mobile</option>
-            <option value="Laptop">Laptop</option>
-            <option value="Tablet">Tablet</option>
-            <option value="Accessories">Accessories</option>
-          </select>
-        </div>
+    <div className="pharmacy-container">
+      {error && <p className="error-message">{error}</p>}
+      
+      <h2>Our Pharmacy Products</h2>
+      
+      <input
+        type="text"
+        placeholder="Filter by name"
+        className="filter-input"
+        value={filter}
+        onChange={(e) => setFilter(e.target.value)}
+      />
 
-        {/* Shipped From Filter */}
-        <div className="filter-shipped">
-          <h4>Shipped From</h4>
-          <select value={shippedFrom} onChange={handleShippedFromChange}>
-            <option value="">All</option>
-            <option value="China">China</option>
-            <option value="Philippines">Philippines</option>
-            <option value="USA">USA</option>
-            <option value="Japan">Japan</option>
-          </select>
-        </div>
-
-        {/* Price Range Filter */}
-        <div className="filter-price">
-          <h4>Price (PHP)</h4>
-          <input
-            type="number"
-            placeholder="Min"
-            name="min"
-            value={priceRange.min}
-            onChange={handlePriceChange}
-          />
-          <input
-            type="number"
-            placeholder="Max"
-            name="max"
-            value={priceRange.max}
-            onChange={handlePriceChange}
-          />
+      <div className="section">
+        <h3>Products</h3>
+        <div className="items-container">
+          {filteredProducts.map((product) => (
+            <div key={product._id} className="item-card">
+              <img src="https://via.placeholder.com/150" alt="Product" className="item-image" />
+              <h4>{product.name}</h4>
+              <p>{product.description}</p>
+              <div className="button-group">
+                <button className="add-to-cart-btn">Add to Cart</button>
+                <button className="buy-now-btn">Buy Now</button>
+              </div>
+            </div>
+          ))}
         </div>
       </div>
 
-      <div className="product-grid">
-        {filteredProducts.length > 0 ? (
-          filteredProducts.map((product) => (
-            <div key={product.id} className="product-card">
-              <img src={product.image} alt={product.name} className="product-image" />
-              <h3>{product.name}</h3>
-              <p>Price: ₱{product.price}</p>
-              <p>{product.sold}</p>
+      <div className="section">
+        <h3>Packages</h3>
+        <div className="items-container">
+          {filteredPackages.map((pkg) => (
+            <div key={pkg._id} className="item-card">
+              <img src="https://via.placeholder.com/150" alt="Package" className="item-image" />
+              <h4>{pkg.name}</h4>
+              <p>{pkg.description}</p>
+              <div className="button-group">
+                <button className="add-to-cart-btn">Add to Cart</button>
+                <button className="buy-now-btn">Buy Now</button>
+              </div>
             </div>
-          ))
-        ) : (
-          <p>No products found matching the filters.</p>
-        )}
+          ))}
+        </div>
       </div>
     </div>
   );

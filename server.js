@@ -111,6 +111,39 @@ app.put("/user/profile", authenticateJWT, async (req, res) => {
     res.status(400).json({ error: "Error updating profile" });
   }
 });
+//display pharmacy products and packages
+// In your Express server code:
+app.get("/pharmacy", async (req, res) => {
+  try {
+    const products = await Listing.find();  // or the appropriate collection/model
+    const packages = await Package.find();  // or the appropriate collection/model
+    res.json({ products, packages });
+  } catch (error) {
+    res.status(500).json({ message: "Error fetching data" });
+  }
+});
+// Fetch all packages
+app.get("/api/packages", async (req, res) => {
+  try {
+    const packages = await Package.find();
+    res.json(packages);
+  } catch (error) {
+    console.error("Error fetching packages:", error);
+    res.status(500).json({ message: "Error fetching packages" });
+  }
+});
+
+// Fetch all products
+app.get("/api/products", async (req, res) => {
+  try {
+    const products = await Listing.find();
+    res.json(products);
+  } catch (error) {
+    console.error("Error fetching products:", error);
+    res.status(500).json({ message: "Error fetching products" });
+  }
+});
+
 
 // Fetch all listings
 app.get("/listing", authenticateJWT, async (req, res) => {
