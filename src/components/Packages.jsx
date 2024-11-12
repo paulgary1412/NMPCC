@@ -43,7 +43,7 @@ const Packages = () => {
       console.error("Error fetching packages:", error);
     }
   };
-
+//sum of all products in package/s
   const calculateTotal = () => {
     let total = 0;
     selectedProducts.forEach(product => {

@@ -4,7 +4,9 @@
 
  position: relative;
 }
-
+body{
+  overflow-x: hidden;
+}
 h1 {
   margin-bottom: 20px;
   color: #333;
@@ -28,28 +30,45 @@ margin-top: 10px;
  left:160px;
   top: 100px;
   font-size: 12px;
-  width:250px;
-  height: 40px; /* Adjusted height for better sizing */
+  width:300px;
+  height: 50px; /* Adjusted height for better sizing */
   transition: background-color 0.3s ease;
   position:relative;
 }
 
-
-.submit-button{
-  background-color: #007bff;
-  color: white;
+.submit-button2{
+  background-color: #4caf50;
+    color: white;
   border: none;
   padding: 10px 20px;
   border-radius: 5px;
   cursor: pointer;
 
   font-size: 16px;
-  width: 350px;
+  width: 30%;
   height: 50px; /* Adjusted height for better sizing */
  position: absolute;
  z-index: 4;
- margin-top: 350px;
-  margin-left:140px;
+ margin-top: 10px;
+  margin-left:155px;
+  position: relative;
+}
+.submit-button1{
+  background-color: #4caf50;
+    color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+
+  font-size: 16px;
+  width: 30%;
+  height: 50px; /* Adjusted height for better sizing */
+ position: absolute;
+ z-index: 4;
+ margin-top: 10px;
+  margin-left:155px;
+  position: relative;
 }
 .cancel-button {
   background-color: #007bff;
@@ -62,7 +81,7 @@ margin-top: 10px;
   width: 350px;
   height: 50px; /* Adjusted height for better sizing */
 z-index: 5;
-top: 80px;
+top: 60px;
 margin-left: 150px;
 position: relative;
 }
@@ -90,7 +109,7 @@ position: relative;
  top: 300px;
  left: 670px;
   position:absolute;
-  height: 450px;
+  height: 425px;
   width: 550px;
   
   z-index: 2;

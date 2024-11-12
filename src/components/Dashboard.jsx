@@ -177,7 +177,7 @@ const Dashboard = () => {
                   required
                 />
               </label>
-              <button type="submit" className="submit-button">Create Listing</button>
+              <button type="submit" className="submit-button1">Create Listing</button>
               <button type="button" className="cancel-button" onClick={() => setShowForm(false)}>
                 Cancel
               </button>

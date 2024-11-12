@@ -57,8 +57,8 @@ const Modal = ({ showModal, onClose, onSubmit, product, handleInputChange }) => 
             />
           </div>
           <div className="button-group">
-            <button type="submit" className="submit-button">Update Listing</button>
-            <button type="button" onClick={onClose} className="cancel-button">Cancel</button>
+            <button type="submit" className="submit-button3">Update</button>
+            <button type="button" onClick={onClose} className="cancel-button3">Cancel</button>
           </div>
         </form>
       </div>
