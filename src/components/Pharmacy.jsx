@@ -84,7 +84,7 @@ const Pharmacy = () => {
               <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSf8rMSNgrBv_1VqNVcrAgmgEMv4BnBA10aQw&s" alt="Product" className="item-image" />
               <h4>{product.name}</h4>
               <p>{product.description}</p>
-              <p>Price: ${product.price}</p>
+              <p>Price: ₱{product.price}</p>
               <div className="button-group">
                 <button className="add-to-cart-btn">Add to Cart</button>
                 <button className="buy-now-btn">Buy Now</button>
@@ -96,7 +96,7 @@ const Pharmacy = () => {
               <img src="https://www.apsfulfillment.com/wp-content/uploads/2017/06/APS-Fulfillment-Inc-j.jpg" alt="Package" className="item-image" />
               <h4>{pkg.name}</h4>
               <p>{pkg.description}</p>
-              <p>Price: ${pkg.price}</p>
+              <p>Price: ₱{pkg.price}</p>
               <div className="button-group">
                 <button className="add-to-cart-btn">Add to Cart</button>
                 <button className="buy-now-btn">Buy Now</button>

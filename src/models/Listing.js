@@ -3,11 +3,11 @@ const mongoose = require("mongoose");
 const ListingSchema = new mongoose.Schema({
   name: {
     type: String,
-
+  },
     quantity: {
       type: Number,
       required: true,
-    },  },
+      },
   
   type: {
     type: String,

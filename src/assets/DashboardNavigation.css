@@ -20,7 +20,7 @@ height: 100%;
   z-index: 10001;
 }
 span{
-    color:silver;
+    color:whitesmoke;
     
 }
 .dashboard-nav-buttons.collapsed {
@@ -35,10 +35,11 @@ span{
 }
 span.collapsed{
 padding-left: -10px;
-
+color:whitesmoke;
 }
 span{
    padding-top: 10;
+   color:whitesmoke;
     padding-right: 50px;
     padding-bottom: 10px;
 }

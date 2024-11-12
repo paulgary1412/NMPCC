@@ -202,7 +202,7 @@ const Dashboard = () => {
                       <strong>Type:</strong> {listing.type}
                     </p>
                     <p>
-                      <strong>Price:</strong> ${listing.price}
+                      <strong>Price:</strong> ₱{listing.price}
                     </p>
                     <button className="update-button" onClick={() => handleUpdate(listing._id, listing)}>
                       Update

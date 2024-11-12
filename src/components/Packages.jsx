@@ -174,7 +174,7 @@ const Packages = () => {
               <option value="">-- Select a Product --</option>
               {products.map((product) => (
                 <option key={product._id} value={product._id}>
-                  {product.name} - ${product.price.toFixed(2)}
+                  {product.name} - ₱{product.price.toFixed(2)}
                 </option>
               ))}
             </select>
@@ -226,7 +226,7 @@ const Packages = () => {
             />
           </label>
 
-          <h3>Total Price: ${calculateTotal().toFixed(2)}</h3>
+          <h3>Total Price: ₱{calculateTotal().toFixed(2)}</h3>
 
           <button type="submit" className="submit-button">
             {editingPackage ? "Update Package" : "Create Package"}
