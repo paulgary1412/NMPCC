@@ -76,42 +76,51 @@ const Pharmacy = () => {
         />
       </div>
       
-      <div className="divider1"></div>
-      <div className="section">
-        <div className="items-container">
-          {filteredProducts.map((product) => (
-            <div key={product._id} className="item-card">
-              <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSf8rMSNgrBv_1VqNVcrAgmgEMv4BnBA10aQw&s" alt="Product" className="item-image" />
-              <h4>{product.name}</h4>
-              <p>{product.description}</p>
-              <p>Price: ₱{product.price}</p>
-              <div className="button-group">
-                <button className="add-to-cart-btn">Add to Cart</button>
-                <button className="buy-now-btn">Buy Now</button>
+      <div className="divider-container">
+        <div className="divider1"></div>
+        <div className="section">
+          <div className="items-container">
+            {filteredProducts.map((product) => (
+              <div key={product._id} className="item-card">
+              <div className="image-container">
+                <img 
+                  src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSf8rMSNgrBv_1VqNVcrAgmgEMv4BnBA10aQw&s" 
+                  alt="Product" 
+                  className="item-image" 
+                />
+                <div className="item-details">
+                <h4>{product.name}<p>Price: ₱{product.price}</p></h4>
+                <p>{product.description}</p>
+                <div className="button-group">
+                  <button className="add-to-cart-btn">Add to Cart</button>
+                  <button className="buy-now-btn">Buy Now</button>
+                </div>
               </div>
-            </div>
-          ))}
-          {filteredPackages.map((pkg) => (
-            <div key={pkg._id} className="item-card2">
-              <img src="https://www.apsfulfillment.com/wp-content/uploads/2017/06/APS-Fulfillment-Inc-j.jpg" alt="Package" className="item-image" />
-              <h4>{pkg.name}</h4>
-              <p>{pkg.description}</p>
-              <p>Price: ₱{pkg.price}</p>
-              <div className="button-group">
-                <button className="add-to-cart-btn">Add to Cart</button>
-                <button className="buy-now-btn">Buy Now</button>
               </div>
-            </div>
-          ))}
+            </div>            
+            ))}
+            {filteredPackages.map((pkg) => (
+              <div key={pkg._id} className="item-card2">
+                <img src="https://www.apsfulfillment.com/wp-content/uploads/2017/06/APS-Fulfillment-Inc-j.jpg" alt="Package" className="item-image" />
+                <h4>{pkg.name}</h4>
+                <p>{pkg.description}</p>
+                <p>Price: ₱{pkg.price}</p>
+                <div className="button-group">
+                  <button className="add-to-cart-btn">Add to Cart</button>
+                  <button className="buy-now-btn">Buy Now</button>
+                </div>
+              </div>
+            ))}
+          </div>
         </div>
-      </div>
 
-      <div className="divider"></div>
-      <div className="section">
-        <div className="items-container">
-          
+        <div className="divider"></div>
+        <div className="section">
+          <div className="items-container">
+            
+          </div>
         </div>
-      </div>
+        </div>
     </div>
   );
 };

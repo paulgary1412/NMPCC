@@ -16,7 +16,7 @@ export const About = (props) => {
                 has grown from a small employee initiative into a thriving Cooperativewith over 70,000 members.
                 Beginning with humble cash deposits of just P86.20, it now boasts billions
                 in assets and offers a wide range of services, including
-                {/* loans, wellness programs, insuramce, and educational */}
+                loans, wellness programs, insuramce, and educational
                 initiatives
               </p>
               <h3>Why Choose Us?</h3>
