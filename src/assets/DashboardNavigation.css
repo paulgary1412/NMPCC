@@ -19,10 +19,12 @@ height: 100%;
   position: relative;
   z-index: 10001;
 }
+
 span{
     color:whitesmoke;
     
 }
+
 .dashboard-nav-buttons.collapsed {
   width: 100px;
   padding-left: 10px;
