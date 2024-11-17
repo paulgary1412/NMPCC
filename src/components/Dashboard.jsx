@@ -40,11 +40,15 @@ const Dashboard = () => {
     if (editingListingId) {
       // Update existing listing
       try {
-        await axios.put(`http://localhost:5000/listing/update/${editingListingId}`, newProduct, {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        });
+        await axios.put(
+          `http://localhost:5000/listing/update/${editingListingId}`,
+          newProduct,
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
         alert("Listing updated successfully!");
       } catch (error) {
         console.error("Error updating listing:", error);
@@ -53,11 +57,15 @@ const Dashboard = () => {
     } else {
       // Create new listing
       try {
-        await axios.post("http://localhost:5000/listing/create", newProduct, {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        });
+        await axios.post(
+          "http://localhost:5000/listing/create",
+          newProduct,
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
         alert("Listing created successfully!");
       } catch (error) {
         console.error("Error creating listing:", error);
@@ -119,72 +127,84 @@ const Dashboard = () => {
 
   return (
     <div className="dashboard-container">
-
-
       {/* Dashboard Navigation */}
       <DashboardNavigation setActiveSection={setActiveSection} />
 
       {/* Conditional Rendering Based on Active Section */}
       {activeSection === "products" && (
         <>
-          <button className="add-listing-button" onClick={handleAddProductClick}>
-            + Add Product
-          </button>
-
-          {showForm && (
-            <form onSubmit={handleFormSubmit} className="listing-form">
-              <h2>Add New Product</h2>
-              <label>
-                Name:
-                <input
-                  type="text"
-                  name="name"
-                  value={newProduct.name}
-                  onChange={handleInputChange}
-                  required
-                />
-              </label>
-              <label>
-                Quantity:
-                <input
-                  type="number"
-                  name="quantity"
-                  value={newProduct.quantity}
-                  onChange={handleInputChange}
-                  required
-                />
-              </label>
-              <label>
-                Type:
-                <select
-                  name="type"
-                  value={newProduct.type}
-                  onChange={handleInputChange}
-                  required
-                >
-                  <option value="" disabled>Select type</option>
-                  <option value="Pharmacy">Pharmacy</option>
-                  <option value="Grocery">Grocery</option>
-                </select>
-              </label>
-              <label>
-                Price:
-                <input
-                  type="number"
-                  name="price"
-                  value={newProduct.price}
-                  onChange={handleInputChange}
-                  required
-                />
-              </label>
-              <button type="submit" className="submit-button1">Create Listing</button>
-              <button type="button" className="cancel-button" onClick={() => setShowForm(false)}>
-                Cancel
-              </button>
-            </form>
-          )}
-
           <div className="listing-container">
+            {/* Add Product Button */}
+            <button
+              className="add-listing-button"
+              onClick={handleAddProductClick}
+            >
+              + Add Product
+            </button>
+
+            {/* Form for Adding/Updating Product */}
+            {showForm && (
+              <form onSubmit={handleFormSubmit} className="listing-form">
+                <h2>Add New Product</h2>
+                <label>
+                  Name:
+                  <input
+                    type="text"
+                    name="name"
+                    value={newProduct.name}
+                    onChange={handleInputChange}
+                    required
+                  />
+                </label>
+                <label>
+                  Quantity:
+                  <input
+                    type="number"
+                    name="quantity"
+                    value={newProduct.quantity}
+                    onChange={handleInputChange}
+                    required
+                  />
+                </label>
+                <label>
+                  Type:
+                  <select
+                    name="type"
+                    value={newProduct.type}
+                    onChange={handleInputChange}
+                    required
+                  >
+                    <option value="" disabled>
+                      Select type
+                    </option>
+                    <option value="Pharmacy">Pharmacy</option>
+                    <option value="Grocery">Grocery</option>
+                  </select>
+                </label>
+                <label>
+                  Price:
+                  <input
+                    type="number"
+                    name="price"
+                    value={newProduct.price}
+                    onChange={handleInputChange}
+                    required
+                  />
+                </label>
+                <button type="submit" className="submit-button1">
+                  Create Listing
+                </button>
+                <button
+                  type="button"
+                  className="cancel-button"
+                  onClick={() => setShowForm(false)}
+                >
+                  Cancel
+                </button>
+              </form>
+            )}
+
+            {/* Product Listings */}
             <h2>Products</h2>
             <div className="card-container">
               {listings.length > 0 ? (
@@ -204,10 +224,16 @@ const Dashboard = () => {
                     <p>
                       <strong>Price:</strong> ₱{listing.price}
                     </p>
-                    <button className="update-button" onClick={() => handleUpdate(listing._id, listing)}>
+                    <button
+                      className="update-button"
+                      onClick={() => handleUpdate(listing._id, listing)}
+                    >
                       Update
                     </button>
-                    <button className="delete-button" onClick={() => handleDelete(listing._id)}>
+                    <button
+                      className="delete-button"
+                      onClick={() => handleDelete(listing._id)}
+                    >
                       Delete
                     </button>
                   </div>

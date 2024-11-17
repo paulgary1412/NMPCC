@@ -4,9 +4,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-height: 100%;
- 
-  left: -20;
+  height: 100%;
   width: 200px;
   background-color: #800000; /* Dark red background */
   padding: 10px 0;
@@ -15,34 +13,26 @@ height: 100%;
   border-radius: 0;
   padding-left: 10px;
   padding-right: 10px;
-  top:-30;
-  position: relative;
-  z-index: 10001;
+  position: fixed; /* Fix sidebar position */
+  left: 0; /* Align to the left */
+  top: 0; /* Align to the top */
+  z-index: 10001; /* Ensure it's above other elements */
 }
-span{
-    color:whitesmoke;
-    
+
+span {
+  color: whitesmoke;
 }
+
 .dashboard-nav-buttons.collapsed {
-  width: 100px;
+  width: 100px; /* Reduce the sidebar width */
   padding-left: 10px;
   padding-right: 10px;
-  top:0;
-  left: 0;
-  position: fixed;
-  z-index: 10001;
-  
 }
-span.collapsed{
-padding-left: -10px;
-color:whitesmoke;
+
+span.collapsed {
+  color: whitesmoke;
 }
-span{
-   padding-top: 10;
-   color:whitesmoke;
-    padding-right: 50px;
-    padding-bottom: 10px;
-}
+
 .dashboard-nav-buttons button {
   display: flex;
   align-items: center;
@@ -77,4 +67,14 @@ span{
 
 .dashboard-nav-buttons button:hover {
   background-color: #b0b0b0; /* Slightly darker grey on hover */
+}
+
+/* Main content adjustments */
+.main-content {
+  margin-left: 200px; /* Offset by sidebar width */
+  transition: margin-left 0.3s ease;
+}
+
+.main-content.collapsed {
+  margin-left: 100px; /* Adjust for collapsed sidebar */
 }

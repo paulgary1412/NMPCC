@@ -1,99 +1,79 @@
 .dashboard-container {
   padding: 20px;
- height: 100%;
-
- position: relative;
+  height: 100%;
+  position: relative;
+  margin-left: 200px; /* Adds space for the navigation sidebar */
+  transition: margin-left 0.3s ease; /* Smooth transition for collapsing */
 }
-body{
+
+.dashboard-container.collapsed {
+  margin-left: 100px; /* Adjust when the sidebar is collapsed */
+}
+
+body {
   overflow-x: hidden;
 }
+
 h1 {
   margin-bottom: 20px;
   color: #333;
 }
+
 h2 {
   margin-bottom: 20px;
   color: #333;
-font-size: 20px;
-
-margin-top: 10px;
- 
+  font-size: 20px;
+  margin-top: 10px;
 }
+
 .add-listing-button {
-  background-color:green;
+  background-color: green;
   color: white;
   border: none;
-  padding: 10px 10px ;
-  border-radius: 5px;
+  padding: 10px;
+  border-radius: 10px;
   cursor: pointer;
-
- left:160px;
-  top: 100px;
-  font-size: 12px;
-  width:300px;
-  height: 50px; /* Adjusted height for better sizing */
+  font-size: 14px;
+  width: 200px;
+  height: 40px;
   transition: background-color 0.3s ease;
-  position:relative;
+  position: absolute; /* Position relative to the parent container */
+  top: -5px; /* Keep it at the top of the container */
+  left: 1000px; /* Align it to the left */
 }
 
-.submit-button2{
-  background-color: #4caf50;
-    color: white;
-  border: none;
-  padding: 10px 20px;
-  border-radius: 5px;
-  cursor: pointer;
-
-  font-size: 16px;
-  width: 30%;
-  height: 50px; /* Adjusted height for better sizing */
- position: absolute;
- z-index: 4;
- margin-top: 10px;
-  margin-left:155px;
+.listing-container {
+  margin-top: 70px; /* Create spacing to account for the button above */
   position: relative;
-}
-.submit-button1{
-  background-color: #4caf50;
-    color: white;
-  border: none;
-  padding: 10px 20px;
-  border-radius: 5px;
-  cursor: pointer;
-
-  font-size: 16px;
-  width: 30%;
-  height: 50px; /* Adjusted height for better sizing */
- position: absolute;
- z-index: 4;
- margin-top: 10px;
-  margin-left:155px;
-  position: relative;
-}
-.cancel-button {
-  background-color: #007bff;
-  color: white;
-  border: none;
-  padding: 10px 20px;
-  border-radius: 5px;
-  cursor: pointer;
-  font-size: 16px;
-  width: 350px;
-  height: 50px; /* Adjusted height for better sizing */
-z-index: 5;
-top: 60px;
-margin-left: 150px;
-position: relative;
+  width: 90%;
 }
 
-.add-listing-button:hover,
-.submit-button:hover {
+.add-listing-button:hover {
   background-color: #0056b3;
-  
+}
+
+.submit-button1,
+.submit-button2,
+.cancel-button {
+  display: inline-block;
+  width: calc(50% - 10px);
+  margin: 5px 5px;
+}
+
+.submit-button1,
+.submit-button2 {
+  background-color: #4caf50;
+  color: white;
+}
+
+.submit-button1:hover,
+.submit-button2:hover {
+  background-color: #218838;
 }
 
 .cancel-button {
   background-color: #dc3545;
+  color: white;
 }
 
 .cancel-button:hover {
@@ -101,104 +81,100 @@ position: relative;
 }
 
 .listing-form {
-  
   padding: 20px;
   background-color: white;
   border-radius: 5px;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
- top: 300px;
- left: 670px;
-  position:absolute;
-  height: 425px;
-  width: 550px;
-  
+  position: absolute;
+  top: 100px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 400px;
   z-index: 2;
 }
 
 .listing-form label {
   display: block;
-  margin-bottom: 20px;
+  margin-bottom: 10px;
   font-weight: bold;
-  margin-left: 10px;
 }
 
 .listing-form input,
 .listing-form select {
   width: 100%;
   padding: 10px;
-  margin-bottom: 10px;
+  margin-bottom: 15px;
   border: 1px solid #ccc;
   border-radius: 5px;
- 
 }
 
 .listing-container {
-position: relative;
-top: 150;
-left: 50px;
-
-margin: auto;
-right: 300px;
-  z-index: 1;
+  position: relative;
+  margin-top: 110px;
+  width: 90%;
 }
 
 .card-container {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 50px;
-  margin: auto;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 20px;
+  margin: 20px auto;
+  margin-bottom: 100px;
 }
 
 .card {
-  width:350px;
   border: 1px solid #e9ecef;
   border-radius: 5px;
-  padding: 10px;
+  padding: 15px;
   background-color: white;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-  transition: transform 0.2s;
-
+  transition: transform 0.2s, box-shadow 0.2s;
+  text-align: center;
 }
 
 .card:hover {
   transform: scale(1.05);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.card img {
+  width: 100px;
+  height: 100px;
+  border-radius: 10%;
+  margin-bottom: 10px;
 }
 
 .card h4 {
   margin: 10px 0;
   color: #007bff;
+  font-size: 18px;
 }
 
 .card p {
   margin: 5px 0;
+  font-size: 14px;
 }
 
-img {
-  width: 100px;
-  height: 100px;
-  border-radius: 10%;
-}
 .update-button,
 .delete-button {
-  background-color: #28a745; /* Green for update */
+  background-color: #28a745;
   color: white;
   border: none;
-  padding: 5px 10px;
+  padding: 5px 15px;
   border-radius: 5px;
   cursor: pointer;
-  margin-top: 10px; /* Add some spacing above the buttons */
-  margin-right: 10px; /* Space between buttons */
+  margin: 5px 5px;
   font-size: 14px;
 }
 
 .delete-button {
-  background-color: #dc3545; /* Red for delete */
+  background-color: #dc3545;
 }
 
 .update-button:hover {
-  background-color: #218838; /* Darker green on hover */
+  background-color: #218838;
 }
 
 .delete-button:hover {
-  background-color: #c82333; /* Darker red on hover */
+  background-color: #c82333;
 }
