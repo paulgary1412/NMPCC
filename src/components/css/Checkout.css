@@ -1,0 +1,58 @@
+/* Checkout container to center content */
+.checkout-page {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;  /* Full viewport height */
+    background-color: #f5f5f5;  /* Light background for the page */
+    margin: 0;
+  }
+  
+  /* The confirmation container with padding and shadow */
+  .confirmation-container {
+    background-color: white;
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    width: 90%;
+    max-width: 600px;  /* Prevent it from becoming too large */
+    text-align: center;
+  }
+  
+  /* The product list and details */
+  .product-list {
+    margin-bottom: 20px;
+    text-align: left;
+  }
+  
+  /* Each individual product item */
+  .product-item {
+    margin-bottom: 15px;
+  }
+  
+  .quantity-input {
+    width: 80px;
+    padding:5px;
+    margin-left: 20px;
+  }
+  
+  .total-amount {
+    margin-top: 20px;
+    font-weight: bold;
+  }
+  
+  .confirm-button {
+    margin-top: 20px;
+    padding: 12px 25px;
+    background-color: #28a745;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+  }
+  
+  .confirm-button:hover {
+    background-color: #218838;
+  }
+  
