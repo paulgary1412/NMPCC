@@ -1,21 +1,27 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import "../assets/pharmacy.css";
+import { useNavigate } from "react-router-dom"; // Import useNavigate for routing
+import "./css/Pharmacy.css";
 
 const Pharmacy = () => {
   const [data, setData] = useState({ products: [], packages: [] });
   const [error, setError] = useState(null);
   const [filterName, setFilterName] = useState("");
-  const [filterType] = useState("all");
   const [category, setCategory] = useState("all"); // Track category filter
   const [minPrice, setMinPrice] = useState("");
   const [maxPrice, setMaxPrice] = useState("");
-
+  const [selectedProducts, setSelectedProducts] = useState([]); // Track selected products
+  const navigate = useNavigate(); // Use navigate to redirect
+  
   useEffect(() => {
     axios
       .get("http://localhost:5000/pharmacy")
       .then((response) => setData(response.data))
       .catch(() => setError("Error fetching products and packages"));
+    
+    // Retrieve cart items from localStorage
+    const storedCart = JSON.parse(localStorage.getItem("cart")) || [];
+    setSelectedProducts(storedCart);
   }, []);
 
   // Filter products based on name, price range, and category
@@ -28,10 +34,9 @@ const Pharmacy = () => {
       category === "all" || product.type.toLowerCase() === category.toLowerCase();
 
     return (
-      (filterType === "all" || filterType === "products") &&
-      matchesCategory &&
       product.name.toLowerCase().includes(filterName.toLowerCase()) &&
-      inPriceRange
+      inPriceRange &&
+      matchesCategory
     );
   });
 
@@ -41,12 +46,38 @@ const Pharmacy = () => {
       (minPrice === "" || pkg.price >= minPrice) &&
       (maxPrice === "" || pkg.price <= maxPrice);
 
-    return (
-      (filterType === "all" || filterType === "packages") &&
-      pkg.name.toLowerCase().includes(filterName.toLowerCase()) &&
-      inPriceRange
-    );
+    return pkg.name.toLowerCase().includes(filterName.toLowerCase()) && inPriceRange;
   });
+
+  // Add product to the selected products list
+  const handleAddToCart = (product) => {
+    const updatedCart = [...selectedProducts, product];
+    setSelectedProducts(updatedCart);
+
+    // Save to localStorage to persist cart
+    localStorage.setItem("cart", JSON.stringify(updatedCart));
+
+    // Show a built-in alert notification
+    alert(`${product.name} has been added to your cart!`);
+    
+    // Redirect to the cart page
+    navigate("/cart", { state: { selectedProducts: updatedCart } });
+  };
+
+  // Handle Buy Now
+  const handleBuyNow = (product) => {
+    const updatedCart = [...selectedProducts, product];
+    setSelectedProducts(updatedCart);
+
+    // Save to localStorage to persist cart
+    localStorage.setItem("cart", JSON.stringify(updatedCart));
+
+    // Show a built-in alert notification
+    alert(`${product.name} has been added to your cart!`);
+
+    // Navigate to checkout page
+    navigate("/checkout", { state: { selectedProducts: updatedCart } });
+  };
 
   return (
     <div className="pharmacy-container">
@@ -54,8 +85,6 @@ const Pharmacy = () => {
 
       <div className="filter-container">
         <h1>Filter</h1>
-
-        {/* Category filter */}
         <p>Category</p>
         <select
           className="filter-select"
@@ -68,7 +97,6 @@ const Pharmacy = () => {
           <option value="packages">Packages</option>
         </select>
 
-        {/* Name filter */}
         <p>Product</p>
         <input
           type="text"
@@ -78,7 +106,6 @@ const Pharmacy = () => {
           onChange={(e) => setFilterName(e.target.value)}
         />
 
-        {/* Price filter */}
         <p>Price</p>
         <input
           type="number"
@@ -94,6 +121,13 @@ const Pharmacy = () => {
           value={maxPrice}
           onChange={(e) => setMaxPrice(e.target.value)}
         />
+
+        <button
+          className="default-blue-btn"
+          onClick={() => navigate("/cart")} // Redirect to Cart.jsx
+        >
+          View Cart
+        </button>
       </div>
 
       <div className="divider-container">
@@ -104,7 +138,7 @@ const Pharmacy = () => {
               <div key={product._id} className="item-card">
                 <div className="image-container">
                   <img
-                    src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSf8rMSNgrBv_1VqNVcrAgmgEMv4BnBA10aQw&s"
+                    src={product.image || "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSf8rMSNgrBv_1VqNVcrAgmgEMv4BnBA10aQw&s"}
                     alt="Product"
                     className="item-image"
                   />
@@ -114,13 +148,24 @@ const Pharmacy = () => {
                     <p>Quantity: {product.quantity}</p>
                     <p>{product.description}</p>
                     <div className="button-group">
-                      <button className="add-to-cart-btn">Add to Cart</button>
-                      <button className="buy-now-btn">Buy Now</button>
+                      <button
+                        className="add-to-cart-btn"
+                        onClick={() => handleAddToCart(product)} // Add to cart on click
+                      >
+                        Add to Cart
+                      </button>
+                      <button
+                        className="buy-now-btn"
+                        onClick={() => handleBuyNow(product)} // Add onClick for Buy Now
+                      >
+                        Buy Now
+                      </button>
                     </div>
                   </div>
                 </div>
               </div>
             ))}
+
             {filteredPackages.map((pkg) => (
               <div key={pkg._id} className="item-card2">
                 <img
@@ -133,7 +178,12 @@ const Pharmacy = () => {
                 <p>Price: ₱{pkg.price}</p>
                 <div className="button-group">
                   <button className="add-to-cart-btn">Add to Cart</button>
-                  <button className="buy-now-btn">Buy Now</button>
+                  <button
+                    className="buy-now-btn"
+                    onClick={() => handleBuyNow(pkg)} // Add onClick for Buy Now
+                  >
+                    Buy Now
+                  </button>
                 </div>
               </div>
             ))}

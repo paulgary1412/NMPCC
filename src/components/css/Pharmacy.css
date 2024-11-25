@@ -1,0 +1,15 @@
+.default-blue-btn {
+    background-color: #007bff; /* Bootstrap default blue */
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: background-color 0.3s ease;
+  }
+  
+  .default-blue-btn:hover {
+    background-color: #0056b3; /* Darker blue for hover effect */
+  }
+  

@@ -15,6 +15,9 @@ import Shopping from "./components/Shopping";
 import Pharmacy from "./components/Pharmacy";
 import Dashboard from "./components/Dashboard";
 import ProfilePage from "./components/profile"; // Import Profile component
+import Checkout from "./components/Checkout"; 
+import Cart from "./components/Cart";
+import { MdCheckBoxOutlineBlank } from "react-icons/md";
 
 export const scroll = new SmoothScroll('a[href*="#"]', {
   speed: 1000,
@@ -24,6 +27,7 @@ export const scroll = new SmoothScroll('a[href*="#"]', {
 const App = () => {
   const [landingPageData, setLandingPageData] = useState({});
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  
 
   useEffect(() => {
     setLandingPageData(JsonData);
@@ -60,6 +64,9 @@ const App = () => {
         <Route path="/shopping" element={<Shopping />} />
         <Route path="/pharmacy" element={<Pharmacy />} />
         <Route path="/dashboard" element={<Dashboard />} />
+        <Route path="/checkout" element={<Checkout />} />
+        <Route path="/cart" element={<Cart />} />
+                  
       </Routes>
     </Router>
   );
