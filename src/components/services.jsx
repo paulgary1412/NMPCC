@@ -3,9 +3,8 @@ import { Link } from "react-router-dom";
 
 export const Services = (props) => {
   const servicesData = [
-    { icon: "fa-wordpress", title: "Pharmacy", link: "/pharmacy", description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis sed dapibus leo nec ornare diam." },
-    { icon: "fa-shopping-cart", title: "Grocery", link: "/shopping", description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis sed dapibus leo nec ornare diam." },
-    { icon: "fa-database", title: "Database", link: "/dashboard", description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis sed dapibus leo nec ornare diam." },
+    { icon: "fa-wordpress", title: "Products", link: "/pharmacy", description: "" },
+    { icon: "fa-database", title: "Database", link: "/dashboard", description: "" },
   ];
 
   return (
