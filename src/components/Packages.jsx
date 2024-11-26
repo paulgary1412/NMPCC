@@ -245,6 +245,7 @@ const Packages = () => {
         
       )}
 
+<div class="scrollable-container">
 <table className="package-table">
         <thead>
           <tr>
@@ -292,6 +293,7 @@ const Packages = () => {
           )}
         </tbody>
       </table>
+      </div>
     </div>
   );
 };

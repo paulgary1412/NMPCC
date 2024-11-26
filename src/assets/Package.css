@@ -1,5 +1,8 @@
 /* Packages.css */
 
+
+@import url('https://fonts.googleapis.com/css?family=Montserrat|Open+Sans|Roboto');
+
 .packages-container {
     padding: 20px;
     margin-top: 230px;
@@ -33,7 +36,7 @@ font-size: 20px;
   border-radius: 5px;
   cursor: pointer;
 
-  margin-left:54px;
+  margin-left:-45px;
   margin-top: -150px;
   font-size: 12px;
   width: 120px;
@@ -132,6 +135,7 @@ font-size: 20px;
   }
   /* Packages.css (Additions for table) */
 
+/*
 .package-table {
     width: 90%;
     border-collapse: collapse;
@@ -141,6 +145,7 @@ font-size: 20px;
 
   z-index: 1;
   }
+*/
   .package-form {
     background-color: #f9f9f9;
     border: 1px solid #ccc;
@@ -262,6 +267,8 @@ span{
   margin-top: -90px;
   position: absolute;
 }
+
+/*
   .package-table th {
     border: 1px solid #e9ecef;
     padding: 10px;
@@ -287,9 +294,13 @@ width: 200px;
   width: 200px;
     text-align: left;
   }
+
+*/
+
+/*
   .update-button,
   .delete-button {
-    background-color: #28a745; /* Green for update */
+    background-color: #28a745; /* Green for update 
     color: white;
     border: none;
     padding: 5px 10px;
@@ -299,14 +310,91 @@ width: 200px;
   }
   
   .delete-button {
+    background-color: #dc3545; /* Red for delete 
+  }
+  
+  .update-button:hover {
+    background-color: #218838; /* Darker green on hover 
+  }
+  
+  .delete-button:hover {
+    background-color: #c82333; /* Darker red on hover 
+  }
+  */
+
+
+/*---------------------------------------------------------------------------------------*/
+
+.scrollable-container {
+  width: 90%;
+  max-height: 400px; /* Limit the height of the container */
+  overflow-y: auto; /* Enable vertical scrolling */
+  overflow-x: auto; /* Enable horizontal scrolling, if needed */
+  margin: 20px; /* Add spacing around the container */
+  border: 1px solid #ccc; /* Optional border for visibility */
+  border-radius: 10px; /* Match the table's rounded corners */
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* Optional for depth */
+  margin-top: -50px;
+  margin-left: -50px;
+  position:absolute;
+  z-index: 1;
+}
+
+
+
+  .package-table {
+    width: 100%;
+    border-collapse: collapse;
+    border-radius: 15px; /* Apply rounded corners */
+    overflow: hidden; /* Ensure content respects border radius */
+   
+  }
+
+  .package-table th, 
+.package-table td {
+    border: 1px solid #e9ecef;
+    padding: 10px;
+    text-align: center; /* Horizontally center text */
+    vertical-align: middle; /* Vertically center text */
+    width: 200px;
+}
+  
+  .package-table th {
+    background-color: #f8f9fa;
+  }
+  
+  .package-table tr:hover {
+    background-color: #f1f1f1;
+  }
+  .package-table tr{
+  width: 200px;
+  }
+  
+
+
+
+  .update-button,
+  .delete-button {
+    background-color: #28a745; /* Green for update */
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-right: 5px;
+    transition: transform 0.2s ease, background-color 0.2s ease; /* Smooth transition */
+  }
+  
+  .delete-button {
     background-color: #dc3545; /* Red for delete */
   }
   
   .update-button:hover {
     background-color: #218838; /* Darker green on hover */
+    transform: scale(1.05); /* Slightly enlarges the button */
   }
   
   .delete-button:hover {
     background-color: #c82333; /* Darker red on hover */
+    transform: scale(1.05); /* Slightly enlarges the button */
   }
-  
