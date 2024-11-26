@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import "./css/Checkout.css";
-
+import axios from "axios";
 const Checkout = () => {
   const location = useLocation();
   const navigate = useNavigate();
@@ -33,9 +33,23 @@ const Checkout = () => {
     setSelectedProducts(updatedProducts);
   };
 
-  const handleConfirmation = () => {
-    alert("Purchase confirmed! Thank you for your order.");
-    navigate("/");  // Redirect to home or any other page
+  const handleConfirmation = async () => {
+    const checkoutData = {
+      contactInfo,
+      selectedProducts,
+      deliveryMethod,
+      paymentMethod,
+      totalAmount,
+    };
+  
+    try {
+      const response = await axios.post("http://localhost:5000/checkout", checkoutData);
+      alert(response.data.message); // Display success message
+      navigate("/"); // Redirect to home or another page
+    } catch (error) {
+      console.error("Error saving checkout data:", error);
+      alert("Failed to confirm purchase. Please try again.");
+    }
   };
 
   return (

@@ -196,7 +196,7 @@ const Dashboard = () => {
                 </button>
                 <button
                   type="button"
-                  className="cancel-button"
+                  className="cancel-button23"
                   onClick={() => setShowForm(false)}
                 >
                   Cancel

@@ -222,4 +222,27 @@ h6 {
     color: maroon;
     font-weight: bold;
     margin-bottom: 50px;
-}
+}.cart_button2 {
+    background: transparent; /* Makes button background transparent */
+    border: none; /* Removes the border */
+    padding: 0; /* Removes padding */
+    display: flex;
+    align-items: center;
+    position: absolute;
+    justify-content: center;
+    cursor: pointer; /* Pointer cursor on hover */
+    width: 50px; /* Set button width */
+    height: 50px; /* Set button height */
+    margin-top: -45px;
+    margin-left: 55px;
+  }
+  
+  .cart_button2 svg {
+    font-size: 35px; /* Resize the cart icon */
+    color: silver;
+  }
+  
+  .cart_button2:hover svg {
+    color: #f39c12; /* Change icon color on hover (optional) */
+  }
+  

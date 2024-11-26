@@ -84,6 +84,7 @@ const Pharmacy = () => {
       {error && <p className="error-message">{error}</p>}
 
       <div className="filter-container">
+     
         <h1>Filter</h1>
         <p>Category</p>
         <select
@@ -122,12 +123,7 @@ const Pharmacy = () => {
           onChange={(e) => setMaxPrice(e.target.value)}
         />
 
-        <button
-          className="default-blue-btn"
-          onClick={() => navigate("/cart")} // Redirect to Cart.jsx
-        >
-          View Cart
-        </button>
+        
       </div>
 
       <div className="divider-container">

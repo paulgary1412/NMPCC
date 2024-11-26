@@ -8,6 +8,7 @@ const Cart = () => {
   const [selectedIndexes, setSelectedIndexes] = useState([]);
   const navigate = useNavigate();
 
+
   useEffect(() => {
     const storedCart = JSON.parse(localStorage.getItem("cart")) || [];
     setSelectedProducts(storedCart);
@@ -52,9 +53,11 @@ const Cart = () => {
   return (
     <div className="cart-container">
       <div className="cart-content">
+        
         {/* Back Button */}
         <button className="back-btn" onClick={() => navigate(-1)}>
         <h1>Shopping Cart</h1>
+      
         </button>
 
         {selectedProducts.length > 0 ? (
@@ -95,13 +98,25 @@ const Cart = () => {
                     <td>
                       <input
                         type="number"
-                        value={product.quantity}
+                        value={product.quantity || 1} 
                         min="1"
                         onChange={(e) => handleQuantityChange(index, e.target.value)}
                         className="quantity-input"
                       />
                     </td>
-                    <td>₱{product.price * product.quantity}</td>
+                    <td>
+  ₱{
+    (() => {
+      const price = parseFloat(product.price);
+      const quantity = parseInt(product.quantity, 10);
+      // Only calculate the total if both price and quantity are valid numbers
+      if (!isNaN(price) && !isNaN(quantity)) {
+        return price * quantity;
+      }
+      return price; // Return 0 if either price or quantity is invalid
+    })()
+  }
+</td>
                     <td>
                       <button
                         onClick={() => handleDelete(index)}
@@ -116,6 +131,8 @@ const Cart = () => {
             </table>
 
             <div className="cart-footer">
+            
+              
               <h2>Total: ₱{totalPrice}</h2>
               <button
                 className="checkout-btn"
@@ -127,6 +144,7 @@ const Cart = () => {
               >
                 Proceed to Checkout
               </button>
+              
             </div>
           </>
         ) : (

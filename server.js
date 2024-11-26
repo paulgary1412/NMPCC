@@ -293,6 +293,38 @@ app.delete("/package/:id", authenticateJWT, async (req, res) => {
 });
 
 
+// Define Schema
+const checkoutSchema = new mongoose.Schema({
+  contactInfo: {
+    name: String,
+    email: String,
+    phone: String,
+  },
+  selectedProducts: [
+    {
+      name: String,
+      price: Number,
+      quantity: Number,
+      image: String,
+    },
+  ],
+  deliveryMethod: String,
+  paymentMethod: String,
+  totalAmount: Number,
+});
+
+const Checkout = mongoose.model("Checkout", checkoutSchema);
+
+// API Route to Save Data
+app.post("/checkout", async (req, res) => {
+  try {
+    const checkoutData = new Checkout(req.body);
+    await checkoutData.save();
+    res.status(201).send({ message: "Checkout data saved successfully!" });
+  } catch (error) {
+    res.status(500).send({ error: "Failed to save data" });
+  }
+});
 // Start the server
 app.listen(PORT, () => {
   console.log(`Server is running on http://localhost:${PORT}`);
