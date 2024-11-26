@@ -26,6 +26,7 @@ h2 {
   margin-top: 10px;
 }
 
+/*
 .add-listing-button {
   background-color: green;
   color: white;
@@ -37,10 +38,12 @@ h2 {
   width: 200px;
   height: 40px;
   transition: background-color 0.3s ease;
-  position: absolute; /* Position relative to the parent container */
-  top: -5px; /* Keep it at the top of the container */
-  left: 1000px; /* Align it to the left */
+  position: absolute; /* Position relative to the parent container 
+  top: -5px; /* Keep it at the top of the container 
+  left: 1000px; /* Align it to the left 
 }
+
+*/
 
 .listing-container {
   margin-top: 70px; /* Create spacing to account for the button above */
@@ -99,6 +102,7 @@ h2 {
   font-weight: bold;
 }
 
+/*
 .listing-form input,
 .listing-form select {
   width: 100%;
@@ -137,12 +141,6 @@ h2 {
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
 }
 
-.card img {
-  width: 100px;
-  height: 100px;
-  border-radius: 10%;
-  margin-bottom: 10px;
-}
 
 .card h4 {
   margin: 10px 0;
@@ -154,7 +152,16 @@ h2 {
   margin: 5px 0;
   font-size: 14px;
 }
+  */
 
+  .card img {
+    width: 100px;
+    height: 100px;
+    border-radius: 10%;
+    margin-bottom: 10px;
+  }
+
+/*
 .update-button,
 .delete-button {
   background-color: #28a745;
@@ -177,4 +184,135 @@ h2 {
 
 .delete-button:hover {
   background-color: #c82333;
+}
+/*-------------------------------------------------------------------------------*/
+
+.add-listing-button {
+  background-color: green;
+  color: white;
+  border: none;
+  padding: 10px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 14px;
+  width: 200px;
+  height: 40px;
+  transition: background-color 0.3s ease;
+  position: absolute; /* Position relative to the parent container */
+  top: 5px; /* Keep it at the top of the container */
+  left: 139px; /* Align it to the left */
+  }
+
+
+.update-button,
+.delete-button {
+  background-color: #28a745; /* Green for update */
+  color: white;
+  border: none;
+  padding: 12px 20px; /* Increased padding for better sizing */
+  border-radius: 8px; /* Slightly more rounded for a modern look */
+  cursor: pointer;
+  font-size: 16px; /* Slightly bigger font for better readability */
+  margin-top: 20px; /* More spacing above the buttons */
+  margin-right: 15px; /* Space between buttons */
+  transition: background-color 0.3s, box-shadow 0.3s; /* Smooth transition on hover */
+  display: inline-block;
+  width: 100px;
+}
+
+.update-button:hover {
+  background-color: #218838; /* Darker green on hover */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Add a subtle shadow on hover */
+}
+
+.delete-button {
+  background-color: #dc3545; /* Red for delete */
+}
+
+.delete-button:hover {
+  background-color: #c82333; /* Darker red on hover */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Add a subtle shadow on hover */
+}
+
+
+
+/* Listing container: Organizes cards in a flexible layout */
+.listing-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin: 0;
+  padding: 0;
+  
+}
+
+.listing-container, .h2 {
+  margin-bottom: 20px;
+  color: #333;
+  font-size: 20px;
+  margin-top: 100px;
+}
+
+/* Card container: Holds multiple cards with spacing between them */
+.card-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 50px;
+  margin: auto;
+  justify-content: center;
+  height: 100%;
+}
+
+/* Card style: Defines the appearance of each card */
+.card {
+  overflow: hidden;
+  background: #ffffff;
+  color: #21201e;
+  border: 1px solid #e9ecef;
+  text-align: center;
+  width: 350px; /* Updated width */
+  height: 400px;
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border-radius: 1.2rem;
+  margin: 2rem;
+  transition: box-shadow 0.3s ease;
+}
+
+/* Text inside the card: Set size and color for title and description */
+.card h4, .card p {
+  font-size: 18px;
+  color: #333;
+}
+
+.card h4 {
+  font-weight: 700;
+
+}
+
+/* Hover effect: Enlarge image when hovered */
+.card:hover img {
+  scale: 1.1;
+}
+
+/* Hover effect for card: Adds a shadow when the card is hovered */
+.card:hover {
+  box-shadow: 5px 15px 25px rgba(165, 164, 164, 0.5);
+}
+
+/* Style for images inside the card: Set image height and add margin */
+.card img {
+  height: 120px;
+  width: 150px;
+  margin: 1rem;
+  transition: all 0.3s;
+}
+
+/* Hover effect for the link inside the card: Slightly increase size on hover */
+.card a:hover {
+  transform: scale(1.1);
 }
