@@ -32,8 +32,8 @@
   border-radius: 5px;
   cursor: pointer;
 
-  margin-left:-45px;
-  margin-top: -120px;
+  margin-left:0px;
+  margin-top: -80px;
   font-size: 12px;
   width: 120px;
   height: 40px; /* Adjusted height for better sizing */
@@ -246,27 +246,29 @@ span{
   
 
 .scrollable-container {
-  width: 90%;
   max-height: 500px; /* Limit the height of the container */
   overflow-y: auto; /* Enable vertical scrolling */
   overflow-x: auto; /* Enable horizontal scrolling, if needed */
-  margin: 20px; /* Add spacing around the container */
-  border: 1px solid #ccc; /* Optional border for visibility */
   border-radius: 10px; /* Match the table's rounded corners */
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* Optional for depth */
-  margin-top: -50px;
-  margin-left: -50px;
-  position:absolute;
-  z-index: 1;
+  position: relative; /* Ensure the container is positioned correctly */
+  margin: 0 auto; /* Center the container horizontally */
+  
 }
 
 
 
   .package-table {
-    width: 100%;
+    width: 90%;
     border-collapse: collapse;
-    border-radius: 15px; /* Apply rounded corners */
+    border-radius: 10px; /* Apply rounded corners */
     overflow: hidden; /* Ensure content respects border radius */
+    margin-top: 0px;
+    border-radius: 10px; /* Match the table's rounded corners */
+    box-shadow: 1px 4px 10px rgba(0, 0, 0, 0.2); /* Optional for depth */
+    text-align: center; /* Horizontally center text */
+    vertical-align: middle; /* Vertically center text */
+    
+    
    
   }
 
@@ -276,8 +278,21 @@ span{
     padding: 10px;
     text-align: center; /* Horizontally center text */
     vertical-align: middle; /* Vertically center text */
-    width: 200px;
+    width: 300px;
 }
+
+.package-table thead th {
+  position: sticky;
+  top: 0; /* Stick to the top */
+  background-color: #f9f9f9; /* Optional: Background color for the header */
+  z-index: 2; /* Ensure it stays above the table rows */
+  padding: 10px;
+  border-bottom: 1px solid #ddd; /* Optional: Separate the header from rows */
+  margin: 0;
+}
+
+
+
   
   .package-table th {
     background-color: #f8f9fa;
@@ -320,7 +335,7 @@ span{
   }
   
   .Title1 {
-    margin-bottom: 90px;
+    margin-bottom: 50px;
     color: #333;
     font-size: 20px;
     margin-top: -140px;
