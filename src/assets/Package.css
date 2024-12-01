@@ -19,11 +19,10 @@
   h2 {
     margin-bottom: 20px;
     color: #333;
-font-size: 20px;
-
- margin-top:    10px;
-   
+    font-size: 20px;
+    margin-top:    10px;
   }
+
   /** add package button*/
   .add-package-button {
     background-color:green;
@@ -33,8 +32,8 @@ font-size: 20px;
   border-radius: 5px;
   cursor: pointer;
 
-  margin-left:54px;
-  margin-top: -150px;
+  margin-left:-45px;
+  margin-top: -120px;
   font-size: 12px;
   width: 120px;
   height: 40px; /* Adjusted height for better sizing */
@@ -45,7 +44,7 @@ font-size: 20px;
   .add-package-button:hover {
     background-color: #0056b3; /* Darker green on hover */
   }
-  /** add package form input needed to be centered and arrange properly*/
+  /** add package form input needed to be centered and arrange properly
   .package-form {
    
   padding: 20px;
@@ -57,7 +56,9 @@ font-size: 20px;
   height: 900px;
   width: 550px;
   z-index: 2;
-  }
+  }*/
+
+
   /** package text */
   .package-form h2 {
     margin-bottom: 10px;
@@ -90,6 +91,11 @@ font-size: 20px;
   .product-selection input[type="checkbox"] {
     margin-right: 10px;
   }
+
+
+  
+  
+   
   
   .submit-button,
   .cancel-button {
@@ -99,7 +105,7 @@ font-size: 20px;
     padding: 10px 20px;
     border-radius: 5px;
     cursor: pointer;
-    margin-right: 10px;
+    margin-left: 18px;
     font-size: 16px;
     width: 200px;
     height: 50px; /* Adjusted height for better sizing */
@@ -140,10 +146,10 @@ font-size: 20px;
     border-radius: 8px;
     max-width: 500px;
     margin-top: -50;
-    margin-left: 600px;
+    margin-left: 110px;
     width: 500px;
     position: relative;
-    height: 125%;
+    height: 615px;
     position:absolute;
   }
   
@@ -213,24 +219,6 @@ font-size: 20px;
     cursor: pointer;
   }
   
-  .submit-button{
-   width: 30%;
-   padding: 8px;
-   border: none;
-   border-radius: 4px;
-   cursor: pointer;
-   margin-top: -30px;
-   margin-left: 310px; 
-  } 
-  .cancel-button {
-    width: 25%;
-    padding: 8px;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    margin-top: 50px;
-    margin-left: 330px;
-  }
   
   .submit-button {
     background-color: #4caf50;
@@ -259,7 +247,7 @@ span{
 
 .scrollable-container {
   width: 90%;
-  max-height: 400px; /* Limit the height of the container */
+  max-height: 500px; /* Limit the height of the container */
   overflow-y: auto; /* Enable vertical scrolling */
   overflow-x: auto; /* Enable horizontal scrolling, if needed */
   margin: 20px; /* Add spacing around the container */
@@ -329,4 +317,28 @@ span{
   .delete-button:hover {
     background-color: #c82333; /* Darker red on hover */
     transform: scale(1.05); /* Slightly enlarges the button */
+  }
+  
+  .Title1 {
+    margin-bottom: 90px;
+    color: #333;
+    font-size: 20px;
+    margin-top: -140px;
+    margin-left: 659px;
+    z-index: 1;
+  }
+
+  .package-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.6);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    
+    animation: fadeIn 0.3s ease;
   }

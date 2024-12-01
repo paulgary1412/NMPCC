@@ -21,6 +21,15 @@ const Modal = ({ showModal, onClose, onSubmit, product, handleInputChange }) => 
             />
           </div>
           <div className="form-group">
+            <label htmlFor="picture">Picture</label>
+            <input
+               type="file" // Change type to "file"
+               name="picture"
+               accept="image/*" // Restrict to image files
+               onChange={handleInputChange} // Use a separate handler for file input
+            />
+          </div>
+          <div className="form-group">
             <label htmlFor="quantity">Quantity:</label>
             <input
               type="number"

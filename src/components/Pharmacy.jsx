@@ -134,8 +134,8 @@ const Pharmacy = () => {
               <div key={product._id} className="item-card">
                 <div className="image-container">
                   <img
-                    src={product.image || "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSf8rMSNgrBv_1VqNVcrAgmgEMv4BnBA10aQw&s"}
-                    alt="Product"
+                    src={product.picture ? `http://localhost:5000/${product.picture}` : "https://via.placeholder.com/150"}
+                    alt={product.name || "Product"}
                     className="item-image"
                   />
                   <div className="item-details">

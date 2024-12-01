@@ -11,6 +11,7 @@ const Dashboard = () => {
   const [showForm, setShowForm] = useState(false);
   const [newProduct, setNewProduct] = useState({
     name: "",
+    picture: null,
     quantity: "",
     type: "",
     price: "",
@@ -21,33 +22,54 @@ const Dashboard = () => {
 
   const handleAddProductClick = () => {
     setShowForm(true);
-    setNewProduct({ name: "", quantity: "", type: "", price: "" });
+    setNewProduct({ name: "", picture: null, quantity: "", type: "", price: "" });
     setEditingListingId(null);
   };
 
   const handleInputChange = (e) => {
-    const { name, value } = e.target;
-    setNewProduct((prevProduct) => ({
-      ...prevProduct,
-      [name]: value,
-    }));
+    const { name, value, files } = e.target;
+    if (name === "picture") {
+      setNewProduct((prevProduct) => ({
+        ...prevProduct,
+        picture: files[0], // Store the selected file in the state
+      }));
+    } else {
+      setNewProduct((prevProduct) => ({
+        ...prevProduct,
+        [name]: value,
+      }));
+    }
   };
+
+  // Handler for file input changes (to upload an image)
 
   const handleFormSubmit = async (e) => {
     e.preventDefault();
     const token = localStorage.getItem("token");
+
+    const formData = new FormData();
+    formData.append("name", newProduct.name);
+    formData.append("quantity", newProduct.quantity);
+    formData.append("type", newProduct.type);
+    formData.append("price", newProduct.price);
+    if (newProduct.picture) {
+      formData.append("picture", newProduct.picture);
+    }
+  
+    const requestConfig = {
+      headers: {
+        "Authorization": `Bearer ${token}`,
+        "Content-Type": "multipart/form-data", // Important for file uploads
+      },
+    };
 
     if (editingListingId) {
       // Update existing listing
       try {
         await axios.put(
           `http://localhost:5000/listing/update/${editingListingId}`,
-          newProduct,
-          {
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
-          }
+          formData,
+          requestConfig
         );
         alert("Listing updated successfully!");
       } catch (error) {
@@ -59,12 +81,8 @@ const Dashboard = () => {
       try {
         await axios.post(
           "http://localhost:5000/listing/create",
-          newProduct,
-          {
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
-          }
+          formData,
+          requestConfig
         );
         alert("Listing created successfully!");
       } catch (error) {
@@ -73,7 +91,7 @@ const Dashboard = () => {
       }
     }
 
-    setNewProduct({ name: "", quantity: "", type: "", price: "" });
+    setNewProduct({ name: "", picture: null, quantity: "", type: "", price: "" });
     setShowForm(false);
     fetchListings(); // Refresh the listings
   };
@@ -127,93 +145,110 @@ const Dashboard = () => {
 
   return (
     <div className="dashboard-container">
+      
       {/* Dashboard Navigation */}
       <DashboardNavigation setActiveSection={setActiveSection} />
 
       {/* Conditional Rendering Based on Active Section */}
       {activeSection === "products" && (
         <>
+        
           <div className="listing-container">
-            {/* Add Product Button */}
-            <button
-              className="add-listing-button"
-              onClick={handleAddProductClick}
-            >
-              + Add Product
-            </button>
+            
+              {/* Add Product Button */}
+              <button
+                className="add-listing-button"
+                onClick={handleAddProductClick}
+              >
+                + Add Product
+              </button>
 
-            {/* Form for Adding/Updating Product */}
-            {showForm && (
-              <form onSubmit={handleFormSubmit} className="listing-form">
-                <h2>Add New Product</h2>
-                <label>
-                  Name:
-                  <input
-                    type="text"
-                    name="name"
-                    value={newProduct.name}
-                    onChange={handleInputChange}
-                    required
-                  />
-                </label>
-                <label>
-                  Quantity:
-                  <input
-                    type="number"
-                    name="quantity"
-                    value={newProduct.quantity}
-                    onChange={handleInputChange}
-                    required
-                  />
-                </label>
-                <label>
-                  Type:
-                  <select
-                    name="type"
-                    value={newProduct.type}
-                    onChange={handleInputChange}
-                    required
+              {/* Form for Adding/Updating Product */}
+              {showForm && (
+                <div className="product-overlay" >
+                <form onSubmit={handleFormSubmit} className="listing-form">
+                  
+                  <h2>Add New Product</h2>
+                  <label>
+                    Name:
+                    <input
+                      type="text"
+                      name="name"
+                      value={newProduct.name}
+                      onChange={handleInputChange}
+                      required
+                    />
+                  </label>
+                  <label>
+                    picture
+                    <input
+                      type="file" // Change type to "file"
+                      name="picture"
+                      accept="image/*" // Restrict to image files
+                      onChange={handleInputChange} // Use a separate handler for file input
+                      required
+                    />
+                  </label>
+                  <label>
+                    Quantity:
+                    <input
+                      type="number"
+                      name="quantity"
+                      value={newProduct.quantity}
+                      onChange={handleInputChange}
+                      required
+                    />
+                  </label>
+                  <label>
+                    Type:
+                    <select
+                      name="type"
+                      value={newProduct.type}
+                      onChange={handleInputChange}
+                      required
+                    >
+                      <option value="" disabled>
+                        Select type
+                      </option>
+                      <option value="Pharmacy">Pharmacy</option>
+                      <option value="Grocery">Grocery</option>
+                    </select>
+                  </label>
+                  <label>
+                    Price:
+                    <input
+                      type="number"
+                      name="price"
+                      value={newProduct.price}
+                      onChange={handleInputChange}
+                      required
+                    />
+                  </label>
+                  <button type="submit" className="submit-button1">
+                    Create Listing
+                  </button>
+                  <button
+                    type="button"
+                    className="cancel-button23"
+                    onClick={() => setShowForm(false)}
                   >
-                    <option value="" disabled>
-                      Select type
-                    </option>
-                    <option value="Pharmacy">Pharmacy</option>
-                    <option value="Grocery">Grocery</option>
-                  </select>
-                </label>
-                <label>
-                  Price:
-                  <input
-                    type="number"
-                    name="price"
-                    value={newProduct.price}
-                    onChange={handleInputChange}
-                    required
-                  />
-                </label>
-                <button type="submit" className="submit-button1">
-                  Create Listing
-                </button>
-                <button
-                  type="button"
-                  className="cancel-button23"
-                  onClick={() => setShowForm(false)}
-                >
-                  Cancel
-                </button>
-              </form>
-            )}
+                    Cancel
+                  </button>
+                  
+                </form>
+                </div>
+              )}
 
             {/* Product Listings */}
-            <h2>Products</h2>
+            <h2 className="Title2">Products</h2>
             <div className="card-container">
               {listings.length > 0 ? (
                 listings.map((listing) => (
                   <div className="card" key={listing._id}>
                     <h4>{listing.name}</h4>
                     <img
-                      src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSIRzCC-rYiqc7KmGdz071CZuHZoHKpAcMo1w&s"
-                      alt="Product"
+                      src={listing.picture ? `http://localhost:5000/${listing.picture}` : "https://via.placeholder.com/150"}
+                      alt={listing.name || "Product"}
                     />
                     <p>
                       <strong>Quantity:</strong> {listing.quantity}

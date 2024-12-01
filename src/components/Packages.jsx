@@ -146,12 +146,15 @@ const Packages = () => {
   };
 
   return (
+    
     <div className="packages-container">
+      <h2 className="Title1">Packages</h2>
       <button className="add-package-button" onClick={handleAddPackageClick}>
         + Add Package
       </button>
 
       {showPackageForm && (
+        <div className="package-overlay">
         <form onSubmit={handlePackageFormSubmit} className="package-form">
           <h2>{editingPackage ? "Edit Package" : "Create New Package"}</h2>
           <label>
@@ -242,13 +245,16 @@ const Packages = () => {
             Cancel
           </button>
         </form>
+        </div>
         
       )}
+
 
 <div class="scrollable-container">
 <table className="package-table">
         <thead>
           <tr>
+            <th>#</th>
             <th>Package Name</th>
             <th>Price</th>
             <th>Items</th>
@@ -257,8 +263,9 @@ const Packages = () => {
         </thead>
         <tbody>
           {packages.length > 0 ? (
-            packages.map((pkg) => (
+            packages.map((pkg, index) => (
               <tr key={pkg._id}>
+                <td>{index + 1}</td> {/* Auto-increment table number */}
                 <td><strong>{pkg.name}</strong></td>
                 <td>${pkg.price.toFixed(2)}</td>
                 <td>

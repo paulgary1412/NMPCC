@@ -37,8 +37,8 @@ h2 {
   height: 40px;
   transition: background-color 0.3s ease;
   position:absolute; /* Position relative to the parent container */
-  top: 125px; /* Keeit at the top of the container */
-  left:130px; /* Align it to the left */
+  top: 133px; /* Keeit at the top of the container */
+  left:50px; /* Align it to the left */
   }
 
 
@@ -71,6 +71,8 @@ h2 {
   background-color: #c82333; /* Darker red on hover */
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Add a subtle shadow on hover */
 }
+
+
 
 
 
@@ -110,14 +112,14 @@ h2 {
   border: 1px solid #e9ecef;
   text-align: center;
   width: 350px; /* Updated width */
-  height: 400px;
+  height: 430px;
   padding: 2rem;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   border-radius: 1.2rem;
-  margin: 2rem;
+  margin: 1rem;
   transition: box-shadow 0.3s ease;
 }
 
@@ -153,4 +155,97 @@ h2 {
 /* Hover effect for the link inside the card: Slightly increase size on hover */
 .card a:hover {
   transform: scale(1.1);
+}
+
+.Title2{
+  font-size: 20px;
+}
+
+
+/*-------------Recovered missing Add product CSS-------------*/
+
+.add-listing-button:hover {
+  background-color: #0056b3;
+}
+
+.listing-form {
+  padding: 20px;
+  background-color: white;
+  border-radius: 5px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  position: absolute;
+  top: 201px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 400px;
+  box-shadow: 5px 15px 25px rgba(165, 164, 164, 0.5);
+  z-index: 2;
+}
+
+.listing-form label {
+  display: block;
+  margin-bottom: 10px;
+  font-weight: bold;
+}
+
+.listing-form input,
+.listing-form select {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 15px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.submit-button1,
+.submit-button2,
+.cancel-button23 {
+  display: inline-block;
+  margin: 5px 5px;
+  background-color: #28a745; /* Green for update */
+  color: white;
+  border: none;
+  padding: 12px 20px; /* Increased padding for better sizing */
+  border-radius: 8px; /* Slightly more rounded for a modern look */
+  cursor: pointer;
+  font-size: 16px; /* Slightly bigger font for better readability */
+  margin-top: 20px; /* More spacing above the buttons */
+  margin-right: 15px; /* Space between buttons */
+  transition: background-color 0.3s, box-shadow 0.3s; /* Smooth transition on hover */
+  width: 150px;
+}
+
+.submit-button1,
+.submit-button2 {
+  background-color: #4caf50;
+  color: white;
+}
+
+.submit-button1:hover,
+.submit-button2:hover {
+  background-color: #218838;
+}
+
+.cancel-button23 {
+  background-color: #dc3545;
+  color: white;
+}
+
+.cancel-button23:hover {
+  background-color: #c82333;
+}
+
+.product-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.6);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  
+  animation: fadeIn 0.3s ease;
 }

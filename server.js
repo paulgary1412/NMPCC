@@ -7,6 +7,8 @@ const cors = require("cors");
 const User = require("./src/models/User"); // Adjust this path based on your file structure
 const Listing = require("./src/models/Listing");
 const Package = require("./src/models/Package");
+const multer = require("multer");
+
 
 const app = express();
 const PORT = process.env.PORT || 5000;
@@ -16,6 +18,7 @@ const JWT_SECRET = "your_jwt_secret"; // Replace with your own secret
 app.use(cors()); // Enable CORS for all routes
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
+app.use("/uploads", express.static("uploads"));
 
 // Connect to MongoDB with error handling
 mongoose.connect("mongodb://localhost:27017/NMPC", {
@@ -40,6 +43,19 @@ const authenticateJWT = (req, res, next) => {
     res.sendStatus(401);
   }
 };
+
+
+// Set up storage for images
+const storage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    cb(null, "uploads"); // Directory where you want to save images
+  },
+  filename: (req, file, cb) => {
+    cb(null, Date.now() + file.originalname); // Rename the file to avoid duplication
+  },
+});
+
+const upload = multer({ storage: storage });
 
 // Register User
 app.post("/register", async (req, res) => {
@@ -157,12 +173,14 @@ app.get("/listing", authenticateJWT, async (req, res) => {
 });
 
 // Create a new listing
-app.post("/listing/create", authenticateJWT, async (req, res) => {
+app.post("/listing/create", authenticateJWT, upload.single("picture"), async (req, res) => {
   try {
     const { name, quantity, type, price } = req.body;
+    const picture = req.file ? `uploads/${req.file.filename}` : null; // Save the image file path
 
     const listing = new Listing({
       name,
+      picture,
       quantity,
       type,
       price,
@@ -177,14 +195,21 @@ app.post("/listing/create", authenticateJWT, async (req, res) => {
 });
 
 // Update a listing
-app.put("/listing/update/:id", authenticateJWT, async (req, res) => {
+app.put("/listing/update/:id", authenticateJWT,upload.single("picture"), async (req, res) => {
   const { id } = req.params;
   const { name, quantity, type, price } = req.body;
+  let updateData = { name, quantity, type, price };
+
+  // Check if there's a new picture and update it
+  if (req.file) {
+  // If there's a new file, update the picture field
+  updateData.picture = `uploads/${req.file.filename}`;
+  }
 
   try {
     const updatedListing = await Listing.findByIdAndUpdate(
       id,
-      { name, quantity, type, price },
+      updateData,
       { new: true, runValidators: true }
     );
     if (!updatedListing) {

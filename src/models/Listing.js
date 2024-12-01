@@ -4,6 +4,10 @@ const ListingSchema = new mongoose.Schema({
   name: {
     type: String,
   },
+  picture: {
+    type: String,
+    required: true,
+  },
     quantity: {
       type: Number,
       required: true,
