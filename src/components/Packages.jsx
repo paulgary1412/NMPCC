@@ -82,7 +82,15 @@ const Packages = () => {
 
   const handlePackageFormSubmit = async (e) => {
     e.preventDefault();
-    const token = localStorage.getItem("token");
+     // Get the token from localStorage
+     const token = localStorage.getItem("token");
+    
+     // Check if the token is available
+     if (!token) {
+       alert("You must be logged in to submit the form.");
+       return;
+     }
+ 
     const items = selectedProducts.map(item => ({
       productId: item.productId,
       quantity: item.quantity,

@@ -168,7 +168,7 @@ app.get("/api/products", async (req, res) => {
 
 
 // Fetch all listings
-app.get("/listing", authenticateJWT, async (req, res) => {
+app.get("/listing",  async (req, res) => {
   try {
     const listings = await Listing.find();
     res.json(listings);
@@ -179,7 +179,7 @@ app.get("/listing", authenticateJWT, async (req, res) => {
 });
 
 // Create a new listing
-app.post("/listing/create", authenticateJWT, upload.single("picture"), async (req, res) => {
+app.post("/listing/create", upload.single("picture"), async (req, res) => {
   try {
     const { name, quantity, type, price } = req.body;
     const picture = req.file ? `uploads/${req.file.filename}` : null; // Save the image file path
@@ -201,7 +201,7 @@ app.post("/listing/create", authenticateJWT, upload.single("picture"), async (re
 });
 
 // Update a listing
-app.put("/listing/update/:id", authenticateJWT,upload.single("picture"), async (req, res) => {
+app.put("/listing/update/:id",upload.single("picture"), async (req, res) => {
   const { id } = req.params;
   const { name, quantity, type, price } = req.body;
   let updateData = { name, quantity, type, price };
@@ -229,7 +229,7 @@ app.put("/listing/update/:id", authenticateJWT,upload.single("picture"), async (
 });
 
 // Delete a listing
-app.delete("/listing/delete/:id", authenticateJWT, async (req, res) => {
+app.delete("/listing/delete/:id", async (req, res) => {
   try {
     const listing = await Listing.findByIdAndDelete(req.params.id);
     if (listing) {
@@ -245,7 +245,8 @@ app.delete("/listing/delete/:id", authenticateJWT, async (req, res) => {
 
 // Fetch all packages
 // Fetch all packages with populated productId details
-app.get("/package", authenticateJWT, async (req, res) => {
+app.get("/package", async (req, res) => {
+  
   try {
     const packages = await Package.find().populate({
       path: "items._id",
@@ -275,7 +276,7 @@ app.get("/package", authenticateJWT, async (req, res) => {
 });
 
 // Create a new package
-app.post("/package/create", authenticateJWT, async (req, res) => {
+app.post("/package/create", async (req, res) => {
   const { name, price, items } = req.body;
 
   try {
@@ -288,7 +289,7 @@ app.post("/package/create", authenticateJWT, async (req, res) => {
   }
 });
 // Update a package
-app.put("/package/update/:id", authenticateJWT, async (req, res) => {
+app.put("/package/update/:id", async (req, res) => {
   const { id } = req.params;
   const { name, price, items } = req.body;
 
@@ -309,7 +310,7 @@ app.put("/package/update/:id", authenticateJWT, async (req, res) => {
 });
 
 // Delete a package (already implemented as shown in your code)
-app.delete("/package/:id", authenticateJWT, async (req, res) => {
+app.delete("/package/:id", async (req, res) => {
   try {
     const pkg = await Package.findByIdAndDelete(req.params.id);
     if (pkg) {

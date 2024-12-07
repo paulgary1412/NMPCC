@@ -18,11 +18,31 @@ import ProfilePage from "./components/profile"; // Import Profile component
 import Checkout from "./components/Checkout"; 
 import Cart from "./components/Cart";
 import { MdCheckBoxOutlineBlank } from "react-icons/md";
+import { jwtDecode } from "jwt-decode"; // Correct import syntax
+import { Navigate } from "react-router-dom";
 
 export const scroll = new SmoothScroll('a[href*="#"]', {
   speed: 1000,
   speedAsDuration: true,
 });
+const ProtectedRoute = ({ element, role, redirectTo }) => {
+  const token = localStorage.getItem("token");
+  
+  if (!token) {
+    return <Navigate to={redirectTo} />;
+  }
+
+  try {
+    const decodedToken = jwtDecode(token);
+    if (decodedToken.usertype === role) {
+      return element;
+    }
+  } catch (error) {
+    console.error("Invalid token:", error);
+  }
+
+  return <Navigate to={redirectTo} />;
+};
 
 const App = () => {
   const [landingPageData, setLandingPageData] = useState({});
@@ -63,7 +83,16 @@ const App = () => {
         {/* Service Routes */}
         <Route path="/shopping" element={<Shopping />} />
         <Route path="/pharmacy" element={<Pharmacy />} />
-        <Route path="/dashboard" element={<Dashboard />} />
+        <Route 
+          path="/dashboard" 
+          element={
+            <ProtectedRoute 
+              element={<Dashboard />} 
+              role="admin" 
+              redirectTo="/" 
+            />
+          } 
+        />
         <Route path="/checkout" element={<Checkout />} />
         <Route path="/cart" element={<Cart />} />
                   
