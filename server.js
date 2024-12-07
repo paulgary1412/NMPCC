@@ -59,18 +59,35 @@ const storage = multer.diskStorage({
 const upload = multer({ storage: storage });
 
 // Register User
+
+const { v4: uuidv4 } = require("uuid");
+
 app.post("/register", async (req, res) => {
   const { username, email, password } = req.body;
 
   try {
+    // Check if email is already registered
     const existingUser = await User.findOne({ email });
     if (existingUser) {
       return res.status(400).json({ error: "Email already in use" });
     }
 
+    // Hash the password
     const hashedPassword = await bcrypt.hash(password, 10);
-    const user = new User({ username, email, password: hashedPassword , usertype: 'member'});
 
+    // Generate a unique userId
+    const userId = uuidv4();  // Make sure to generate userId here
+
+    // Create a new user with the userId
+    const user = new User({
+      userId: userId,  // Include the userId here
+      username,
+      email,
+      password: hashedPassword,
+      usertype: "member", // Default user type
+    });
+
+    // Save the new user to the database
     await user.save();
     res.status(201).json({ message: "User registered successfully" });
   } catch (error) {
@@ -78,6 +95,7 @@ app.post("/register", async (req, res) => {
     res.status(500).json({ error: "Error registering user" });
   }
 });
+
 
 // Login User
 app.post("/login", async (req, res) => {
@@ -324,36 +342,35 @@ app.delete("/package/:id", async (req, res) => {
   }
 });
 
-
-// Define Schema
 const checkoutSchema = new mongoose.Schema({
-  contactInfo: {
-    name: String,
-    email: String,
-    phone: String,
-  },
-  selectedProducts: [
-    {
-      name: String,
-      price: Number,
-      quantity: Number,
-      image: String,
-    },
-  ],
-  deliveryMethod: String,
-  paymentMethod: String,
-  totalAmount: Number,
+  user_idd: { type: String, required: true },
+  contactInfo: { type: Object, required: true },
+  selectedProducts: { type: Array, required: true },
+  deliveryMethod: { type: String, required: true },
+  paymentMethod: { type: String, required: true },
+  totalAmount: { type: Number, required: true },
 });
 
+// Create the Checkout model
 const Checkout = mongoose.model("Checkout", checkoutSchema);
 
-// API Route to Save Data
+// POST route for handling checkout
 app.post("/checkout", async (req, res) => {
   try {
+    // Log the incoming request body to verify if `user_idd` is included
+    console.log(req.body); // Check if user_idd and other fields are in the body
+
+    // Create a new Checkout document from the request body
     const checkoutData = new Checkout(req.body);
+
+    // Save the checkout data to the database
     await checkoutData.save();
+
+    // Send success response
     res.status(201).send({ message: "Checkout data saved successfully!" });
   } catch (error) {
+    // Log the error and send a failure response
+    console.error("Error saving checkout data:", error);
     res.status(500).send({ error: "Failed to save data" });
   }
 });

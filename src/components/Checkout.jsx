@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import "./css/Checkout.css";
 import axios from "axios";
+import { jwtDecode } from "jwt-decode"; // Correct import syntax
 const Checkout = () => {
   const location = useLocation();
   const navigate = useNavigate();
@@ -20,7 +21,11 @@ const Checkout = () => {
 
   // Payment Method
   const [paymentMethod, setPaymentMethod] = useState('');
+  const token = localStorage.getItem('token'); // Replace this with how you store the token
+  const decodedToken = token ? jwtDecode(token) : {};
+  const userid = decodedToken.id;
 
+  console.log("Decoded _id from token:", userid); // Log the decoded ID for debugging
   useEffect(() => {
     const total = selectedProducts.reduce((acc, product) => acc + product.price * product.quantity, 0);
     setTotalAmount(total);
@@ -32,25 +37,34 @@ const Checkout = () => {
     updatedProducts[index].quantity = newQuantity;
     setSelectedProducts(updatedProducts);
   };
+ 
 
   const handleConfirmation = async () => {
-    const checkoutData = {
-      contactInfo,
-      selectedProducts,
-      deliveryMethod,
-      paymentMethod,
-      totalAmount,
-    };
-  
     try {
+      // Decode the token to extract _id
+      const token = localStorage.getItem('token'); // Replace this with how you store the token
+      const decodedToken = token ? jwtDecode(token) : {};
+      const user_id = decodedToken.id;
+      const user_idd=user_id;
+      console.log(user_id)
+      const checkoutData = {
+        user_idd, // Pass the extracted ID here
+        contactInfo,
+        selectedProducts,
+        deliveryMethod,
+        paymentMethod,
+        totalAmount,
+      };
+  
       const response = await axios.post("http://localhost:5000/checkout", checkoutData);
       alert(response.data.message); // Display success message
-      navigate("/"); // Redirect to home or another page
+      navigate("/");
     } catch (error) {
       console.error("Error saving checkout data:", error);
       alert("Failed to confirm purchase. Please try again.");
     }
   };
+  
 
   return (
     <div className="checkout-page">

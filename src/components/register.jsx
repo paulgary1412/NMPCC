@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-
+import { v4 as uuidv4 } from 'uuid';
 const Register = () => {
   const [formData, setFormData] = useState({
     username: "",
@@ -18,29 +18,38 @@ const Register = () => {
     });
   };
 
-  const handleSignUp = async (e) => {
-    e.preventDefault();
-    if (formData.password !== formData.confirmPassword) {
-      alert("Passwords do not match!");
-      return;
-    }
+  
+const handleSignUp = async (e) => {
+  e.preventDefault();
 
-    try {
-      const response = await axios.post("http://localhost:5000/register", {
-        username: formData.username,
-        email: formData.email,
-        password: formData.password,
-      });
-      if (response.status === 201) {
-        alert("Registration successful!");
-        navigate("/login");
-      }
-    } catch (error) {
-      console.error("Error during registration:", error);
-      alert("Email already used.");
-    }
-  };
+  // Check if passwords match
+  if (formData.password !== formData.confirmPassword) {
+    alert("Passwords do not match!");
+    return;
+  }
 
+  try {
+    // Generate a unique userId
+    const userId = uuidv4();
+
+    // Send the registration request with the userId
+    const response = await axios.post("http://localhost:5000/register", {
+      userId: userId,  // Include the generated userId
+      username: formData.username,
+      email: formData.email,
+      password: formData.password,
+    });
+
+    // Check if the registration was successful
+    if (response.status === 201) {
+      alert("Registration successful!");
+      navigate("/login");
+    }
+  } catch (error) {
+    console.error("Error during registration:", error);
+    alert("Email already used.");
+  }
+};
   return (
     <div style={styles.container}>
       <div style={styles.formBox}>

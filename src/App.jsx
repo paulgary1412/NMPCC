@@ -83,6 +83,8 @@ const App = () => {
         {/* Service Routes */}
         <Route path="/shopping" element={<Shopping />} />
         <Route path="/pharmacy" element={<Pharmacy />} />
+        <Route path="/checkout" element={<Checkout />} />
+        <Route path="/cart" element={<Cart />} />
         <Route 
           path="/dashboard" 
           element={
@@ -93,8 +95,7 @@ const App = () => {
             />
           } 
         />
-        <Route path="/checkout" element={<Checkout />} />
-        <Route path="/cart" element={<Cart />} />
+     
                   
       </Routes>
     </Router>
