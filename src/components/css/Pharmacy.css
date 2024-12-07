@@ -12,4 +12,10 @@
   .default-blue-btn:hover {
     background-color: #0056b3; /* Darker blue for hover effect */
   }
-  
+  .product-image2 {
+    width: 60px;  /* Set a fixed width for the image */
+    height: 60px; /* Set a fixed height for the image */
+    object-fit: cover; /* Make sure the image fits the box without stretching */
+    margin-right: 1rem;  /* Add space between the image and the text */
+    border-radius: 5px; /* Optional: for rounded corners */
+  }

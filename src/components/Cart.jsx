@@ -91,7 +91,11 @@ const Cart = () => {
                       />
                     </td>
                     <td>
-                      <img src={product.image || "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSf8rMSNgrBv_1VqNVcrAgmgEMv4BnBA10aQw&s"} alt={product.name} className="product-image" />
+                    <img
+                    src={product.picture ? `http://localhost:5000/${product.picture}` : "https://via.placeholder.com/150"}
+                    alt={product.name || "Product"}
+                    style={{ width: '50px', height: '50px', objectFit: 'cover' }} 
+                  />
                     </td>
                     <td>{product.name}</td>
                     <td>₱{product.price}</td>

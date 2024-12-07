@@ -136,7 +136,7 @@ const Pharmacy = () => {
                   <img
                     src={product.picture ? `http://localhost:5000/${product.picture}` : "https://via.placeholder.com/150"}
                     alt={product.name || "Product"}
-                    className="item-image"
+                    className="product-image2"
                   />
                   <div className="item-details">
                     <h2>{product.name}</h2>

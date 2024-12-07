@@ -142,7 +142,7 @@
 /* Product Image */
 .item-card img {
     width: 175px;
-    height: auto;
+    height: 150px;
     border-radius: 5px;
     border-radius: 8px;
 }
@@ -245,4 +245,10 @@ h6 {
   .cart_button2:hover svg {
     color: #f39c12; /* Change icon color on hover (optional) */
   }
-  
+  .product-image2 {
+    width: 60px;  /* Set a fixed width for the image */
+    height: 60px; /* Set a fixed height for the image */
+    object-fit: cover; /* Make sure the image fits the box without stretching */
+    margin-right: 1rem;  /* Add space between the image and the text */
+    border-radius: 5px; /* Optional: for rounded corners */
+  }

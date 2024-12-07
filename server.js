@@ -9,24 +9,25 @@ const Listing = require("./src/models/Listing");
 const Package = require("./src/models/Package");
 const multer = require("multer");
 
-
 const app = express();
 const PORT = process.env.PORT || 5000;
 const JWT_SECRET = "your_jwt_secret"; // Replace with your own secret
 
-// Middlewarehehe
+// Middleware
 app.use(cors()); // Enable CORS for all routes
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use("/uploads", express.static("uploads"));
 
-// Connect to MongoDB with error handling
-mongoose.connect("mongodb://localhost:27017/NMPC", {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-})
-.then(() => console.log("MongoDB connected"))
-.catch((error) => console.error("MongoDB connection error:", error));
+// Connect to MongoDB without env variables
+mongoose
+  .connect('mongodb+srv://quasi452:1412@cluster0.tv4qs.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0')
+  .then(() => {
+    console.log('Connected to MongoDB!');
+  })
+  .catch((err) => {
+    console.log('MongoDB connection error: ', err);
+  });
 
 // Middleware to verify JWT
 const authenticateJWT = (req, res, next) => {
@@ -68,7 +69,7 @@ app.post("/register", async (req, res) => {
     }
 
     const hashedPassword = await bcrypt.hash(password, 10);
-    const user = new User({ username, email, password: hashedPassword });
+    const user = new User({ username, email, password: hashedPassword , usertype: 'member'});
 
     await user.save();
     res.status(201).json({ message: "User registered successfully" });
@@ -82,9 +83,14 @@ app.post("/register", async (req, res) => {
 app.post("/login", async (req, res) => {
   const { email, password } = req.body;
   const user = await User.findOne({ email });
-
+    // Hardcoded JWT secret key
+    const JWT_SECRET = 'your_secret_key_here'; // Static secret key
   if (user && (await bcrypt.compare(password, user.password))) {
-    const token = jwt.sign({ id: user._id }, JWT_SECRET);
+    const token = jwt.sign({ id: user._id, username: user.username, email: user.email, usertype: user.usertype }, JWT_SECRET);
+  
+
+    // Send the token back to the client
+ 
     res.json({ token });
   } else {
     res.status(401).json({ error: "Invalid email or password" });
