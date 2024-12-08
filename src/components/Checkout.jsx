@@ -100,11 +100,12 @@ const Checkout = () => {
           ) : (
             selectedProducts.map((product, index) => (
               <div className="product-item" key={index}>
-                <img
-                  src={product.picture ? `http://localhost:5000/${product.picture}` : "https://via.placeholder.com/150"}
-                  alt={product.name}
-                  className="product-image"
-                />
+                <img 
+  src={product.imageUrl || "default-image-url"} 
+  alt="Product" 
+  className="product-image" 
+/>
+
                 <div className="product-details">
                   <h3 className="product-name">{product.name}</h3>
                   <p className="product-price">Price: ₱{product.price}</p>

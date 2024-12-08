@@ -1,13 +1,11 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import { storage } from "../firebase"; // Import Firebase storage
+import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage"; // Import storage functions
 import "../assets/Dashboard.css"; // Import the CSS file
-import Modal from "./Modal"; // Import your Modal component
 import DashboardNavigation from "./DashboardNavigation"; // Import the DashboardNavigation component
 import Packages from "./Packages"; // Import the Packages component
 import AdminOrders from "./AdminOrders"; // Import the Orders component
-
-
-
 
 const Dashboard = () => {
   const [activeSection, setActiveSection] = useState("products"); // Track the active section
@@ -17,14 +15,15 @@ const Dashboard = () => {
     quantity: "",
     type: "",
     price: "",
+    imageUrl: "", // To store the image URL from Firebase
+    description:"",
   });
   const [listings, setListings] = useState([]);
   const [editingListingId, setEditingListingId] = useState(null);
-  const [showModal, setShowModal] = useState(false);
 
   const handleAddProductClick = () => {
     setShowForm(true);
-    setNewProduct({ name: "", quantity: "", type: "", price: "" });
+    setNewProduct({ name: "", quantity: "", type: "", price: "", imageUrl: "" ,description:""});
     setEditingListingId(null);
   };
 
@@ -35,33 +34,58 @@ const Dashboard = () => {
       [name]: value,
     }));
   };
+
+  const handleImageChange = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      const storageRef = ref(storage, `images/${file.name}`);
+      const uploadTask = uploadBytesResumable(storageRef, file);
+      
+      // Upload the file
+      uploadTask.on(
+        "state_changed",
+        (snapshot) => {
+          const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+          console.log("Upload is " + progress + "% done");
+        },
+        (error) => {
+          console.error("Upload failed:", error);
+        },
+        () => {
+          // Once upload is complete, get the download URL
+          getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
+            setNewProduct((prevProduct) => ({
+              ...prevProduct,
+              imageUrl: downloadURL, // Store the URL of the uploaded image
+            }));
+            console.log("File available at", downloadURL);
+          });
+        }
+      );
+    }
+  };
+
   const handleFormSubmit = async (e) => {
     e.preventDefault();
-  
+
     // Get the token from localStorage
     const token = localStorage.getItem("token");
-  
-    // Check if the token is available
+
     if (!token) {
       alert("You must be logged in to submit the form.");
       return;
     }
-  
+
     // Decode the token (assuming it's a JWT)
     try {
       const decodedToken = JSON.parse(atob(token.split('.')[1])); // Decode token if it's a JWT
-      console.log("Decoded Token:", decodedToken); // Check the structure of the decoded token
-  
       const userType = decodedToken.usertype; // Replace with the correct field name if it's different
-      console.log("User Type:", userType); // Log the user type to verify it
-      
-      // Check if the user is an admin
+
       if (userType !== 'admin') {
         alert("You do not have permission to submit this form.");
         return;
       }
-  
-      // If the user is an admin, proceed with the form submission
+
       if (editingListingId) {
         // Update existing listing
         try {
@@ -84,7 +108,7 @@ const Dashboard = () => {
         try {
           await axios.post(
             "http://localhost:5000/listing/create",
-            newProduct,
+            newProduct,  // Include imageUrl in the payload
             {
               headers: {
                 Authorization: `Bearer ${token}`,
@@ -97,19 +121,17 @@ const Dashboard = () => {
           alert("Error creating listing. Please try again.");
         }
       }
-  
-      // Reset form and hide it
-      setNewProduct({ name: "", quantity: "", type: "", price: "" });
+
+      setNewProduct({ name: "", quantity: "", type: "", price: "", imageUrl: "",description:"" });
       setShowForm(false);
       fetchListings(); // Refresh the listings
-  
+
     } catch (error) {
       console.error("Error decoding token:", error);
       alert("Invalid token or user type.");
     }
   };
-  
-   
+
   const fetchListings = async () => {
     try {
       const token = localStorage.getItem("token");
@@ -127,14 +149,7 @@ const Dashboard = () => {
   const handleUpdate = (id, listing) => {
     setEditingListingId(id);
     setNewProduct(listing);
-    setShowModal(true); // Show the modal for updating
-  };
-
-  const handleModalSubmit = async (e) => {
-    e.preventDefault();
-    await handleFormSubmit(e); // Call the form submit handler
-    setShowModal(false); // Close the modal after submitting
-    fetchListings(); // Refresh the listings
+    setShowForm(true);
   };
 
   const handleDelete = async (id) => {
@@ -146,7 +161,7 @@ const Dashboard = () => {
         },
       });
       alert("Listing deleted successfully!");
-      fetchListings(); // Refresh the listings after deletion
+      fetchListings();
     } catch (error) {
       console.error("Error deleting listing:", error);
       alert("Error deleting listing. Please try again.");
@@ -154,32 +169,24 @@ const Dashboard = () => {
   };
 
   useEffect(() => {
-    fetchListings(); // Fetch listings when component mounts
+    fetchListings();
   }, []);
 
   return (
     <div className="dashboard-container">
-    
-      {/* Dashboard Navigation */}
       <DashboardNavigation setActiveSection={setActiveSection} />
-
-      {/* Conditional Rendering Based on Active Section */}
+      
       {activeSection === "products" && (
         <>
           <div className="listing-container">
-            {/* Add Product Button */}
-            <h2 className="Title1">Products</h2>
-            <button
-              className="add-listing-button"
-              onClick={handleAddProductClick}
-            >
+            <h2 className="Title1">Pric</h2>
+            <button className="add-listing-button" onClick={handleAddProductClick}>
               + Add Product
             </button>
 
-            {/* Form for Adding/Updating Product */}
             {showForm && (
               <form onSubmit={handleFormSubmit} className="listing-form">
-                <h2>Add New Product</h2>
+                <h2>{editingListingId ? "Update Product" : "Add New Product"}</h2>
                 <label>
                   Name:
                   <input
@@ -208,9 +215,7 @@ const Dashboard = () => {
                     onChange={handleInputChange}
                     required
                   >
-                    <option value="" disabled>
-                      Select type
-                    </option>
+                    <option value="" disabled>Select type</option>
                     <option value="Pharmacy">Pharmacy</option>
                     <option value="Grocery">Grocery</option>
                   </select>
@@ -225,49 +230,48 @@ const Dashboard = () => {
                     required
                   />
                 </label>
+                <label>
+                  Product Image:
+                  <input
+                    type="file"
+                    accept="image/*"
+                    onChange={handleImageChange}
+                  />
+                </label>
+                <label>
+                Description :
+                  <textarea
+                    type="text"
+                    name="description"
+                    value={newProduct.description}
+                    onChange={handleInputChange}
+                    required
+                  />
+                </label>
                 <button type="submit" className="submit-button1">
-                  Create Listing
+                  {editingListingId ? "Update Listing" : "Create Listing"}
                 </button>
-                <button
-                  type="button"
-                  className="cancel-button23"
-                  onClick={() => setShowForm(false)}
-                >
+                <button type="button" className="cancel-button23" onClick={() => setShowForm(false)}>
                   Cancel
                 </button>
               </form>
             )}
 
-            {/* Product Listings */}
             <h2>Products</h2>
             <div className="card-container">
               {listings.length > 0 ? (
                 listings.map((listing) => (
                   <div className="card" key={listing._id}>
                     <h4>{listing.name}</h4>
-                    <img
-                      src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSIRzCC-rYiqc7KmGdz071CZuHZoHKpAcMo1w&s"
-                      alt="Product"
-                    />
-                    <p>
-                      <strong>Quantity:</strong> {listing.quantity}
-                    </p>
-                    <p>
-                      <strong>Type:</strong> {listing.type}
-                    </p>
-                    <p>
-                      <strong>Price:</strong> ₱{listing.price}
-                    </p>
-                    <button
-                      className="update-button"
-                      onClick={() => handleUpdate(listing._id, listing)}
-                    >
+                    <img src={listing.imageUrl || "default-image-url"} alt="Product" />
+                    <p><strong>Quantity:</strong> {listing.quantity}</p>
+                    <p><strong>Type:</strong> {listing.type}</p>
+                    <p><strong>Price:</strong> ₱{listing.price}</p>
+                    <p><strong>Description:</strong> ₱{listing.description}</p>
+                    <button className="update-button" onClick={() => handleUpdate(listing._id, listing)}>
                       Update
                     </button>
-                    <button
-                      className="delete-button"
-                      onClick={() => handleDelete(listing._id)}
-                    >
+                    <button className="delete-button" onClick={() => handleDelete(listing._id)}>
                       Delete
                     </button>
                   </div>
@@ -277,15 +281,6 @@ const Dashboard = () => {
               )}
             </div>
           </div>
-
-          {/* Modal for updating listings */}
-          <Modal
-            showModal={showModal}
-            onClose={() => setShowModal(false)}
-            onSubmit={handleModalSubmit}
-            product={newProduct}
-            handleInputChange={handleInputChange}
-          />
         </>
       )}
 

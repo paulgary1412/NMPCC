@@ -196,18 +196,17 @@ app.get("/listing",  async (req, res) => {
   }
 });
 
-// Create a new listing
-app.post("/listing/create", upload.single("picture"), async (req, res) => {
+app.post("/listing/create", async (req, res) => {
   try {
-    const { name, quantity, type, price } = req.body;
-    const picture = req.file ? `uploads/${req.file.filename}` : null; // Save the image file path
+    const { name, quantity, type, price, imageUrl ,description} = req.body; // Include imageUrl here
 
     const listing = new Listing({
       name,
-      picture,
+      imageUrl,  // Save the Firebase URL
       quantity,
       type,
       price,
+      description,
     });
 
     await listing.save();
@@ -218,16 +217,18 @@ app.post("/listing/create", upload.single("picture"), async (req, res) => {
   }
 });
 
-// Update a listing
-app.put("/listing/update/:id",upload.single("picture"), async (req, res) => {
+app.put("/listing/update/:id", upload.single("picture"), async (req, res) => {
   const { id } = req.params;
-  const { name, quantity, type, price } = req.body;
-  let updateData = { name, quantity, type, price };
+  const { name, quantity, type, price, imageUrl ,description} = req.body;
 
-  // Check if there's a new picture and update it
+  // Prepare update data
+  let updateData = { name, quantity, type, price,description };
+
+  // If there's a new picture, update the imageUrl field with the uploaded image's URL
   if (req.file) {
-  // If there's a new file, update the picture field
-  updateData.picture = `uploads/${req.file.filename}`;
+    updateData.imageUrl = `uploads/${req.file.filename}`; // Update with the new image path
+  } else if (imageUrl) {
+    updateData.imageUrl = imageUrl; // If no new image but imageUrl exists in the request body, use it
   }
 
   try {
@@ -236,10 +237,12 @@ app.put("/listing/update/:id",upload.single("picture"), async (req, res) => {
       updateData,
       { new: true, runValidators: true }
     );
+
     if (!updatedListing) {
       return res.status(404).json({ error: "Listing not found" });
     }
-    res.json(updatedListing);
+
+    res.json(updatedListing); // Return the updated listing
   } catch (error) {
     console.error("Error updating listing:", error);
     res.status(500).json({ error: "Error updating listing" });

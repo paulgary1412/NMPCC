@@ -63,10 +63,12 @@
   background-color: #f1f1f1;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 }
-
+.src{
+  width: 100px;
+}
 .product-image {
-  width: 60px;  /* Set a fixed width for the image */
-  height: 60px; /* Set a fixed height for the image */
+  width: 100px;  /* Set a fixed width for the image */
+  height: 150px; /* Set a fixed height for the image */
   object-fit: cover; /* Make sure the image fits the box without stretching */
   margin-right: 1rem;  /* Add space between the image and the text */
   border-radius: 5px; /* Optional: for rounded corners */

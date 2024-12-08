@@ -1,14 +1,29 @@
-import React from "react";
+import React, { useState } from "react";
 import "../assets/Modal.css";
 
 const Modal = ({ showModal, onClose, onSubmit, product, handleInputChange }) => {
   if (!showModal) return null;
 
+  // To handle file input separately
+  const handleFileChange = (e) => {
+    const file = e.target.files[0]; // Get the selected file
+    if (file) {
+      // Update product with the file (image)
+      handleInputChange({ target: { name: "imageUrl", value: file } });
+    }
+  };
+
+  // Function for form submission
+  const handleFormSubmit = (e) => {
+    e.preventDefault();
+    onSubmit(); // Trigger onSubmit passed as a prop, which will update or create the listing
+  };
+
   return (
     <div className="modal-overlay" onClick={onClose}>
       <div className="modal-content" onClick={(e) => e.stopPropagation()}>
         <h2>Update Product</h2>
-        <form onSubmit={onSubmit}>
+        <form onSubmit={handleFormSubmit}>
           <div className="form-group">
             <label htmlFor="name">Name:</label>
             <input
@@ -23,10 +38,10 @@ const Modal = ({ showModal, onClose, onSubmit, product, handleInputChange }) => 
           <div className="form-group">
             <label htmlFor="picture">Picture</label>
             <input
-               type="file" // Change type to "file"
-               name="picture"
-               accept="image/*" // Restrict to image files
-               onChange={handleInputChange} // Use a separate handler for file input
+              type="file" // Change type to "file"
+              name="picture"
+              accept="image/*" // Restrict to image files
+              onChange={handleFileChange} // Separate handler for file input
             />
           </div>
           <div className="form-group">

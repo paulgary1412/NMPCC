@@ -20,6 +20,25 @@
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   margin-left: 150px;
 }
+/* Card container adjustments */
+.card {
+  background-color: #fff;
+  border-radius: 10px;
+  padding: 20px;
+  width: 300px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  overflow: hidden; /* Prevent content from overflowing */
+}
+
+/* Paragraph adjustments */
+.card p {
+  font-size: 16px;
+  margin-bottom: 8px;
+  color: #555;
+  word-wrap: break-word; /* Ensures text wraps and doesn't overflow */
+  overflow: hidden; /* Prevents overlap */
+}
+
 
 h2 {
   color: #333;
@@ -108,13 +127,6 @@ h2 {
   justify-content: space-between;
 }
 
-.card {
-  background-color: #fff;
-  border-radius: 10px;
-  padding: 20px;
-  width: 300px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-}
 
 .card h4 {
   font-size: 18px;
@@ -122,18 +134,15 @@ h2 {
   margin-bottom: 10px;
 }
 
+
 .card img {
-  width: 100%;
-  height: auto;
+  width: 100px;
+  height: 100px;
+  margin-top: 100px;
   border-radius: 5px;
   margin-bottom: 10px;
 }
 
-.card p {
-  font-size: 16px;
-  margin-bottom: 8px;
-  color: #555;
-}
 
 .card button {
   padding: 10px 15px;

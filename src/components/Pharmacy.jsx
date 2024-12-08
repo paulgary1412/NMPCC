@@ -85,15 +85,7 @@ const Pharmacy = () => {
           <option value="packages">Packages</option>
         </select>
 
-        <p>Product</p>
-        <input
-          type="text"
-          placeholder="Name"
-          className="filter-input"
-          value={filterName}
-          onChange={(e) => setFilterName(e.target.value)}
-        />
-
+        
         <p>Price</p>
         <input
           type="number"
@@ -114,34 +106,41 @@ const Pharmacy = () => {
       </div>
 
       <div className="divider-container">
-        <div className="divider1"></div>
-        <div className="section">
+        
+      <p>Search</p>
+        <input
+          type="text"
+          placeholder="Search Name"
+          className="filter-input"
+          value={filterName}
+          onChange={(e) => setFilterName(e.target.value)}
+        />
+
           <div className="items-container">
             {filteredProducts.map((product) => (
               <div key={product._id} className="item-card">
                 <div className="image-container">
-                  <img
-                    src={product.picture ? `http://localhost:5000/${product.picture}` : "https://via.placeholder.com/150"}
-                    alt={product.name || "Product"}
-                    className="product-image2"
-                  />
+                <img src={product.imageUrl || "default-image-url"} alt="Product" />
                   <div className="item-details">
                     <h2>{product.name}</h2>
-                    <p>Price: ₱{product.price}</p>
-                    <p>Quantity: {product.quantity}</p>
-                    <p>{product.description}</p>
-                    <div className="button-group">
-                    
-                      <button
-                        className="buy-now-btn"
-                        onClick={() => handleBuyNow(product)} // Add onClick for Buy Now
-                      >
-                        Buy Now
-                      </button>
-                    </div>
+                    <p><b>Price </b>: ₱{product.price}</p>
+                    <p><b>Quantity:</b> {product.quantity}</p>
+                    <p><b>Description :</b>{product.description}</p>
+                   
                   </div>
+                  <div className="button-group">
                 </div>
+               
+                    
+                    <button
+                      className="buy-now-btn"
+                      onClick={() => handleBuyNow(product)} // Add onClick for Buy Now
+                    >
+                      Buy Now
+                    </button>
+                  </div>
               </div>
+              
             ))}
 
             {filteredPackages.map((pkg) => (
@@ -152,7 +151,7 @@ const Pharmacy = () => {
                   className="item-image"
                 />
                 <h4>{pkg.name}</h4>
-                <p>{pkg.description}</p>
+                <p>Description : {pkg.description}</p>
                 <p>Quantity :{pkg.quantity}</p>
                 <p>Price: ₱{pkg.price}</p>
                 <div className="button-group">
@@ -167,7 +166,7 @@ const Pharmacy = () => {
               </div>
             ))}
           </div>
-        </div>
+       
       </div>
     </div>
   );
