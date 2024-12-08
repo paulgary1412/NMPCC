@@ -185,20 +185,22 @@ const Dashboard = () => {
             </button>
 
             {showForm && (
-              <form onSubmit={handleFormSubmit} className="listing-form">
+              <div className="formcontainer">
+              <form onSubmit={handleFormSubmit} className="listing-form2">
                 <h2>{editingListingId ? "Update Product" : "Add New Product"}</h2>
                 <label>
-                  Name:
+                 <b> Name:</b>
                   <input
                     type="text"
                     name="name"
                     value={newProduct.name}
                     onChange={handleInputChange}
                     required
+                    className="something"
                   />
                 </label>
                 <label>
-                  Quantity:
+                <b> Quantity:</b>
                   <input
                     type="number"
                     name="quantity"
@@ -208,7 +210,7 @@ const Dashboard = () => {
                   />
                 </label>
                 <label>
-                  Type:
+                <b> Type:</b>
                   <select
                     name="type"
                     value={newProduct.type}
@@ -221,7 +223,7 @@ const Dashboard = () => {
                   </select>
                 </label>
                 <label>
-                  Price:
+                <b> Price:</b>
                   <input
                     type="number"
                     name="price"
@@ -231,7 +233,7 @@ const Dashboard = () => {
                   />
                 </label>
                 <label>
-                  Product Image:
+                <b> Product Image:</b>
                   <input
                     type="file"
                     accept="image/*"
@@ -239,7 +241,7 @@ const Dashboard = () => {
                   />
                 </label>
                 <label>
-                Description :
+                <b> Description:</b>
                   <textarea
                     type="text"
                     name="description"
@@ -255,31 +257,43 @@ const Dashboard = () => {
                   Cancel
                 </button>
               </form>
+              </div>
             )}
 
             <h2>Products</h2>
             <div className="card-container">
               {listings.length > 0 ? (
                 listings.map((listing) => (
+
                   <div className="card" key={listing._id}>
+                    <div className="card-details">
                     <h4>{listing.name}</h4>
+                    
                     <img src={listing.imageUrl || "default-image-url"} alt="Product" />
                     <p><strong>Quantity:</strong> {listing.quantity}</p>
                     <p><strong>Type:</strong> {listing.type}</p>
                     <p><strong>Price:</strong> ₱{listing.price}</p>
-                    <p><strong>Description:</strong> ₱{listing.description}</p>
+                    <div className="button-group2">
+            </div>
+          
                     <button className="update-button" onClick={() => handleUpdate(listing._id, listing)}>
-                      Update
-                    </button>
-                    <button className="delete-button" onClick={() => handleDelete(listing._id)}>
-                      Delete
-                    </button>
-                  </div>
+                  Update
+                  
+                </button>
+                  
+                  <button className="delete-button" onClick={() => handleDelete(listing._id)}>
+                  Delete
+                </button>
+                
+                </div>
+                </div>
                 ))
               ) : (
                 <p>No listings available</p>
               )}
+              
             </div>
+            
           </div>
         </>
       )}

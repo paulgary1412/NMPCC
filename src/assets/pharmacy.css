@@ -135,6 +135,17 @@
   height: 260px;
   position: relative;
 }
+.item-card2 {
+  display: flex;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  background-color: #fff;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  width: 420px; /* Adjust width to fit content */
+  height: 260px;
+  position: relative;
+}
+
 
 .image-container {
   flex: 1;
@@ -143,17 +154,26 @@
   padding: 10px;
   position: relative;
 }
+.image-container3 {
+  
+  flex: 1;
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  position: relative;
+ 
+}
+
 
 .item-card2 {
-  position: relative;
+  display: flex;
   border: 1px solid #ccc;
-  border-radius: 5px;
-  padding: 55px;
-  margin-top: 0px;
-  text-align: center;
+  border-radius: 8px;
   background-color: #fff;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-  width: 300px; /* Fixed width for desktop */
+  width: 420px; /* Adjust width to fit content */
+  height: 260px;
+  position: relative;
 }
 
 /* Product Image */
@@ -167,9 +187,24 @@
   margin-left: -20px;
   margin-right: 20px;
 }
+.item-card2 img {
+  width: 175px;        /* Set a fixed width for all images */
+  height: 150px;       /* Set a fixed height for all images */
+  object-fit: cover;   /* Ensures the image covers the area, cropping if necessary */
+  border-top-left-radius: 8px; /* Rounded top-left corner */
+  border-top-right-radius: 0px; /* No rounded top-right corner */
+  margin-top: -110px;
+  margin-left: -20px;
+  margin-right: 20px;
+}
 
 
 .item-image {
+
+  margin-top: 0px;
+  background-color: #666;
+}
+.item-image2 {
 
   margin-top: 0px;
   background-color: #666;
@@ -188,14 +223,31 @@
   width: 100%; /* Allow it to take full width inside the card */
   white-space: normal;  /* Allow text to wrap */
 }
+.item-details2 {
+  flex: 2;
+  margin-top: -70px; /* Adjust margin to ensure spacing is correct */
+  display: flex;
+  flex-direction: column;
 
+  overflow-wrap: break-word;  /* Ensure text wraps correctly */
+  word-wrap: break-word;  /* Ensure long words break and wrap */
+  word-break: break-word;  /* Prevent words from overflowing */
+  width: 100%; /* Allow it to take full width inside the card */
+  white-space: normal;  /* Allow text to wrap */
+}
 /* Product Title */
 .item-card h4 {
   font-size: 16px;
   color: #333;
   margin-bottom: 8px;
   white-space: normal;  /* Allow title to break if it's too long */
+}.item-card2 h4 {
+  font-size: 16px;
+  color: #333;
+  margin-bottom: 8px;
+  white-space: normal;  /* Allow title to break if it's too long */
 }
+
 
 /* Product Price and Sales Info */
 .item-card p {
@@ -207,6 +259,15 @@
   word-break: break-word;  /* Handle long words breaking */
 }
 
+.item-card2 p {
+  font-size: 14px;
+  color: #666;
+  margin: 5px 0;
+  white-space: normal;  /* Allow paragraphs to break and wrap properly */
+  overflow-wrap: break-word;  /* Ensures no content overflow */
+  
+  word-break: break-word;  /* Handle long words breaking */
+}
 /* Buttons Container in Product Card */
 .button-group {
   display: flex;
@@ -225,7 +286,12 @@
   font-size: 14px;
   transition: background-color 0.3s ease;
 }
-
+.item-card2 h2 {
+  margin-top: 2rem;
+  font-size: 1.3rem;
+  color: #333;
+  
+}
 .buy-now-btn {
   background-color: green;
   color: white;
@@ -299,4 +365,166 @@ h6 {
   object-fit: cover; /* Make sure the image fits the box without stretching */
   margin-right: 1rem;  /* Add space between the image and the text */
   border-radius: 5px; /* Optional: for rounded corners */
+}
+/* Responsive Media Queries */
+
+/* For screens 768px or smaller (tablets and below) */
+@media (max-width: 1368px) {
+  .pharmacy-container {
+    flex-direction: column; /* Stack items vertically */
+    padding: 10px;
+    margin-top: 250px;
+    
+  }
+  .buy-now-btn {
+    font-size: 12px; /* Make buttons smaller */
+    width: 150px; /* Reduce button width */
+    margin-top: 150px;
+    height: 100px;
+  }
+
+  /* Adjust filter container */
+  .filter-container {
+    position: relative; /* Make the filter container relative to screen */
+    width: 90%; /* Full width */
+    
+    margin: auto;
+  }
+
+  .divider-container {
+    margin-left: 0;
+    margin-top: 20px;
+  }
+
+  /* Items grid */
+  .items-container {
+    grid-template-columns: repeat(2, 1fr); /* 2 columns instead of 3 */
+    gap: 50px; /* Reduce gap between items */
+  }
+
+  .item-card {
+    width: 100%; /* Make item cards full-width for smaller screens */
+    height:250px;
+    margin-left:-30px;
+  }
+
+  .item-card2 {
+    width: 100%; /* Make item cards full-width for smaller screens */
+    height:250px;
+    margin-left:-30px;
+  }
+  .item-card img {
+    width: 150px;  /* Smaller image */
+    height: 150px; /* Adjust image height */
+    margin-top: -100px;
+  }
+  
+  .item-card2 img {
+    width: 150px;  /* Smaller image */
+    height: 150px; /* Adjust image height */
+    margin-top: -100px;
+  }
+  .item-details2 {
+    margin-top: -50px; /* Adjust margins for mobile */
+  }
+  .item-details {
+    margin-top: -50px; /* Adjust margins for mobile */
+  }
+  .divider-container input[type="text"]{
+    width: 30%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 14px;
+    margin-left:60px;
+  }
+  .divider-container p{
+    font-size: 14px;
+    margin-left:65px;
+    font-weight: bold;
+    margin-top: 10px;
+  }
+  
+  .item-card2 {
+    width: 100%; /* Make item cards full-width for smaller screens */
+    height: auto;
+    margin-left:-30px;
+  }
+
+  .item-card2 img {
+    width: 150px;  /* Smaller image */
+    height: 120px; /* Adjust image height */
+    margin-top: -130px;
+  }
+
+  .item-details2 {
+    margin-top: -50px; /* Adjust margins for mobile */
+  }
+  .divider-container input[type="text"]{
+    width: 30%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 14px;
+    margin-left:60px;
+  }
+  .divider-container p{
+    font-size: 14px;
+    margin-left:65px;
+    font-weight: bold;
+    margin-top: 10px;
+  }
+}
+
+/* For screens 480px or smaller (phones and below) */
+@media (max-width: 480px) {
+  .pharmacy-container {
+    flex-direction: column; /* Stack everything vertically */
+    padding: 10px;
+  }
+
+  /* Filter container takes full width on small screens */
+  .filter-container {
+    width: 100%;
+    margin-left: 0;
+    margin-top: 10px;
+  }
+
+  /* Adjust the filter and search inputs */
+  .filter-input {
+    font-size: 14px;  /* Make text slightly smaller */
+  }
+
+  .divider-container {
+    margin-left: 0;
+    margin-top: 20px;
+  }
+
+  /* Adjust items grid */
+  .items-container {
+    grid-template-columns: 1fr; /* Single column layout */
+    gap: 15px; /* Smaller gap between items */
+  }
+
+  .item-card {
+    width: 100%; /* Make cards full width */
+    height: auto;
+  }
+
+  .item-card img {
+    width: 120px;  /* Smaller image size */
+    height: 100px; /* Adjust image height */
+  }
+
+  .item-details {
+    margin-top: -40px; /* Adjust margins for very small screens */
+  }
+
+  /* Adjust button size */
+  .buy-now-btn {
+    font-size: 12px; /* Make buttons smaller */
+    width: 120px; /* Reduce button width */
+  }
 }

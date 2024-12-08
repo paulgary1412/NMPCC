@@ -120,16 +120,16 @@ const Pharmacy = () => {
             {filteredProducts.map((product) => (
               <div key={product._id} className="item-card">
                 <div className="image-container">
-                <img src={product.imageUrl || "default-image-url"} alt="Product" />
+                 <img src={product.imageUrl || "default-image-url"} alt="Product" />
                   <div className="item-details">
                     <h2>{product.name}</h2>
                     <p><b>Price </b>: ₱{product.price}</p>
                     <p><b>Quantity:</b> {product.quantity}</p>
                     <p><b>Description :</b>{product.description}</p>
-                   
-                  </div>
-                  <div className="button-group">
-                </div>
+                    
+                    </div>
+                    <div className="button-group">
+                    </div>
                
                     
                     <button
@@ -144,26 +144,29 @@ const Pharmacy = () => {
             ))}
 
             {filteredPackages.map((pkg) => (
-              <div key={pkg._id} className="item-card2">
-                <img
-                  src="https://www.apsfulfillment.com/wp-content/uploads/2017/06/APS-Fulfillment-Inc-j.jpg"
-                  alt="Package"
-                  className="item-image"
-                />
-                <h4>{pkg.name}</h4>
-                <p>Description : {pkg.description}</p>
-                <p>Quantity :{pkg.quantity}</p>
-                <p>Price: ₱{pkg.price}</p>
-                <div className="button-group">
-              
-                  <button
-                    className="buy-now-btn"
-                    onClick={() => handleBuyNow(pkg)} // Add onClick for Buy Now
-                  >
-                    Buy Now
-                  </button>
-                </div>
+              <div key={pkg._id} className="item-card">
+                <div className="image-container">
+                <img src={pkg.imageUrl || "default-image-url"} alt="Package" />
+                  <div className="item-details">
+                    <h2>{pkg.name}</h2>
+                    <p><b>Price </b>: ₱{pkg.price}</p>
+                    <p><b>Quantity:</b> {pkg.quantity}</p>
+                    <p><b>Description :</b>{pkg.description}</p>
+                   
+                      </div>
+                      <div className="button-group">
+                    </div>
+               
+                    
+                    <button
+                      className="buy-now-btn"
+                      onClick={() => handleBuyNow(pkg)} // Add onClick for Buy Now
+                    >
+                      Buy Now
+                    </button>
+                  </div>
               </div>
+              
             ))}
           </div>
        

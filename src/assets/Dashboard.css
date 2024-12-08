@@ -26,8 +26,10 @@
   border-radius: 10px;
   padding: 20px;
   width: 300px;
+  height: 325px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  overflow: hidden; /* Prevent content from overflowing */
+ 
+  z-index: 1;
 }
 
 /* Paragraph adjustments */
@@ -62,29 +64,65 @@ h2 {
 }
 
 /* Form */
-.listing-form {
+.listing-form2 {
+
+  border-radius: 25px;
+  background-color:white;
   display: flex;
+  padding: 20px;
+  border-color: black;
   flex-direction: column;
-  max-width: 400px;
+  margin: auto;
+  max-width: 480px;
   margin-bottom: 20px;
+  margin-top: 10px;
+  margin-left: 10px;
+}
+.formcontainer{
+  border-color: black;
+  background-color:whitesmoke;
+  border-radius: 25px; /* Keep only one border-radius value */
+  height: 730px;
+  width: 500px;
+  margin: auto;
+  margin-top: -90;
+  z-index: 3;
+  margin-left: 30%;
+  position: absolute;
 }
 
-.listing-form label {
+.listing-form2 label {
+ z-index: 4;
   margin-bottom: 10px;
-  color: #555;
+  color:black;
+  margin-left: -5px;
 }
 
-.listing-form input,
-.listing-form select {
+.listing-form2 input[type="number"],
+.listing-form2 input[type="text"],
+.listing-form2 input[type="file"],
+.listing-form2 input[type="textarea"],
+.listing-form2 select {
+
   padding: 8px;
-  margin-bottom: 15px;
+  margin: auto;
+  margin-left: 5px;
   border: 1px solid #ccc;
   border-radius: 5px;
   font-size: 16px;
+  width: 100%;
+  height: 100%;
 }
-
-.listing-form input:focus,
-.listing-form select:focus {
+textarea{
+  width: 100%;
+  height: 100px;
+  margin-left: 5px;
+}
+select{
+  width: 400%;
+}
+.listing-form2 input:focus,
+.listing-form2 select:focus {
   outline: none;
   border-color: #4CAF50;
 }
@@ -118,14 +156,21 @@ h2 {
 .cancel-button23:hover {
   background-color: #e53935;
 }
+.card-container {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);  /* Creates 3 equal-width columns */
+  gap: 20px;
+  row-gap:100px ;
+  justify-items: center;  /* Centers items horizontally */
+  align-items: center;    /* Centers items vertically */
+  width: 100%;            /* Ensures it takes full width */
+   /* Limits the width if needed */
+  margin: 0 auto;         /* Centers the grid container */
+}
 
 /* Product Listings */
-.card-container {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 20px;
-  justify-content: space-between;
-}
+
+
 
 
 .card h4 {
@@ -138,26 +183,45 @@ h2 {
 .card img {
   width: 100px;
   height: 100px;
-  margin-top: 100px;
+  margin-top: 0px;
   border-radius: 5px;
-  margin-bottom: 10px;
+ 
 }
+
 
 
 .card button {
   padding: 10px 15px;
-  margin-top: 10px;
-  border-radius: 5px;
-  border: none;
+ 
+  bottom:10px;
+
+  
   font-size: 14px;
   cursor: pointer;
+  z-index: 2;
+
+ 
+ 
 }
 
 .update-button {
   background-color: #FFC107;
   color: white;
-}
+  height: 60px;
+  width: 155px;
+  z-index: 5;
+ position: relative;
+ margin-left: -24px;
+ border: none;
 
+border-top-right-radius: 0px;
+border-bottom-right-radius: 0px;
+}
+.button-group2 {
+  display: flex;
+  
+  margin-bottom: 20px;
+}
 .update-button:hover {
   background-color: #FF9800;
 }
@@ -165,6 +229,15 @@ h2 {
 .delete-button {
   background-color: #f44336;
   color: white;
+  height: 60px;
+  width: 150px;
+  z-index: 5;
+  position:relative;
+  margin-left: 130px;
+  margin-top: -60px;
+  border-top-left-radius: 0px;
+  border-bottom-left-radius: 0px;
+  
 }
 
 .delete-button:hover {
@@ -232,4 +305,140 @@ h2 {
 
 .modal-content .cancel-button:hover {
   background-color: #e53935;
+}
+/* Adjust form and cards for responsiveness */
+@media screen and (max-width: 928px) {
+  .formcontainer {
+    width: 90%;
+  margin: auto;
+    position: relative;
+  }
+
+  .listing-container {
+    margin-top: 200px;
+    margin-left: 50px;
+    padding: 10px;
+  }
+
+  .card-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .card {
+    width: 100%;
+    max-width: 300px;
+    margin: 10px;
+  }
+
+  .listing-form2 input,
+  .listing-form2 select,
+  .listing-form2 textarea {
+    width: 100%;
+  }
+  .add-listing-button {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 5px;
+    margin-left: 300px;
+  }
+  
+.listing-form2 {
+
+  border-radius: 25px;
+  background-color:white;
+  display: flex;
+  padding: 20px;
+  border-color: black;
+  flex-direction: column;
+  margin: auto;
+  max-width: 480px;
+  margin-bottom: 20px;
+  margin-top: 10px;
+  margin-left: 10px;
+}
+.formcontainer{
+  margin: auto;
+  border-color: black;
+  background-color:whitesmoke;
+  border-radius: 25px; /* Keep only one border-radius value */
+  height: 730px;
+  width: 500px;
+  margin: auto;
+  margin-top: -90;
+  z-index: 3;
+  margin-left: 10%;
+  position: absolute;
+}
+
+.listing-form2 label {
+ z-index: 4;
+  margin-bottom: 10px;
+  color:black;
+  margin-left: -5px;
+}
+
+.listing-form2 input[type="number"],
+.listing-form2 input[type="text"],
+.listing-form2 input[type="file"],
+.listing-form2 input[type="textarea"],
+.listing-form2 select {
+
+  padding: 8px;
+  margin: auto;
+  margin-left: 5px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 16px;
+  width: 100%;
+  height: 100%;
+}
+textarea{
+  width: 100%;
+  height: 100px;
+  margin-left: 5px;
+}
+select{
+  width: 400%;
+}
+.listing-form2 input:focus,
+.listing-form2 select:focus {
+  outline: none;
+  border-color: #4CAF50;
+}
+
+.submit-button1 {
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  font-size: 16px;
+  cursor: pointer;
+  border-radius: 5px;
+  margin-top: 10px;
+}
+
+.submit-button1:hover {
+  background-color: #45a049;
+}
+
+.cancel-button23 {
+  background-color: #f44336;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  font-size: 16px;
+  cursor: pointer;
+  border-radius: 5px;
+  margin-top: 10px;
+}
+
+.cancel-button23:hover {
+  background-color: #e53935;
+}
 }

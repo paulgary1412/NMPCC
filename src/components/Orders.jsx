@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { jwtDecode } from "jwt-decode"; // Correct import syntax
 import { useNavigate } from "react-router-dom";
-import "./css/Orders.css"; // Add your CSS styles
+import "./css/AdminOrder.css"; // Add your CSS styles
 
 const Orders = () => {
   const [orders, setOrders] = useState([]);
@@ -45,8 +45,10 @@ const Orders = () => {
   }
 
   return (
+    <div className="sample">
+          <h1>Your Orders</h1>
     <div className="orders-page">
-      <h1>Your Orders</h1>
+  
       {orders.length === 0 ? (
         <p className="no-orders">You have no orders yet.</p>
       ) : (
@@ -74,7 +76,8 @@ const Orders = () => {
           </div>
         ))
       )}
-      <button onClick={() => navigate("/")} className="back-home-button">Back to Home</button>
+
+    </div>
     </div>
   );
 };

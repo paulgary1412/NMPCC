@@ -75,6 +75,7 @@ export const Navigation = () => {
       cursor: 'pointer',
       marginTop:'10px'
     },
+    
   };
 
   const handleAvatarClick = () => {
@@ -163,7 +164,7 @@ export const Navigation = () => {
                   <div
                     style={styles.dropdownItem}
                     onClick={() => {
-                      navigate("/user/orders");
+                      navigate("/orders");
                       setDropdownVisible(false); // Close dropdown after navigation
                     }}
                   >

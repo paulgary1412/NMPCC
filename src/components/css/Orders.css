@@ -3,6 +3,11 @@
   padding: 20px;
   background-color: #f4f6f9;
   font-family: 'Arial', sans-serif;
+  margin: auto;
+  display: grid;
+  gap:50px;
+  margin-left:100px;
+  grid-template-columns: repeat(4, 1fr); /* Two equal columns */
 }
 
 .page-title {
@@ -34,6 +39,8 @@
   padding: 20px;
   margin-bottom: 20px;
   transition: box-shadow 0.3s ease;
+  width: 90%;
+  margin: auto;
 }
 
 .order-card:hover {
@@ -104,7 +111,35 @@ button {
   color: #fff;
   margin-top: 10px;
 }
-
+.sample{
+  margin-top: 150px;
+    }
 button:hover {
   opacity: 0.8;
+}
+@media  (max-width:920px) {
+  .order-card {
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    margin-bottom: 20px;
+    margin-top: 10px;
+    transition: box-shadow 0.3s ease;
+  }
+  .orders-page {
+    display: grid;
+      grid-template-columns: repeat(2, 1fr); /* Two equal columns */
+      gap: 20px;
+    padding: 20px;
+    background-color: #f4f6f9;
+    font-family: 'Arial', sans-serif;
+    margin: auto;
+    display: grid;
+    margin-top: 0px;
+  }
+  .sample{
+margin-top: 150px;
+  }
+  
 }

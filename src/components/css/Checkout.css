@@ -178,26 +178,185 @@ select {
 }
 
 /* Responsive Design */
-@media (max-width: 768px) {
-  .checkout-container {
-    flex-direction: column;
-  }
+@media (max-width: 1368px) {
+/* Checkout container to center content */
+.checkout-page {
+  display: flex;
+  justify-content: center;
+  margin-top: 50px;
+  align-items: flex-start;
+  height: auto;  /* Subtract header height */
+  background: linear-gradient(135deg, #f0f0f0, #d1d1d1);  /* Subtle gradient background */
+  margin: 0;
+  font-family: 'Arial', sans-serif;
+  padding-top: 100px;  /* Add top padding to prevent content from being under the header */
+}
 
-  .left-column, .right-column {
-    width: 100%;
-    padding: 1rem;
-  }
+/* Container to hold both left and right columns */
+.checkout-container {
+  margin-top: 150px;
+  display: flex;
+  justify-content: space-between;
+  width: 80%;
+  max-width: 1000px;
+  padding: 2rem;
+  background-color: white;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
 
-  .checkout-title {
-    font-size: 1.8rem;
-  }
+  margin-bottom: 200px;
+  flex-wrap: wrap; /* Ensure it wraps on smaller screens */
+}
 
-  .product-item {
-    padding: 1rem;
-  }
+.checkout-container:hover {
+  transform: scale(1.02);
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.15);
+}
 
-  .confirm-button {
-    font-size: 1rem;
-    padding: 1rem;
-  }
+/* Left Column - Products List */
+.left-column {
+  width: 60%;
+  padding-right: 2rem;
+  overflow-y: auto; /* Add scroll if the content overflows */
+}
+
+.checkout-title {
+  color: #333;
+  font-size: 2rem;  /* Slightly smaller title font size */
+  font-weight: bold;
+  margin-bottom: 1rem;  /* Reduced margin */
+  text-transform: uppercase;
+}
+
+.product-item {
+  margin-bottom: 1.2rem;  /* Reduced margin to make items closer */
+  padding: 0.8rem;  /* Reduced padding */
+  border-radius: 8px;
+  background-color: #f9f9f9;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+  height: auto;  /* Auto height to adjust content dynamically */
+  display: flex;
+  align-items: center; /* Vertically center the image and content */
+  justify-content: flex-start; /* Align the items to the left */
+}
+
+.product-item:hover {
+  background-color: #f1f1f1;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+.src{
+  width: 100px;
+}
+.product-image {
+  width: 100px;  /* Set a fixed width for the image */
+  height: 150px; /* Set a fixed height for the image */
+  object-fit: cover; /* Make sure the image fits the box without stretching */
+  margin-right: 1rem;  /* Add space between the image and the text */
+  border-radius: 5px; /* Optional: for rounded corners */
+}
+
+.product-details {
+  margin-bottom: 1rem;
+}
+
+.product-name {
+  font-size: 1.1rem;  /* Reduced font size */
+  font-weight: bold;
+  color: #333;
+}
+
+.product-price, .product-quantity {
+  font-size: 0.9rem;  /* Smaller font size */
+  color: #555;
+}
+
+.quantity-container {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  margin-top: 1rem;
+}
+
+.quantity-label {
+  font-size: 1rem;  /* Slightly smaller label */
+  margin-right: 1rem;
+}
+
+.quantity-input {
+  width: 50px;  /* Reduced width */
+  padding: 0.5rem;
+  font-size: 0.9rem;  /* Slightly smaller font size */
+  text-align: center;
+  border-radius: 5px;
+  border: 1px solid #ddd;
+  transition: border-color 0.3s ease;
+}
+
+.quantity-input:focus {
+  border-color: #28a745;
+  outline: none;
+}
+
+.total-amount {
+  margin-top: 1.5rem;
+  font-weight: bold;
+  font-size: 1.3rem;  /* Slightly smaller font size */
+  color: #333;
+  padding-bottom: 1rem;
+  border-bottom: 2px solid #f0f0f0;
+}
+
+/* Right Column - Forms */
+.right-column {
+  width: 35%;
+  padding-left: 2rem;
+}
+
+.input-field {
+  width: 100%;
+  padding: 0.8rem;
+  margin: 1rem 0;
+  border-radius: 5px;
+  border: 1px solid #ddd;
+  font-size: 1rem;
+}
+
+h2 {
+  margin-top: 2rem;
+  font-size: 1.3rem;
+  color: #333;
+}
+
+select {
+  width: 100%;
+  padding: 0.8rem;
+  margin: 1rem 0;
+  border-radius: 5px;
+  border: 1px solid #ddd;
+  font-size: 1rem;
+}
+
+/* Confirm Button */
+.confirm-button {
+  margin-top: 2rem;
+  padding: 1rem 2rem;
+  background-color: #28a745;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 1.1rem;
+  width: 100%;
+  transition: background-color 0.3s ease;
+}
+
+.confirm-button:hover {
+  background-color: #218838;
+}
+
+.confirm-button:active {
+  transform: scale(0.98);
+}
 }

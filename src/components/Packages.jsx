@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
-import "../assets/Package.css"; // Import the CSS file
 import axios from "axios";
+import { storage } from "../firebase"; // Import Firebase storage
+import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage"; // Import storage functions
+import "../components/css/Package.css"; // Import the CSS file
 
 const Packages = () => {
   const [showPackageForm, setShowPackageForm] = useState(false);
@@ -9,10 +11,12 @@ const Packages = () => {
   const [selectedProductId, setSelectedProductId] = useState("");
   const [quantity, setQuantity] = useState(1);
   const [newPackageName, setNewPackageName] = useState("");
-  const [packageQuantity, setPackageQuantity] = useState(1);  // Add package quantity state
+  const [packageQuantity, setPackageQuantity] = useState(1);
   const [discount, setDiscount] = useState(0);
+  const [description, setDescription] = useState(""); // New state for description
+  const [imageUrl, setImageUrl] = useState(""); // New state for image URL
   const [packages, setPackages] = useState([]);
-  const [editingPackage, setEditingPackage] = useState(null); // State to store the package being edited
+  const [editingPackage, setEditingPackage] = useState(null);
 
   useEffect(() => {
     fetchProducts();
@@ -46,52 +50,66 @@ const Packages = () => {
   // Sum of all products in package
   const calculateTotal = () => {
     let total = 0;
-    selectedProducts.forEach(product => {
-      const productData = products.find(item => item._id === product.productId);
+    selectedProducts.forEach((product) => {
+      const productData = products.find((item) => item._id === product.productId);
       if (productData) {
-        total += (productData.price * product.quantity);
+        total += productData.price * product.quantity;
       }
     });
     return total - discount;
   };
 
   const handleAddProduct = () => {
-    const exists = selectedProducts.find(item => item.productId === selectedProductId);
+    const exists = selectedProducts.find((item) => item.productId === selectedProductId);
     if (exists) {
-      setSelectedProducts(prev =>
-        prev.map(item =>
+      setSelectedProducts((prev) =>
+        prev.map((item) =>
           item.productId === selectedProductId
             ? { ...item, quantity }
             : item
         )
       );
     } else {
-      setSelectedProducts(prev => [...prev, { productId: selectedProductId, quantity }]);
+      setSelectedProducts((prev) => [...prev, { productId: selectedProductId, quantity }]);
     }
     setSelectedProductId("");
     setQuantity(1);
   };
 
   const handleRemoveProduct = (productId) => {
-    setSelectedProducts(prev => prev.filter(item => item.productId !== productId));
+    setSelectedProducts((prev) => prev.filter((item) => item.productId !== productId));
   };
 
   const handleAddPackageClick = () => {
     setShowPackageForm(true);
+    setEditingPackage(null); // Reset editingPackage when creating a new package
+  };
+
+  const handleCancel = () => {
+    setShowPackageForm(false);
+    resetFormFields();
+  };
+
+  const resetFormFields = () => {
+    setNewPackageName("");
+    setSelectedProducts([]);
+    setDiscount(0);
+    setDescription("");
+    setImageUrl("");
+    setPackageQuantity(1);
+    setEditingPackage(null);
   };
 
   const handlePackageFormSubmit = async (e) => {
     e.preventDefault();
-     // Get the token from localStorage
-     const token = localStorage.getItem("token");
-    
-     // Check if the token is available
-     if (!token) {
-       alert("You must be logged in to submit the form.");
-       return;
-     }
- 
-    const items = selectedProducts.map(item => ({
+
+    const token = localStorage.getItem("token");
+    if (!token) {
+      alert("You must be logged in to submit the form.");
+      return;
+    }
+
+    const items = selectedProducts.map((item) => ({
       productId: item.productId,
       quantity: item.quantity,
     }));
@@ -101,7 +119,9 @@ const Packages = () => {
         name: newPackageName,
         price: calculateTotal(),
         items,
-        quantity: packageQuantity,  // Include package quantity in the package data
+        quantity: packageQuantity,
+        description,
+        imageUrl,
       };
 
       if (editingPackage) {
@@ -109,7 +129,6 @@ const Packages = () => {
           headers: { Authorization: `Bearer ${token}` },
         });
         alert("Package updated successfully!");
-        setEditingPackage(null);
       } else {
         await axios.post("http://localhost:5000/package/create", packageData, {
           headers: { Authorization: `Bearer ${token}` },
@@ -117,12 +136,7 @@ const Packages = () => {
         alert("Package created successfully!");
       }
 
-      setShowPackageForm(false);
-      setNewPackageName("");
-      setSelectedProducts([]);
-      setDiscount(0);
-      setPackageQuantity(1);  // Reset package quantity after submission
-
+      handleCancel();
       fetchPackages();
     } catch (error) {
       console.error("Error creating/updating package:", error);
@@ -134,8 +148,10 @@ const Packages = () => {
     setEditingPackage(pkg);
     setNewPackageName(pkg.name);
     setDiscount(pkg.discount || 0);
-    setPackageQuantity(pkg.quantity || 1);  // Set package quantity if editing
-    setSelectedProducts(pkg.items.map(item => ({
+    setPackageQuantity(pkg.quantity || 1);
+    setDescription(pkg.description || "");
+    setImageUrl(pkg.imageUrl || "");
+    setSelectedProducts(pkg.items.map((item) => ({
       productId: item.productId,
       quantity: item.quantity,
     })));
@@ -156,6 +172,31 @@ const Packages = () => {
     }
   };
 
+  const handleImageChange = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      const storageRef = ref(storage, `package_images/${file.name}`);
+      const uploadTask = uploadBytesResumable(storageRef, file);
+
+      uploadTask.on(
+        "state_changed",
+        (snapshot) => {
+          const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+          console.log("Upload is " + progress + "% done");
+        },
+        (error) => {
+          console.error("Upload failed:", error);
+        },
+        () => {
+          getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
+            setImageUrl(downloadURL);
+            console.log("File available at", downloadURL);
+          });
+        }
+      );
+    }
+  };
+
   return (
     <div className="packages-container">
       <h2 className="Title1">Packages</h2>
@@ -165,163 +206,135 @@ const Packages = () => {
 
       {showPackageForm && (
         <div className="package-overlay">
-        <form onSubmit={handlePackageFormSubmit} className="package-form">
-          <h2>{editingPackage ? "Edit Package" : "Create New Package"}</h2>
-          <label>
-            Package Name:
-            <input
-              type="text"
-              value={newPackageName}
-              onChange={(e) => setNewPackageName(e.target.value)}
-              required
-            />
-          </label>
+          <form onSubmit={handlePackageFormSubmit} className="package-form">
+            <h2>{editingPackage ? "Edit Package" : "Create New Package"}</h2>
+            
+            <label>
+              Package Name:
+              <input
+                type="text"
+                value={newPackageName}
+                onChange={(e) => setNewPackageName(e.target.value)}
+                required
+              />
+            </label>
 
-          <label>
-            Package Quantity:
-            <input
-              type="number"
-              min="1"
-              value={packageQuantity}
-              onChange={(e) => setPackageQuantity(parseInt(e.target.value) || 1)}
-              required
-            />
-          </label>
+            <label>
+              Package Description:
+              <textarea
+                value={description}
+                onChange={(e) => setDescription(e.target.value)}
+                required
+              />
+            </label>
 
-          <label>
-            Select Product:
-            <select
-              value={selectedProductId}
-              onChange={(e) => setSelectedProductId(e.target.value)}
-              required
+            <label>
+              Package Quantity:
+              <input
+                type="number"
+                min="1"
+                value={packageQuantity}
+                onChange={(e) => setPackageQuantity(parseInt(e.target.value) || 1)}
+                required
+              />
+            </label>
+
+            <label>
+              Select Product:
+              <select
+                value={selectedProductId}
+                onChange={(e) => setSelectedProductId(e.target.value)}
+                required
+              >
+                <option value="">-- Select a Product --</option>
+                {products.map((product) => (
+                  <option key={product._id} value={product._id}>
+                    {product.name} - ₱{product.price.toFixed(2)}
+                  </option>
+                ))}
+              </select>
+            </label>
+
+            <label>
+              Quantity:
+              <input
+                type="number"
+                min="1"
+                value={quantity}
+                onChange={(e) => setQuantity(parseInt(e.target.value))}
+                required
+              />
+            </label>
+            <button
+              type="button"
+              className="add-product-button"
+              onClick={handleAddProduct}
+              disabled={!selectedProductId}
             >
-              <option value="">-- Select a Product --</option>
-              {products.map((product) => (
-                <option key={product._id} value={product._id}>
-                  {product.name} - ₱{product.price.toFixed(2)}
-                </option>
-              ))}
-            </select>
-          </label>
+              Add Product
+            </button>
 
-          <label>
-            Quantity:
-            <input
-              type="number"
-              min="1"
-              value={quantity}
-              onChange={(e) => setQuantity(parseInt(e.target.value))}
-              required
-            />
-          </label>
-          <button
-            type="button"
-            className="add-product-button"
-            onClick={handleAddProduct}
-            disabled={!selectedProductId}
-          >
-            Add Product
-          </button>
+            <div className="selected-products-list">
+              <h3>Selected Products</h3>
+              <ul>
+                {selectedProducts.map((item) => (
+                  <li key={item.productId}>
+                    {products.find((p) => p._id === item.productId)?.name} - {item.quantity} pcs
+                    <button onClick={() => handleRemoveProduct(item.productId)}>Remove</button>
+                  </li>
+                ))}
+              </ul>
+            </div>
 
-          <div className="selected-products-list">
-            <h3>Selected Products</h3>
-            <ul>
-              {selectedProducts.map((item) => (
-                <li key={item.productId}>
-                  {products.find((p) => p._id === item.productId)?.name} - Quantity: {item.quantity}
-                  <button
-                    type="button"
-                    className="remove-product-button"
-                    onClick={() => handleRemoveProduct(item.productId)}
-                  >
-                    Remove
-                  </button>
-                </li>
-              ))}
-            </ul>
-          </div>
+            <div>
+              <label>
+                Discount:
+                <input
+                  type="number"
+                  min="0"
+                  value={discount}
+                  onChange={(e) => setDiscount(parseFloat(e.target.value))}
+                />
+              </label>
+            </div>
 
-          <label>
-            Discount:
-            <input
-              type="number"
-              value={discount}
-              onChange={(e) => setDiscount(parseFloat(e.target.value) || 0)}
-            />
-          </label>
+            <label>
+              Upload Image:
+              <input type="file" accept="image/*" onChange={handleImageChange} />
+            </label>
 
-          <h3>Total Price: ₱{calculateTotal().toFixed(2)}</h3>
-
-          <button type="submit" className="submit-button">
-            {editingPackage ? "Update Package" : "Create Package"}
-          </button>
-          <button
-            type="button"
-            className="cancel-button"
-            onClick={() => {
-              setShowPackageForm(false);
-              setEditingPackage(null);
-            }}
-          >
-            Cancel
-          </button>
-        </form>
+            <div className="form-buttons">
+              <button type="submit" className="submit-package-button">
+                {editingPackage ? "Update Package" : "Create Package"}
+              </button>
+              <button type="button" className="cancel-package-button" onClick={handleCancel}>
+                Cancel
+              </button>
+            </div>
+          </form>
         </div>
       )}
-
-      <div class="scrollable-container">
-        <table className="package-table">
-          <thead>
-            <tr>
-              <th>#</th>
-              <th>Package Name</th>
-              <th>Quantity</th>
-              <th>Price</th>
-              <th>Items</th>
-             
-              <th>Actions</th>
-            </tr>
-          </thead>
-          <tbody>
-            {packages.length > 0 ? (
-              packages.map((pkg, index) => (
-                <tr key={pkg._id}>
-                  <td>{index + 1}</td> {/* Auto-increment table number */}
-                  <td><strong>{pkg.name}</strong></td>
-                  <td>{pkg.quantity}</td>
-                  <td>₱{pkg.price.toFixed(2)}</td>
-                  <td>
-                    <ul>
-                      {pkg.items.map((item) => (
-                        <li key={item.productId}>
-                          {products.find(p => p._id === item.productId)?.name || "Product Not Found"} - Quantity: {item.quantity}
-                        </li>
-                      ))}
-                    </ul>
-                  </td>
-                  <td>
-                    <button
-                      className="update-button"
-                      onClick={() => handleUpdatePackage(pkg)}
-                    >
-                      Update
-                    </button>
-                    <button
-                      className="delete-button"
-                      onClick={() => handleDeletePackage(pkg._id)}
-                    >
-                      Delete
-                    </button>
-                  </td>
-                </tr>
-              ))
-            ) : (
-              <tr>
-                <td colSpan="4">No packages created yet.</td>
-              </tr>
-            )}
-          </tbody>
-        </table>
+  <h3>Existing Packages</h3>
+      <div className="packages-list">
+      
+        {packages.map((pkg) => (
+          <div key={pkg._id} className="package-item">
+            <h4>{pkg.name}</h4>
+            <div className="image-container2">
+              <img src={pkg.imageUrl || "default-image-url"} alt="Package" />
+            </div>
+            <p>Description :{pkg.description}</p>
+            <p>Price: ₱{pkg.price.toFixed(2)}</p>
+            <p>Quantity: {pkg.quantity}</p>
+            <p>Discount: {pkg.discount}</p>
+           
+            <div className="button-group">
+          </div>
+          
+          <button className="edit" onClick={() => handleUpdatePackage(pkg)}>Edit</button>
+            <button className="del"onClick={() => handleDeletePackage(pkg._id)}>Delete</button>
+            </div>
+        ))}
       </div>
     </div>
   );

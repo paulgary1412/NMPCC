@@ -93,8 +93,10 @@ const AdminOrders = () => {
   }
 
   return (
+    <div className="sample">
+    <h1 className="page-title">Manage Orders</h1>
     <div className="orders-page">
-      <h1 className="page-title">Manage Orders</h1>
+   
       {orders.length === 0 ? (
         <p className="no-orders">You have no orders yet.</p>
       ) : (
@@ -148,7 +150,8 @@ const AdminOrders = () => {
           </div>
         ))
       )}
-      <button onClick={() => navigate("/")} className="back-home-button">Back to Home</button>
+ 
+    </div>
     </div>
   );
 };

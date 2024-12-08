@@ -1,0 +1,359 @@
+  /* General Styles */
+  body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f9;
+    margin: 0;
+    padding: 0;
+    width: 90%;
+  }
+
+  /* Main Container */
+  .packages-container {
+    width: 90%;
+    
+    margin: 100px auto;
+    margin-left: 150px;
+    padding: 20px;
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+
+  /* Title */
+  .Title1 {
+    font-size: 28px;
+    color: #333;
+    margin-bottom: 20px;
+    text-align: center;
+  }
+
+  /* Add Package Button */
+  .add-package-button {
+    display: block;
+    margin: 0 auto 20px auto;
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: #fff;
+    font-size: 16px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+
+  .add-package-button:hover {
+    background-color: #0056b3;
+  }
+
+  /* Overlay for Form */
+  .package-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.6);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 999;
+  }
+
+  /* Package Form */
+  .package-form {
+    background: #fff;
+    padding: 20px 30px;
+    border-radius: 8px;
+    width: 90%;
+    max-width: 600px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+
+  .package-form h2 {
+    color: #333;
+    margin-bottom: 15px;
+    font-size: 24px;
+  }
+
+  /* Form Inputs */
+  .package-form label {
+    display: block;
+    font-size: 14px;
+    margin: 10px 0 5px;
+    color: #555;
+  }
+
+  .package-form input,
+  .package-form select,
+  .package-form textarea {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 14px;
+  }
+
+  /* Buttons */
+  .add-product-button,
+  .submit-package-button,
+  .cancel-package-button {
+    margin-top: 10px;
+    padding: 10px 15px;
+    font-size: 14px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+
+  .add-product-button {
+    background-color: #28a745;
+    color: #fff;
+  }
+
+  .add-product-button:hover {
+    background-color: #218838;
+  }
+
+  .submit-package-button {
+    background-color: #007bff;
+    color: #fff;
+  }
+
+  .submit-package-button:hover {
+    background-color: #0056b3;
+  }
+
+  .cancel-package-button {
+    background-color: #dc3545;
+    color: #fff;
+  }
+
+  .cancel-package-button:hover {
+    background-color: #c82333;
+  }
+
+  /* Packages List */
+  .packages-list {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr); /* Three equal columns */
+    gap: 20px; /* Space between the columns */
+  }
+
+
+
+
+  .package-item {
+    background-color: #f8f9fa;
+    padding: 15px;
+    border-radius: 8px;
+    width: 380px;
+    height:325px;
+    margin-bottom: 15px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+
+  .package-item h4 {
+    margin: 0 0 10px;
+    font-size: 18px;
+    color: #333;
+  }
+
+  .image-container2 img {
+    max-width: 100px;
+    height: 100px;
+    border-radius: 4px;
+    margin-bottom: 10px;
+  }
+
+  /* Package Details */
+  .package-item p {
+    font-size: 14px;
+    color: #555;
+    margin: 5px 0;
+  }
+
+  .package-item button {
+    margin-right: 10px;
+    padding: 5px 10px;
+    font-size: 14px;
+    border: none;
+
+    cursor: pointer;
+  }
+
+  .package-item button:first-of-type {
+    background-color: #ffc107;
+    color: #333;
+    opacity: 1;
+  }
+
+  .package-item button:first-of-type:hover {
+    background-color: #e0a800;
+  }
+
+  .package-item button:last-of-type {
+    background-color: #dc3545;
+    opacity: 1;
+    color: #fff;
+  }
+
+  .package-item button:last-of-type:hover {
+    background-color: #c82333;
+  }
+
+  /* Selected Products List */
+  .selected-products-list ul {
+    list-style: none;
+    padding: 0;
+  }
+
+  .selected-products-list li {
+    font-size: 14px;
+    margin-bottom: 10px;
+  }
+
+  .selected-products-list li button {
+    margin-left: 10px;
+    padding: 5px 10px;
+    background-color: #dc3545;
+    color: #fff;
+    font-size: 12px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+
+  .selected-products-list li button:hover {
+    background-color: #c82333;
+  }
+
+  .del{
+    background-color: #f44336;
+    color: white;
+    height: 50px;
+    width: 200px;
+    margin-top: -50px;
+    margin-left: 166px;
+    position: relative;
+    border-top-right-radius: 0px;
+    border-top-left-radius: 0px;
+    border-bottom-left-radius: 0px;
+  }
+  .edit{
+    background-color: #FFC107;
+    color: white;
+    height: 50px;
+    width: 200px;
+    margin-left: -15px;
+    border-radius: 5px;
+    border: none;
+    border-top-left-radius: 0px;
+
+  }
+  .button-group{
+    border-radius: 5px;
+    border: none;
+    margin-top: 120px;
+  }
+  @media (max-width: 920px) {
+    /* Main Container */
+    .packages-container {
+      width: 100%;
+      margin-left: 0px;
+      margin-right: 20px;
+      margin-top: 200px;
+    }
+  
+    /* Title */
+    .Title1 {
+      font-size: 24px;
+    }
+  
+    /* Packages List */
+    .packages-list {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr); /* Two equal columns */
+      gap: 20px;
+    }
+  
+    /* Package Item */
+    .package-item {
+      width: 350px;
+      height: 300px;
+    }
+  
+    /* Package Form */
+    .package-form {
+      width: 100%;
+      padding: 15px;
+    }
+  
+    .package-form h2 {
+      font-size: 22px;
+    }
+  
+    /* Form Inputs */
+    .package-form input,
+    .package-form select,
+    .package-form textarea {
+      font-size: 13px;
+    }
+  
+    /* Buttons */
+    .add-product-button,
+    .submit-package-button,
+    .cancel-package-button,
+    .add-package-button {
+      padding: 8px 15px;
+      font-size: 12px;
+    }
+  
+    .add-package-button {
+      font-size: 14px;
+    }
+  
+    /* Image Container */
+    .image-container2 img {
+      max-width: 80px;
+      height: 80px;
+    }
+  
+    /* Selected Products List */
+    .selected-products-list li {
+      font-size: 12px;
+    }
+  
+    .selected-products-list li button {
+      padding: 5px 8px;
+      font-size: 11px;
+    }
+  
+    /* Delete Button */
+    .del {
+      width: 200px;
+      margin-left: auto;
+      margin-right: auto;
+      position: fixed;
+      margin-top: 70px;
+      border-bottom-right-radius: 15px;
+      margin-left: 135px;
+    }
+  
+    /* Edit Button */
+    .edit {
+      width: 200px;
+      margin-left: auto;
+      margin-right: auto;
+      position: fixed;
+      margin-left: -20px;
+    margin-top: 70px;
+border-bottom-left-radius: 15px;
+    }
+  
+    /* Button Group */
+    .button-group {
+      margin-top: 50px;
+    }
+  }
+  

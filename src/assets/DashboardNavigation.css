@@ -78,3 +78,40 @@ span.collapsed {
 .main-content.collapsed {
   margin-left: 100px; /* Adjust for collapsed sidebar */
 }
+
+/* Media query for max-width: 920px */
+/* Media query for max-width: 920px */
+@media (max-width: 920px) {
+  /* Make the navigation horizontal and at the top on smaller screens */
+  .dashboard-nav-buttons {
+    position: static; /* Remove fixed position */
+    flex-direction: row; /* Display buttons horizontally */
+    justify-content: space-around; /* Space buttons evenly */
+    width: 50%;
+    height: 70px; /* Adjust height */
+    margin-top: 250px;
+    position: fixed;
+    background-color: transparent; /* Remove background */
+    padding: 0; /* Remove padding */
+  }
+
+  .dashboard-nav-buttons button {
+    width: auto; /* Allow button width to auto adjust */
+    margin: 5px; /* Reduce the margin between buttons */
+  }
+
+  /* For collapsed state, reduce height */
+  .dashboard-nav-buttons.collapsed {
+    height: 50px;
+  }
+
+  /* Optional: Hide text in collapsed state on mobile */
+  .dashboard-nav-buttons.collapsed button span {
+    display: none;
+  }
+
+  /* Show icon only in collapsed state */
+  .dashboard-nav-buttons.collapsed button .icon {
+    display: inline; /* Show icon */
+  }
+}
