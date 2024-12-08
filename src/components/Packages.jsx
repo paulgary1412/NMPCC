@@ -275,8 +275,10 @@ const Packages = () => {
             <tr>
               <th>#</th>
               <th>Package Name</th>
+              <th>Quantity</th>
               <th>Price</th>
               <th>Items</th>
+             
               <th>Actions</th>
             </tr>
           </thead>
@@ -286,6 +288,7 @@ const Packages = () => {
                 <tr key={pkg._id}>
                   <td>{index + 1}</td> {/* Auto-increment table number */}
                   <td><strong>{pkg.name}</strong></td>
+                  <td>{pkg.quantity}</td>
                   <td>₱{pkg.price.toFixed(2)}</td>
                   <td>
                     <ul>
