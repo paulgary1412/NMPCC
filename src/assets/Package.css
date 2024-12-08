@@ -1,344 +1,212 @@
-/* Packages.css */
-
+/* General container for the packages section */
 .packages-container {
-    padding: 20px;
-    margin-top: 230px;
-    width: 100%;
-    left: 85px;
-    position: relative;
-  }
-  .dashboard-container1 {
-    padding: 20px;
- 
-
-    margin-top: 150px;
-    width: 100%;
-    position: relative;
-  }
-  /** dashboard text*/
-  h2 {
-    margin-bottom: 20px;
-    color: #333;
-    font-size: 20px;
-    margin-top:    10px;
-  }
-
-  /** add package button*/
-  .add-package-button {
-    background-color:green;
-  color: white;
-  border: none;
-  padding: 10px 10px ;
-  border-radius: 5px;
-  cursor: pointer;
-
-  margin-left:-45px;
-  margin-top: -120px;
-  font-size: 12px;
-  width: 120px;
-  height: 40px; /* Adjusted height for better sizing */
-  transition: background-color 0.3s ease;
-  position:absolute;
-  }
-  
-  .add-package-button:hover {
-    background-color: #0056b3; /* Darker green on hover */
-  }
-  /** add package form input needed to be centered and arrange properly
-  .package-form {
-   
   padding: 20px;
-  background-color: white;
-  border-radius: 5px;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-  margin: auto;
-  position:absolute;
-  height: 900px;
-  width: 550px;
-  z-index: 2;
-  }*/
-
-
-  /** package text */
-  .package-form h2 {
-    margin-bottom: 10px;
-  }
-  /**package label format*/
-  .package-form label {
-    display: block;
-    margin-bottom: 10px;
-    font-weight: bold;
-    margin-left: 10px;
-  }
-  /** arrange input*/
-  .package-form input[type="text"],
-  .package-form input[type="number"] {
-    width: 100%;
-    padding: 10px;
-    margin-bottom: 10px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-  }
-  
-  .product-selection {
-    margin-bottom: 20px;
-  }
-  
-  .product-selection div {
-    margin-bottom: 10px;
-  }
-  
-  .product-selection input[type="checkbox"] {
-    margin-right: 10px;
-  }
-
-
-  
-  
-   
-  
-  .submit-button,
-  .cancel-button {
-    background-color: #007bff;
-    color: white;
-    border: none;
-    padding: 10px 20px;
-    border-radius: 5px;
-    cursor: pointer;
-    margin-left: 18px;
-    font-size: 16px;
-    width: 200px;
-    height: 50px; /* Adjusted height for better sizing */
-  }
-  
-  .cancel-button {
-    background-color: #dc3545;
-  }
-  
-  .cancel-button:hover {
-    background-color: #c82333;
-  }
-  
-  .submit-button:hover {
-    background-color: #0056b3;
-  }
-  
-  /* Styles for the list of packages */
-  .package-list {
-    margin-top: -50px;
-    margin-left: 60px;
-  }
-  
-  .package-list li {
-    margin-bottom: 10px;
-  }
-  
-  .package-list strong {
-    color: #007bff;
-  }
-  /* Packages.css (Additions for table) */
-
-
-  .package-form {
-    background-color: #f9f9f9;
-    border: 1px solid #ccc;
-    padding: 20px;
-    border-radius: 8px;
-    max-width: 500px;
-    margin-top: -50;
-    margin-left: 110px;
-    width: 500px;
-    position: relative;
-    height: 615px;
-    position:absolute;
-  }
-  
-  .package-form h2 {
-    margin-bottom: 10px;
-    font-size: 1.2em;
-    color: #333;
-  }
-  
-  .package-form label {
-    display: block;
-    margin: 10px 0;
-   
-    width: 100%;
-  }
-  
-  .package-form input, .package-form select {
-    width: 100%;
-    padding: 8px;
-    border-radius: 4px;
-    border: 1px solid #ccc;
-    width: 100%;
-  }
-  
-  .add-product-button {
-    display: block;
-    width: 50%;
-    padding: 8px;
-    background-color: #4caf50;
-    color: white;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    margin: auto;
-    top: 0px;
-  right:0px;
-    position: relative;
-  }
-  
-  .selected-products-list h3 {
-    margin-top: 15px;
-    
-  }
-  
-  .selected-products-list ul {
-    list-style-type: none;
-    padding: 0;
-  }
-  
-  .selected-products-list li {
-    padding: 8px;
-    background-color: #f1f1f1;
-    border: 1px solid #ddd;
-    margin: 5px 0;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    width: 100%;
-  }
-  
-  .remove-product-button {
-    background-color: #e74c3c;
-    color: white;
-    border: none;
-    padding: 5px 10px;
-    border-radius: 4px;
-    cursor: pointer;
-  }
-  
-  
-  .submit-button {
-    background-color: #4caf50;
-    color: white;
-  }
-  
-  .cancel-button {
-    background-color: #e74c3c;
-    color: white;
-  }
-  
-  
-span{
-  margin-bottom: 20px;
-  color: #333;
-  font-size: 20px;
-  margin-top: 10px;
-  font-weight: bold;
-  text-transform: uppercase;
-}
-.pack-label{
-  margin-top: -90px;
-  position: absolute;
-}
-  
-
-.scrollable-container {
+  background-color: #f9f9f9;
   width: 90%;
-  max-height: 500px; /* Limit the height of the container */
-  overflow-y: auto; /* Enable vertical scrolling */
-  overflow-x: auto; /* Enable horizontal scrolling, if needed */
-  margin: 20px; /* Add spacing around the container */
-  border: 1px solid #ccc; /* Optional border for visibility */
-  border-radius: 10px; /* Match the table's rounded corners */
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* Optional for depth */
-  margin-top: -50px;
-  margin-left: -50px;
-  position:absolute;
-  z-index: 1;
+  margin: auto;
+  margin-top: 100px;
+margin-left: 150px;
 }
 
+/* Title styling */
+.Title1 {
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 20px;
+}
 
+/* Button to add a new package */
+.add-package-button {
+  background-color: #4CAF50;
+  color: white;
+  padding: 10px 20px;
+  font-size: 16px;
+  border: none;
+  cursor: pointer;
+  margin-bottom: 20px;
+}
 
-  .package-table {
-    width: 100%;
-    border-collapse: collapse;
-    border-radius: 15px; /* Apply rounded corners */
-    overflow: hidden; /* Ensure content respects border radius */
-   
-  }
+.add-package-button:hover {
+  background-color: #45a049;
+}
 
-  .package-table th, 
+/* Styling for the package form overlay */
+.package-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+/* Styling for the package form */
+.package-form {
+  background-color: white;
+  padding: 20px;
+  border-radius: 8px;
+  width: 400px;
+  transition: height 0.3s ease;  /* Smooth transition for height changes */
+  overflow: hidden;
+  min-height: 800px;  /* Minimum height of the form */
+  max-height: 1000px;  /* Max height, adjust as per your layout */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.package-form h2 {
+  font-size: 20px;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.package-form label {
+  font-size: 14px;
+  margin-bottom: 10px;
+  display: block;
+}
+
+.package-form input,
+.package-form select {
+  width: 100%;
+  padding: 8px;
+  margin: 8px 0;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.package-form button {
+  background-color: #4CAF50;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  cursor: pointer;
+  font-size: 16px;
+  border-radius: 4px;
+  margin-top: 10px;
+}
+
+.package-form button:hover {
+  background-color: #45a049;
+}
+
+.package-form .cancel-button {
+  background-color: #f44336;
+  margin-left: 10px;
+}
+
+.package-form .cancel-button:hover {
+  background-color: #e53935;
+}
+
+/* Styling for the selected products list */
+.selected-products-list {
+  margin-top: 10px;
+  padding: 10px;
+  border: 1px solid #ddd;
+  max-height: 200px;
+  overflow-y: auto;
+}
+
+.selected-products-list ul {
+  padding: 0;
+  margin: 0;
+}
+
+.selected-products-list li {
+  list-style: none;
+  margin-bottom: 5px;
+  font-size: 14px;
+}
+
+/* Remove product button */
+.remove-product-button {
+  background-color: #f44336;
+  color: white;
+  padding: 5px 10px;
+  border: none;
+  cursor: pointer;
+  font-size: 12px;
+  border-radius: 4px;
+}
+
+.remove-product-button:hover {
+  background-color: #e53935;
+}
+
+/* Table for displaying packages */
+.package-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 30px;
+}
+
+.package-table th,
 .package-table td {
-    border: 1px solid #e9ecef;
-    padding: 10px;
-    text-align: center; /* Horizontally center text */
-    vertical-align: middle; /* Vertically center text */
-    width: 200px;
+  padding: 12px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
 }
-  
-  .package-table th {
-    background-color: #f8f9fa;
-  }
-  
-  .package-table tr:hover {
-    background-color: #f1f1f1;
-  }
-  .package-table tr{
-  width: 200px;
-  }
-  
 
+.package-table th {
+  background-color: #4CAF50;
+  color: white;
+}
 
+.package-table td {
+  background-color: #f9f9f9;
+}
 
-  .update-button,
-  .delete-button {
-    background-color: #28a745; /* Green for update */
-    color: white;
-    border: none;
-    padding: 10px 20px;
-    border-radius: 5px;
-    cursor: pointer;
-    margin-right: 5px;
-    transition: transform 0.2s ease, background-color 0.2s ease; /* Smooth transition */
-  }
-  
-  .delete-button {
-    background-color: #dc3545; /* Red for delete */
-  }
-  
-  .update-button:hover {
-    background-color: #218838; /* Darker green on hover */
-    transform: scale(1.05); /* Slightly enlarges the button */
-  }
-  
-  .delete-button:hover {
-    background-color: #c82333; /* Darker red on hover */
-    transform: scale(1.05); /* Slightly enlarges the button */
-  }
-  
-  .Title1 {
-    margin-bottom: 90px;
-    color: #333;
-    font-size: 20px;
-    margin-top: -140px;
-    margin-left: 659px;
-    z-index: 1;
-  }
+.package-table td button {
+  padding: 6px 12px;
+  border: none;
+  cursor: pointer;
+  border-radius: 4px;
+}
 
-  .package-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: rgba(0, 0, 0, 0.6);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 1000;
-    
-    animation: fadeIn 0.3s ease;
-  }
+.package-table .update-button {
+  background-color: #FFC107;
+  color: white;
+}
+
+.package-table .delete-button {
+  background-color: #f44336;
+  color: white;
+}
+
+.package-table .update-button:hover {
+  background-color: #ffb300;
+}
+
+.package-table .delete-button:hover {
+  background-color: #e53935;
+}
+
+/* Scrollable container for the package table */
+.scrollable-container {
+  max-height: 400px;
+  overflow-y: auto;
+}
+
+/* Add product button */
+.add-product-button {
+  background-color: #007bff;
+  color: white;
+  padding: 8px 16px;
+  border: none;
+  cursor: pointer;
+  font-size: 14px;
+  border-radius: 4px;
+}
+
+.add-product-button:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+.add-product-button:hover {
+  background-color: #0069d9;
+}

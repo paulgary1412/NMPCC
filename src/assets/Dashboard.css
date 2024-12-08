@@ -1,251 +1,226 @@
+/* Dashboard Container */
 .dashboard-container {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  
+  background-color: #f4f4f4;
   padding: 20px;
-  height: 100%;
-  position: relative;
-  margin-left: 200px; /* Adds space for the navigation sidebar */
-  transition: margin-left 0.3s ease; /* Smooth transition for collapsing */
+  font-family: 'Arial', sans-serif;
 }
 
-.dashboard-container.collapsed {
-  margin-left: 100px; /* Adjust when the sidebar is collapsed */
-}
-
-body {
-  overflow-x: hidden;
-}
-
-h1 {
-  margin-bottom: 20px;
-  color: #333;
+.listing-container {
+  background-color: white;
+ 
+  border-radius: 10px;
+  margin: auto;
+  margin-top: 100px;
+  width: 90%;
+  padding: 20px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  margin-left: 150px;
 }
 
 h2 {
-  margin-bottom: 20px;
   color: #333;
-  font-size: 20px;
-  margin-top: 10px;
+  margin-bottom: 15px;
 }
+
+/* Add Product Button */
 .add-listing-button {
-  background-color: green;
+  background-color: #4CAF50;
   color: white;
   border: none;
-  padding: 10px;
+  padding: 10px 20px;
+  font-size: 16px;
+  cursor: pointer;
   border-radius: 5px;
-  cursor: pointer;
-  font-size: 14px;
-  width: 200px;
-  height: 40px;
-  transition: background-color 0.3s ease;
-  position:absolute; /* Position relative to the parent container */
-  top: 133px; /* Keeit at the top of the container */
-  left:50px; /* Align it to the left */
-  }
-
-
-.update-button,
-.delete-button {
-  background-color: #28a745; /* Green for update */
-  color: white;
-  border: none;
-  padding: 12px 20px; /* Increased padding for better sizing */
-  border-radius: 8px; /* Slightly more rounded for a modern look */
-  cursor: pointer;
-  font-size: 16px; /* Slightly bigger font for better readability */
-  margin-top: 20px; /* More spacing above the buttons */
-  margin-right: 15px; /* Space between buttons */
-  transition: background-color 0.3s, box-shadow 0.3s; /* Smooth transition on hover */
-  display: inline-block;
-  width: 100px;
-}
-
-.update-button:hover {
-  background-color: #218838; /* Darker green on hover */
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Add a subtle shadow on hover */
-}
-
-.delete-button {
-  background-color: #dc3545; /* Red for delete */
-}
-
-.delete-button:hover {
-  background-color: #c82333; /* Darker red on hover */
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Add a subtle shadow on hover */
-}
-
-
-
-
-
-/* Listing container: Organizes cards in a flexible layout */
-.listing-container {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-wrap: wrap;
-  margin: 0;
-  padding: 0;
-  
-}
-
-.listing-container, .h2 {
   margin-bottom: 20px;
-  color: #333;
-  font-size: 20px;
-  margin-top: 100px;
 }
-
-/* Card container: Holds multiple cards with spacing between them */
-.card-container {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 50px;
-  margin: auto;
-  justify-content: center;
-  height: 100%;
-}
-
-/* Card style: Defines the appearance of each card */
-.card {
-  overflow: hidden;
-  background: #ffffff;
-  color: #21201e;
-  border: 1px solid #e9ecef;
-  text-align: center;
-  width: 350px; /* Updated width */
-  height: 430px;
-  padding: 2rem;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  border-radius: 1.2rem;
-  margin: 1rem;
-  transition: box-shadow 0.3s ease;
-}
-
-/* Text inside the card: Set size and color for title and description */
-.card h4, .card p {
-  font-size: 18px;
-  color: #333;
-}
-
-.card h4 {
-  font-weight: 700;
-
-}
-
-/* Hover effect: Enlarge image when hovered */
-.card:hover img {
-  scale: 1.1;
-}
-
-/* Hover effect for card: Adds a shadow when the card is hovered */
-.card:hover {
-  box-shadow: 5px 15px 25px rgba(165, 164, 164, 0.5);
-}
-
-/* Style for images inside the card: Set image height and add margin */
-.card img {
-  height: 120px;
-  width: 150px;
-  margin: 1rem;
-  transition: all 0.3s;
-}
-
-/* Hover effect for the link inside the card: Slightly increase size on hover */
-.card a:hover {
-  transform: scale(1.1);
-}
-
-.Title2{
-  font-size: 20px;
-}
-
-
-/*-------------Recovered missing Add product CSS-------------*/
 
 .add-listing-button:hover {
-  background-color: #0056b3;
+  background-color: #45a049;
 }
 
+/* Form */
 .listing-form {
-  padding: 20px;
-  background-color: white;
-  border-radius: 5px;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-  position: absolute;
-  top: 201px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 400px;
-  box-shadow: 5px 15px 25px rgba(165, 164, 164, 0.5);
-  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  max-width: 400px;
+  margin-bottom: 20px;
 }
 
 .listing-form label {
-  display: block;
   margin-bottom: 10px;
-  font-weight: bold;
+  color: #555;
 }
 
 .listing-form input,
 .listing-form select {
-  width: 100%;
-  padding: 10px;
+  padding: 8px;
   margin-bottom: 15px;
   border: 1px solid #ccc;
   border-radius: 5px;
+  font-size: 16px;
 }
 
-.submit-button1,
-.submit-button2,
-.cancel-button23 {
-  display: inline-block;
-  margin: 5px 5px;
-  background-color: #28a745; /* Green for update */
+.listing-form input:focus,
+.listing-form select:focus {
+  outline: none;
+  border-color: #4CAF50;
+}
+
+.submit-button1 {
+  background-color: #4CAF50;
   color: white;
   border: none;
-  padding: 12px 20px; /* Increased padding for better sizing */
-  border-radius: 8px; /* Slightly more rounded for a modern look */
+  padding: 10px 20px;
+  font-size: 16px;
   cursor: pointer;
-  font-size: 16px; /* Slightly bigger font for better readability */
-  margin-top: 20px; /* More spacing above the buttons */
-  margin-right: 15px; /* Space between buttons */
-  transition: background-color 0.3s, box-shadow 0.3s; /* Smooth transition on hover */
-  width: 150px;
+  border-radius: 5px;
+  margin-top: 10px;
 }
 
-.submit-button1,
-.submit-button2 {
-  background-color: #4caf50;
-  color: white;
-}
-
-.submit-button1:hover,
-.submit-button2:hover {
-  background-color: #218838;
+.submit-button1:hover {
+  background-color: #45a049;
 }
 
 .cancel-button23 {
-  background-color: #dc3545;
+  background-color: #f44336;
   color: white;
+  border: none;
+  padding: 10px 20px;
+  font-size: 16px;
+  cursor: pointer;
+  border-radius: 5px;
+  margin-top: 10px;
 }
 
 .cancel-button23:hover {
-  background-color: #c82333;
+  background-color: #e53935;
 }
 
-.product-overlay {
+/* Product Listings */
+.card-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: space-between;
+}
+
+.card {
+  background-color: #fff;
+  border-radius: 10px;
+  padding: 20px;
+  width: 300px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.card h4 {
+  font-size: 18px;
+  color: #333;
+  margin-bottom: 10px;
+}
+
+.card img {
+  width: 100%;
+  height: auto;
+  border-radius: 5px;
+  margin-bottom: 10px;
+}
+
+.card p {
+  font-size: 16px;
+  margin-bottom: 8px;
+  color: #555;
+}
+
+.card button {
+  padding: 10px 15px;
+  margin-top: 10px;
+  border-radius: 5px;
+  border: none;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.update-button {
+  background-color: #FFC107;
+  color: white;
+}
+
+.update-button:hover {
+  background-color: #FF9800;
+}
+
+.delete-button {
+  background-color: #f44336;
+  color: white;
+}
+
+.delete-button:hover {
+  background-color: #e53935;
+}
+
+/* Modal */
+.modal {
   position: fixed;
   top: 0;
   left: 0;
   right: 0;
   bottom: 0;
-  background: rgba(0, 0, 0, 0.6);
+  background-color: rgba(0, 0, 0, 0.5);
   display: flex;
   justify-content: center;
   align-items: center;
-  z-index: 1000;
-  
-  animation: fadeIn 0.3s ease;
+  padding: 20px;
+}
+
+.modal-content {
+  background-color: white;
+  padding: 30px;
+  border-radius: 10px;
+  width: 500px;
+}
+
+.modal-content h2 {
+  color: #333;
+  margin-bottom: 20px;
+}
+
+.modal-content input,
+.modal-content select {
+  padding: 10px;
+  width: 100%;
+  margin-bottom: 20px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  font-size: 16px;
+}
+
+.modal-content button {
+  padding: 10px 15px;
+  font-size: 16px;
+  border-radius: 5px;
+  border: none;
+  cursor: pointer;
+}
+
+.modal-content .submit-button {
+  background-color: #4CAF50;
+  color: white;
+}
+
+.modal-content .submit-button:hover {
+  background-color: #45a049;
+}
+
+.modal-content .cancel-button {
+  background-color: #f44336;
+  color: white;
+  margin-left: 10px;
+}
+
+.modal-content .cancel-button:hover {
+  background-color: #e53935;
 }

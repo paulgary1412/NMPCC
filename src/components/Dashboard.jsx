@@ -159,6 +159,7 @@ const Dashboard = () => {
 
   return (
     <div className="dashboard-container">
+    
       {/* Dashboard Navigation */}
       <DashboardNavigation setActiveSection={setActiveSection} />
 
@@ -167,6 +168,7 @@ const Dashboard = () => {
         <>
           <div className="listing-container">
             {/* Add Product Button */}
+            <h2 className="Title1">Products</h2>
             <button
               className="add-listing-button"
               onClick={handleAddProductClick}
