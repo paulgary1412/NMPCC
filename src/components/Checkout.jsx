@@ -57,29 +57,28 @@ const Checkout = () => {
       <div className="checkout-container">
         {/* Left Column - Products List */}
         <div className="left-column">
-        <button className="back-btn" onClick={() => navigate(-1)}>
-        <h1 className="checkout-title">Your Products</h1>
-        </button>
+          <button className="back-btn" onClick={() => navigate(-1)}>
+            <h1 className="checkout-title">Your Products</h1>
+          </button>
           {selectedProducts.length === 0 ? (
             <p className="empty-cart">No products selected</p>
           ) : (
             selectedProducts.map((product, index) => (
-              <div className="product-item">
-                <img src={product.image || "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSf8rMSNgrBv_1VqNVcrAgmgEMv4BnBA10aQw&s"} alt={product.name} className="product-image" />
+              <div className="product-item" key={index}>
+                <img
+                  src={
+                    product.image ||
+                    "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSf8rMSNgrBv_1VqNVcrAgmgEMv4BnBA10aQw&s"
+                  }
+                  alt={product.name}
+                  className="product-image"
+                />
                 <div className="product-details">
-                  <h3 className="product-name">{product.name}</h3>
+                  {/* Item Number */}
+                  <h3 className="product-name">
+                    {index + 1}. {product.name} {/* Add item number */}
+                  </h3>
                   <p className="product-price">Price: ₱{product.price}</p>
-                  <div className="quantity-container">
-                    <label htmlFor={`quantity-${index}`} className="quantity-label">Quantity:</label>
-                    <input
-                      id={`quantity-${index}`}
-                      type="number"
-                      min="1"
-                      value={product.quantity}
-                      onChange={(e) => handleQuantityChange(index, parseInt(e.target.value) || 1)}  // Prevent non-numeric input
-                      className="quantity-input"
-                    />
-                  </div>
                 </div>
               </div>
             ))

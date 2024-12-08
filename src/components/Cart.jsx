@@ -72,6 +72,7 @@ const Cart = () => {
                       onChange={handleSelectAll}
                     />
                   </th>
+                  <th>#</th> {/* New column for numbering */}
                   <th>Image</th>
                   <th>Product Name</th>
                   <th>Price</th>
@@ -90,33 +91,39 @@ const Cart = () => {
                         onChange={() => handleCheckboxChange(index)}
                       />
                     </td>
+                    <td>{index + 1}</td> {/* Display numbering (1-based index) */}
                     <td>
-                      <img src={product.image || "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSf8rMSNgrBv_1VqNVcrAgmgEMv4BnBA10aQw&s"} alt={product.name} className="product-image" />
+                      <img
+                        src={
+                          product.image ||
+                          "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSf8rMSNgrBv_1VqNVcrAgmgEMv4BnBA10aQw&s"
+                        }
+                        alt={product.name}
+                        className="product-image"
+                      />
                     </td>
                     <td>{product.name}</td>
                     <td>₱{product.price}</td>
                     <td>
                       <input
                         type="number"
-                        value={product.quantity || 1} 
+                        value={product.quantity || 1}
                         min="1"
                         onChange={(e) => handleQuantityChange(index, e.target.value)}
                         className="quantity-input"
                       />
                     </td>
                     <td>
-  ₱{
-    (() => {
-      const price = parseFloat(product.price);
-      const quantity = parseInt(product.quantity, 10);
-      // Only calculate the total if both price and quantity are valid numbers
-      if (!isNaN(price) && !isNaN(quantity)) {
-        return price * quantity;
-      }
-      return price; // Return 0 if either price or quantity is invalid
-    })()
-  }
-</td>
+                      ₱
+                      {(() => {
+                        const price = parseFloat(product.price);
+                        const quantity = parseInt(product.quantity, 10);
+                        if (!isNaN(price) && !isNaN(quantity)) {
+                          return price * quantity;
+                        }
+                        return price;
+                      })()}
+                    </td>
                     <td>
                       <button
                         onClick={() => handleDelete(index)}
@@ -129,7 +136,6 @@ const Cart = () => {
                 ))}
               </tbody>
             </table>
-
             <div className="cart-footer">
             
               

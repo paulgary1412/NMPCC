@@ -141,22 +141,13 @@ const Pharmacy = () => {
                   <div className="item-details">
                     <h2>{product.name}</h2>
                     <p>Price: ₱{product.price}</p>
-                    <p>Quantity: {product.quantity}</p>
                     <p>{product.description}</p>
-                    <div className="button-group">
                       <button
                         className="add-to-cart-btn"
                         onClick={() => handleAddToCart(product)} // Add to cart on click
                       >
                         Add to Cart
                       </button>
-                      <button
-                        className="buy-now-btn"
-                        onClick={() => handleBuyNow(product)} // Add onClick for Buy Now
-                      >
-                        Buy Now
-                      </button>
-                    </div>
                   </div>
                 </div>
               </div>
