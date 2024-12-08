@@ -1,5 +1,3 @@
-// Packages.js
-
 import React, { useState, useEffect } from "react";
 import "../assets/Package.css"; // Import the CSS file
 import axios from "axios";
@@ -11,6 +9,7 @@ const Packages = () => {
   const [selectedProductId, setSelectedProductId] = useState("");
   const [quantity, setQuantity] = useState(1);
   const [newPackageName, setNewPackageName] = useState("");
+  const [packageQuantity, setPackageQuantity] = useState(1);  // Add package quantity state
   const [discount, setDiscount] = useState(0);
   const [packages, setPackages] = useState([]);
   const [editingPackage, setEditingPackage] = useState(null); // State to store the package being edited
@@ -43,7 +42,8 @@ const Packages = () => {
       console.error("Error fetching packages:", error);
     }
   };
-//sum of all products in package/s
+
+  // Sum of all products in package
   const calculateTotal = () => {
     let total = 0;
     selectedProducts.forEach(product => {
@@ -101,6 +101,7 @@ const Packages = () => {
         name: newPackageName,
         price: calculateTotal(),
         items,
+        quantity: packageQuantity,  // Include package quantity in the package data
       };
 
       if (editingPackage) {
@@ -120,6 +121,7 @@ const Packages = () => {
       setNewPackageName("");
       setSelectedProducts([]);
       setDiscount(0);
+      setPackageQuantity(1);  // Reset package quantity after submission
 
       fetchPackages();
     } catch (error) {
@@ -132,6 +134,7 @@ const Packages = () => {
     setEditingPackage(pkg);
     setNewPackageName(pkg.name);
     setDiscount(pkg.discount || 0);
+    setPackageQuantity(pkg.quantity || 1);  // Set package quantity if editing
     setSelectedProducts(pkg.items.map(item => ({
       productId: item.productId,
       quantity: item.quantity,
@@ -154,7 +157,6 @@ const Packages = () => {
   };
 
   return (
-    
     <div className="packages-container">
       <h2 className="Title1">Packages</h2>
       <button className="add-package-button" onClick={handleAddPackageClick}>
@@ -171,6 +173,17 @@ const Packages = () => {
               type="text"
               value={newPackageName}
               onChange={(e) => setNewPackageName(e.target.value)}
+              required
+            />
+          </label>
+
+          <label>
+            Package Quantity:
+            <input
+              type="number"
+              min="1"
+              value={packageQuantity}
+              onChange={(e) => setPackageQuantity(parseInt(e.target.value) || 1)}
               required
             />
           </label>
@@ -254,61 +267,59 @@ const Packages = () => {
           </button>
         </form>
         </div>
-        
       )}
 
-
-<div class="scrollable-container">
-<table className="package-table">
-        <thead>
-          <tr>
-            <th>#</th>
-            <th>Package Name</th>
-            <th>Price</th>
-            <th>Items</th>
-            <th>Actions</th>
-          </tr>
-        </thead>
-        <tbody>
-          {packages.length > 0 ? (
-            packages.map((pkg, index) => (
-              <tr key={pkg._id}>
-                <td>{index + 1}</td> {/* Auto-increment table number */}
-                <td><strong>{pkg.name}</strong></td>
-                <td>${pkg.price.toFixed(2)}</td>
-                <td>
-                  <ul>
-                    {pkg.items.map((item) => (
-                      <li key={item.productId}>
-                        {products.find(p => p._id === item.productId)?.name || "Product Not Found"} - Quantity: {item.quantity}
-                      </li>
-                    ))}
-                  </ul>
-                </td>
-                <td>
-                  <button
-                    className="update-button"
-                    onClick={() => handleUpdatePackage(pkg)}
-                  >
-                    Update
-                  </button>
-                  <button
-                    className="delete-button"
-                    onClick={() => handleDeletePackage(pkg._id)}
-                  >
-                    Delete
-                  </button>
-                </td>
-              </tr>
-            ))
-          ) : (
+      <div class="scrollable-container">
+        <table className="package-table">
+          <thead>
             <tr>
-              <td colSpan="4">No packages created yet.</td>
+              <th>#</th>
+              <th>Package Name</th>
+              <th>Price</th>
+              <th>Items</th>
+              <th>Actions</th>
             </tr>
-          )}
-        </tbody>
-      </table>
-    </div>
+          </thead>
+          <tbody>
+            {packages.length > 0 ? (
+              packages.map((pkg, index) => (
+                <tr key={pkg._id}>
+                  <td>{index + 1}</td> {/* Auto-increment table number */}
+                  <td><strong>{pkg.name}</strong></td>
+                  <td>₱{pkg.price.toFixed(2)}</td>
+                  <td>
+                    <ul>
+                      {pkg.items.map((item) => (
+                        <li key={item.productId}>
+                          {products.find(p => p._id === item.productId)?.name || "Product Not Found"} - Quantity: {item.quantity}
+                        </li>
+                      ))}
+                    </ul>
+                  </td>
+                  <td>
+                    <button
+                      className="update-button"
+                      onClick={() => handleUpdatePackage(pkg)}
+                    >
+                      Update
+                    </button>
+                    <button
+                      className="delete-button"
+                      onClick={() => handleDeletePackage(pkg._id)}
+                    >
+                      Delete
+                    </button>
+                  </td>
+                </tr>
+              ))
+            ) : (
+              <tr>
+                <td colSpan="4">No packages created yet.</td>
+              </tr>
+            )}
+          </tbody>
+        </table>
+      </div>
     </div>
   );
 };

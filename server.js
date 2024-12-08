@@ -295,10 +295,10 @@ app.get("/package", async (req, res) => {
 
 // Create a new package
 app.post("/package/create", async (req, res) => {
-  const { name, price, items } = req.body;
+  const { name, price, items,quantity } = req.body;
 
   try {
-    const newPackage = new Package({ name, price, items });
+    const newPackage = new Package({ name, price, quantity,items });
     await newPackage.save();
     res.status(201).json({ message: "Package created successfully" });
   } catch (error) {
@@ -309,12 +309,12 @@ app.post("/package/create", async (req, res) => {
 // Update a package
 app.put("/package/update/:id", async (req, res) => {
   const { id } = req.params;
-  const { name, price, items } = req.body;
+  const { name, price,quantity, items } = req.body;
 
   try {
     const updatedPackage = await Package.findByIdAndUpdate(
       id,
-      { name, price, items },
+      { name, price,quantity, items },
       { new: true, runValidators: true }
     );
     if (!updatedPackage) {

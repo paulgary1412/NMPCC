@@ -153,6 +153,7 @@ const Pharmacy = () => {
                 />
                 <h4>{pkg.name}</h4>
                 <p>{pkg.description}</p>
+                <p>Quantity :{pkg.quantity}</p>
                 <p>Price: ₱{pkg.price}</p>
                 <div className="button-group">
               
