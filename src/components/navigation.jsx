@@ -137,7 +137,7 @@ export const Navigation = () => {
                 />
                 <button
                   className="cart_button2"
-                  onClick={() => navigate("/cart")} // Redirect to Cart page
+                  onClick={() => navigate("/orders")} // Redirect to Cart page
                 >
                   <FaShoppingCart /> {/* React icon for the shopping cart */}
                 </button>

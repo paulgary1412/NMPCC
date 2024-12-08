@@ -4,7 +4,8 @@ import "../assets/Dashboard.css"; // Import the CSS file
 import Modal from "./Modal"; // Import your Modal component
 import DashboardNavigation from "./DashboardNavigation"; // Import the DashboardNavigation component
 import Packages from "./Packages"; // Import the Packages component
-import Orders from "./Orders"; // Import the Orders component
+import AdminOrders from "./AdminOrders"; // Import the Orders component
+
 
 
 
@@ -287,7 +288,7 @@ const Dashboard = () => {
       )}
 
       {activeSection === "packages" && <Packages />}
-      {activeSection === "orders" && <Orders />}
+      {activeSection === "AdminOrders" && <AdminOrders />}
     </div>
   );
 };

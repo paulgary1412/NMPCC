@@ -49,25 +49,12 @@ const Pharmacy = () => {
     return pkg.name.toLowerCase().includes(filterName.toLowerCase()) && inPriceRange;
   });
 
-  // Add product to the selected products list
-  const handleAddToCart = (product) => {
-    const updatedCart = [...selectedProducts, product];
-    setSelectedProducts(updatedCart);
-
-    // Save to localStorage to persist cart
-    localStorage.setItem("cart", JSON.stringify(updatedCart));
-
-    // Show a built-in alert notification
-    alert(`${product.name} has been added to your cart!`);
-    
-    // Redirect to the cart page
-    navigate("/cart", { state: { selectedProducts: updatedCart } });
-  };
+ 
 
   // Handle Buy Now
   const handleBuyNow = (product) => {
     const updatedCart = [...selectedProducts, product];
-    setSelectedProducts(updatedCart);
+   
 
     // Save to localStorage to persist cart
     localStorage.setItem("cart", JSON.stringify(updatedCart));
@@ -144,12 +131,7 @@ const Pharmacy = () => {
                     <p>Quantity: {product.quantity}</p>
                     <p>{product.description}</p>
                     <div className="button-group">
-                      <button
-                        className="add-to-cart-btn"
-                        onClick={() => handleAddToCart(product)} // Add to cart on click
-                      >
-                        Add to Cart
-                      </button>
+                    
                       <button
                         className="buy-now-btn"
                         onClick={() => handleBuyNow(product)} // Add onClick for Buy Now
@@ -173,7 +155,7 @@ const Pharmacy = () => {
                 <p>{pkg.description}</p>
                 <p>Price: ₱{pkg.price}</p>
                 <div className="button-group">
-                  <button className="add-to-cart-btn">Add to Cart</button>
+              
                   <button
                     className="buy-now-btn"
                     onClick={() => handleBuyNow(pkg)} // Add onClick for Buy Now

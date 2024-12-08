@@ -3,10 +3,11 @@ import { useLocation, useNavigate } from "react-router-dom";
 import "./css/Checkout.css";
 import axios from "axios";
 import { jwtDecode } from "jwt-decode"; // Correct import syntax
+
 const Checkout = () => {
   const location = useLocation();
   const navigate = useNavigate();
-  const [selectedProducts, setSelectedProducts] = useState(location.state?.selectedProducts || []);
+  const [selectedProducts, setSelectedProducts] = useState([]);
   const [totalAmount, setTotalAmount] = useState(0);
 
   // Contact Information
@@ -26,18 +27,36 @@ const Checkout = () => {
   const userid = decodedToken.id;
 
   console.log("Decoded _id from token:", userid); // Log the decoded ID for debugging
+
   useEffect(() => {
-    const total = selectedProducts.reduce((acc, product) => acc + product.price * product.quantity, 0);
+    // Fetch cart data from localStorage on component mount
+    const cartData = JSON.parse(localStorage.getItem('cart')) || [];
+    setSelectedProducts(cartData);
+    
+    const total = cartData.reduce((acc, product) => acc + product.price * product.quantity, 0);
     setTotalAmount(total);
-  }, [selectedProducts]);
+  }, []);
 
   // Handle quantity change
   const handleQuantityChange = (index, newQuantity) => {
     const updatedProducts = [...selectedProducts];
     updatedProducts[index].quantity = newQuantity;
     setSelectedProducts(updatedProducts);
+    updateCartToken(updatedProducts);  // Update the cart token when quantity changes
   };
- 
+
+  // Handle product removal
+  const handleDeleteProduct = (index) => {
+    const updatedProducts = selectedProducts.filter((_, i) => i !== index);
+    setSelectedProducts(updatedProducts);
+    updateCartToken(updatedProducts);  // Update the cart token after deleting the product
+  };
+
+  // Update the cart token in localStorage
+  const updateCartToken = (updatedProducts) => {
+    // Update cart data in localStorage
+    localStorage.setItem('cart', JSON.stringify(updatedProducts));
+  };
 
   const handleConfirmation = async () => {
     try {
@@ -45,8 +64,9 @@ const Checkout = () => {
       const token = localStorage.getItem('token'); // Replace this with how you store the token
       const decodedToken = token ? jwtDecode(token) : {};
       const user_id = decodedToken.id;
-      const user_idd=user_id;
-      console.log(user_id)
+      const user_idd = user_id;
+      console.log(user_id);
+
       const checkoutData = {
         user_idd, // Pass the extracted ID here
         contactInfo,
@@ -55,32 +75,36 @@ const Checkout = () => {
         paymentMethod,
         totalAmount,
       };
-  
+
       const response = await axios.post("http://localhost:5000/checkout", checkoutData);
       alert(response.data.message); // Display success message
+      localStorage.removeItem('cart');  // Assuming the cart data is stored under 'cart' in localStorage
+
       navigate("/");
     } catch (error) {
       console.error("Error saving checkout data:", error);
       alert("Failed to confirm purchase. Please try again.");
     }
   };
-  
 
   return (
     <div className="checkout-page">
       <div className="checkout-container">
         {/* Left Column - Products List */}
         <div className="left-column">
-        <button className="back-btn" onClick={() => navigate(-1)}>
-        <h1 className="checkout-title">Your Products</h1>
-        </button>
+          <button className="back-btn" onClick={() => navigate(-1)}>
+            <h1 className="checkout-title">Your Products</h1>
+          </button>
           {selectedProducts.length === 0 ? (
             <p className="empty-cart">No products selected</p>
           ) : (
             selectedProducts.map((product, index) => (
-              <div className="product-item">
-               
-                <img src={product.picture ? `http://localhost:5000/${product.picture}` : "https://via.placeholder.com/150"}alt={product.name} className="product-image" />
+              <div className="product-item" key={index}>
+                <img
+                  src={product.picture ? `http://localhost:5000/${product.picture}` : "https://via.placeholder.com/150"}
+                  alt={product.name}
+                  className="product-image"
+                />
                 <div className="product-details">
                   <h3 className="product-name">{product.name}</h3>
                   <p className="product-price">Price: ₱{product.price}</p>
@@ -95,6 +119,12 @@ const Checkout = () => {
                       className="quantity-input"
                     />
                   </div>
+                  <button
+                    className="delete-btn"
+                    onClick={() => handleDeleteProduct(index)}  // Delete product on button click
+                  >
+                    Delete
+                  </button>
                 </div>
               </div>
             ))

@@ -1,39 +1,17 @@
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 
 const cartSchema = new mongoose.Schema({
-  userId: {
+  user: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: 'User',
+    ref: "User", // Assuming there's a User model for authentication
     required: true,
-   
   },
-  items: [
+  cartItems: [
     {
-      productId: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'Product',
-        required: true,
-      },
-      quantity: {
-        type: Number,
-        default: 1,
-        min: 1,
-      },
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Product", // Assuming products are stored in a Product model
     },
   ],
-  createdAt: {
-    type: Date,
-    default: Date.now,
-  },
-  updatedAt: {
-    type: Date,
-    default: Date.now,
-  },
 });
 
-cartSchema.pre('save', function (next) {
-  this.updatedAt = Date.now();
-  next();
-});
-
-module.exports = mongoose.model('Cart', cartSchema);
+module.exports = mongoose.model("Cart", cartSchema);

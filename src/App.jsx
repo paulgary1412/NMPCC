@@ -12,6 +12,7 @@ import JsonData from "./data/data.json";
 import SmoothScroll from "smooth-scroll";
 import "./App.css";
 import Shopping from "./components/Shopping";
+import Orders from "./components/Orders";
 import Pharmacy from "./components/Pharmacy";
 import Dashboard from "./components/Dashboard";
 import ProfilePage from "./components/profile"; // Import Profile component
@@ -85,6 +86,8 @@ const App = () => {
         <Route path="/pharmacy" element={<Pharmacy />} />
         <Route path="/checkout" element={<Checkout />} />
         <Route path="/cart" element={<Cart />} />
+        <Route path="/orders" element={<Orders />} />
+
         <Route 
           path="/dashboard" 
           element={

@@ -37,11 +37,11 @@ const DashboardNavigation = ({ setActiveSection }) => {
         )}
       </button>
 
-      <button onClick={() => setActiveSection("orders")} aria-label="Orders">
+      <button onClick={() => setActiveSection("AdminOrders")} aria-label="Orders">
         {isCollapsed ? (
           <FaClipboardList size={24} aria-label="Orders Icon" />
         ) : (
-          "Orders"
+          "AdminOrders"
         )}
       </button>
     </div>

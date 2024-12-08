@@ -349,10 +349,17 @@ const checkoutSchema = new mongoose.Schema({
   deliveryMethod: { type: String, required: true },
   paymentMethod: { type: String, required: true },
   totalAmount: { type: Number, required: true },
+  statusOrder: { type: String, default: 'Pending' }, // Default to 'member'
+  statusInfo: { type: String, default: 'Pending' }, // Default to 'member'
+  
+}, {
+  timestamps: true , // This will automatically add createdAt and updatedAt fields
+  
+
 });
 
-// Create the Checkout model
-const Checkout = mongoose.model("Checkout", checkoutSchema);
+const Checkout = mongoose.model('Checkout', checkoutSchema);
+
 
 // POST route for handling checkout
 app.post("/checkout", async (req, res) => {
@@ -374,6 +381,163 @@ app.post("/checkout", async (req, res) => {
     res.status(500).send({ error: "Failed to save data" });
   }
 });
+app.get("/checkout/:user_idd", async (req, res) => {
+  try {
+    // Extract user_idd from the request parameters
+    const { user_idd } = req.params;
+
+    // Fetch checkout data associated with the provided user_idd
+    const checkoutData = await Checkout.find({ user_idd });
+
+    // Get the current date
+    const currentDate = new Date().toISOString();
+
+    // Check if data exists for the user
+    if (!checkoutData.length) {
+      return res.status(404).send({ message: "No checkout data found for this user", date: currentDate });
+    }
+
+    // Send the retrieved data along with the current date and the createdAt field
+    res.status(200).send({
+      message: "Checkout data retrieved successfully",
+      data: checkoutData.map(item => ({
+        ...item.toObject(),
+        createdAt: item.createdAt  // Ensure createdAt is included in the response
+      })),
+      date: currentDate
+    });
+  } catch (error) {
+    // Log the error and send a failure response
+    console.error("Error retrieving checkout data:", error);
+    res.status(500).send({ error: "Failed to retrieve data", date: new Date().toISOString() });
+  }
+});
+
+app.get("/checkout", async (req, res) => {
+  try {
+    // Fetch all checkout data
+    const checkoutData = await Checkout.find();
+
+    // Get the current date
+    const currentDate = new Date().toISOString();
+
+    // Check if data exists
+    if (!checkoutData.length) {
+      return res.status(404).send({ message: "No checkout data found", date: currentDate });
+    }
+
+    // Send the retrieved data along with the current date and the createdAt field
+    res.status(200).send({
+      message: "Checkout data retrieved successfully",
+      data: checkoutData.map(item => ({
+        ...item.toObject(),
+        createdAt: item.createdAt  // Ensure createdAt is included in the response
+      })),
+      date: currentDate
+    });
+  } catch (error) {
+    // Log the error and send a failure response
+    console.error("Error retrieving checkout data:", error);
+    res.status(500).send({ error: "Failed to retrieve data", date: new Date().toISOString() });
+  }
+});
+
+// PUT route for updating checkout status
+app.put("/checkout/update/:orderId", async (req, res) => {
+  try {
+    const { orderId } = req.params; // Get the order ID from URL parameters
+    const { statusOrder, statusInfo } = req.body; // Get the new status and info from the request body
+
+    // Find and update the checkout data based on the provided orderId
+    const updatedCheckout = await Checkout.findByIdAndUpdate(
+      orderId, // Find the document by orderId
+      { statusOrder, statusInfo }, // Update these fields
+      { new: true } // Return the updated document
+    );
+
+    // If no document is found with the given orderId
+    if (!updatedCheckout) {
+      return res.status(404).send({ message: "Order not found" });
+    }
+
+    // Send success response
+    res.status(200).send({
+      message: "Order status updated successfully!",
+      data: updatedCheckout,
+    });
+  } catch (error) {
+    console.error("Error updating checkout data:", error);
+    res.status(500).send({ error: "Failed to update data" });
+  }
+});
+
+// DELETE route for deleting a checkout order
+app.delete("/checkout/delete/:orderId", async (req, res) => {
+  try {
+    const { orderId } = req.params; // Get the order ID from the URL parameters
+
+    // Find and delete the checkout data based on the provided orderId
+    const deletedCheckout = await Checkout.findByIdAndDelete(orderId);
+
+    // If no document is found with the given orderId
+    if (!deletedCheckout) {
+      return res.status(404).send({ message: "Order not found" });
+    }
+
+    // Send success response
+    res.status(200).send({ message: "Order deleted successfully!" });
+  } catch (error) {
+    console.error("Error deleting checkout data:", error);
+    res.status(500).send({ error: "Failed to delete data" });
+  }
+});
+
+
+const cartSchema = new mongoose.Schema({
+  user_id: { type: String, required: true }, // Associate cart with a specific user
+  items: [
+    {
+      product_id: { type: String, required: true },
+      name: { type: String, required: true },
+      price: { type: Number, required: true },
+      quantity: { type: Number, required: true }
+    }
+  ],
+  total: { type: Number, required: true }, // Optional, can be calculated dynamically
+  updatedAt: { type: Date, default: Date.now }
+  
+});
+
+// Create the Cart model
+const Cart = mongoose.model("Cart", cartSchema);
+
+// API Endpoint to Add or Update Cart
+app.post("/cart", async (req, res) => {
+  try {
+    const { user_id, items } = req.body;
+
+    if (!user_id || !items || items.length === 0) {
+      return res.status(400).send({ message: "Invalid cart data" });
+    }
+
+    // Calculate the total price of the cart
+    const total = items.reduce((sum, item) => sum + item.price * item.quantity, 0);
+
+    // Find and update the cart for the user, or create a new one if it doesn't exist
+    const cart = await Cart.findOneAndUpdate(
+      { user_id },
+      { items, total, updatedAt: new Date() },
+      { new: true, upsert: true }
+    );
+
+    res.status(200).send({ message: "Cart updated successfully", cart });
+  } catch (error) {
+    console.error("Error updating cart:", error);
+    res.status(500).send({ message: "Failed to update cart" });
+  }
+});
+
+
 // Start the server
 app.listen(PORT, () => {
   console.log(`Server is running on http://localhost:${PORT}`);
