@@ -84,7 +84,10 @@ app.post("/register", async (req, res) => {
       username,
       email,
       password: hashedPassword,
-      usertype: "member", // Default user type
+      usertype: "nonmember", // Default user type
+      contact:"N/A",
+      paymentMethod :"N/A",
+      plan:"N/A"
     });
 
     // Save the new user to the database
@@ -96,6 +99,29 @@ app.post("/register", async (req, res) => {
   }
 });
 
+app.put("/update-usertype", async (req, res) => {
+  const { email,contact,paymentMethod,plan } = req.body; // Use email instead of id
+
+  try {
+    const user = await User.findOne({ email }); // Find user by email
+    if (!user) {
+      return res.status(404).json({ error: "User not found" });
+    }
+
+    user.usertype = "member"; // Update usertype to 'member'
+ 
+    user.contact = contact;
+    user.paymentMethod = paymentMethod;
+    user.plan = plan;
+
+    await user.save();
+
+    res.status(200).json({ message: "User type updated to member successfully" });
+  } catch (error) {
+    console.error("Error updating user type:", error);
+    res.status(500).json({ error: "Error updating user type" });
+  }
+});
 
 // Login User
 app.post("/login", async (req, res) => {

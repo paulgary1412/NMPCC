@@ -173,7 +173,7 @@ const Checkout = () => {
             >
               <option value="">Select Delivery Method</option>
               <option value="standard">Standard Delivery</option>
-              <option value="express">Express Delivery</option>
+              <option value="express">Pick Off</option>
             </select>
 
             <h2>Payment Method</h2>
@@ -184,9 +184,9 @@ const Checkout = () => {
               required
             >
               <option value="">Select Payment Method</option>
-              <option value="creditCard">Credit Card</option>
-              <option value="paypal">PayPal</option>
-              <option value="cod">Cash on Delivery</option>
+              <option value="creditCard">Gcash</option>
+              <option value="paypal">Cash on Delivery</option>
+              <option value="cod">Onsite Payment</option>
             </select>
           </form>
 

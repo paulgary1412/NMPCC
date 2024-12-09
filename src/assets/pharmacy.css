@@ -43,6 +43,7 @@
 .divider-container p{
   font-size: 14px;
   margin-left:1495px;
+  margin-top: 20px;
   font-weight: bold;
 }
 
@@ -105,7 +106,16 @@
 .item-card2:hover {
   transform: scale(1.05);
 }
-
+.popup{
+position: fixed;
+margin: auto;
+margin-left: 750px;
+margin-top: 250px;
+background-color:whitesmoke;
+padding: 20px;
+border-radius: 25px;
+z-index: 100;
+}
 /* Responsive Media Queries */
 @media (max-width: 768px) {
   .items-container {
