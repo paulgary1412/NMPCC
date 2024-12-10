@@ -223,10 +223,10 @@ z-index: 100;
 /* Product Details */
 .item-details {
   flex: 2;
-  margin-top: -70px; /* Adjust margin to ensure spacing is correct */
+  margin-top: -30px; /* Adjust margin to ensure spacing is correct */
   display: flex;
   flex-direction: column;
-
+  
   overflow-wrap: break-word;  /* Ensure text wraps correctly */
   word-wrap: break-word;  /* Ensure long words break and wrap */
   word-break: break-word;  /* Prevent words from overflowing */
@@ -263,7 +263,7 @@ z-index: 100;
 .item-card p {
   font-size: 14px;
   color: #666;
-  margin: 5px 0;
+  margin:  0;
   white-space: normal;  /* Allow paragraphs to break and wrap properly */
   overflow-wrap: break-word;  /* Ensures no content overflow */
   word-break: break-word;  /* Handle long words breaking */

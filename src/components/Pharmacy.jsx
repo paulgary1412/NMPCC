@@ -19,7 +19,7 @@ const Pharmacy = () => {
 
   useEffect(() => {
     axios
-      .get("http://localhost:5000/pharmacy")
+      .get("http://192.168.1.110:5000/pharmacy")
       .then((response) => setData(response.data))
       .catch(() => setError("Error fetching products and packages"));
 
@@ -81,7 +81,7 @@ const Pharmacy = () => {
   };
   // Handle Buy Now
   const handleBuyNow2 = (pkg) => {
-    if (userType === "member") {
+    if (userType === "member"||userType==="admin") {
       const updatedCart = [...selectedProducts, pkg];
 
       // Save to localStorage to persist cart
@@ -111,7 +111,7 @@ const Pharmacy = () => {
       const decoded = jwtDecode(token);
       const email = decoded.email; // Extract email from token
   
-          const response = await axios.put("http://localhost:5000/update-usertype", {
+          const response = await axios.put("http://10.11.38.202:5000/update-usertype", {
      
       email,
       contact,
@@ -187,10 +187,11 @@ const [plan, setPlan] = useState("");
               <div className="image-container">
                 <img src={product.imageUrl || "default-image-url"} alt="Product" />
                 <div className="item-details">
-                  <h2>{product.name}</h2>
+                <h2 style={{ fontSize: '30px', color: 'black  ', }}>{product.name}</h2>
                   <p><b>Price </b>: ₱{product.price}</p>
                   <p><b>Quantity:</b> {product.quantity}</p>
-                  <p><b>Description :</b>{product.description}</p>
+                  <p><b>Description :</b></p>
+                  <p>{product.description}</p>
                 </div>
                 <button
                   className="buy-now-btn"
@@ -207,10 +208,12 @@ const [plan, setPlan] = useState("");
               <div className="image-container">
                 <img src={pkg.imageUrl || "default-image-url"} alt="Package" />
                 <div className="item-details">
-                  <h2>{pkg.name}</h2>
+                <h2 style={{ fontSize: '20px', color: 'blue', textAlign: 'center' }}>{pkg.name}</h2>
+
                   <p><b>Price </b>: ₱{pkg.price}</p>
                   <p><b>Quantity:</b> {pkg.quantity}</p>
-                  <p><b>Description :</b>{pkg.description}</p>
+                  <p><b>Description :</b></p>
+                  <p><b>{pkg.description}</b></p>
                 </div>
                 <button
                   className="buy-now-btn"

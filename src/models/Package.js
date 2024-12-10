@@ -11,25 +11,33 @@ const PackageSchema = new mongoose.Schema({
   },
   quantity: {
     type: Number,
-    required: true,  // The quantity of the entire package
+    required: true,
   },
-  imageUrl: {  // Add the imageUrl field to store the Firebase URL
+  imageUrl: {
     type: String,
   },
-  description: {  // Add the imageUrl field to store the Firebase URL
+  description: {
     type: String,
-    required:true,
+    required: true,
   },
   items: [
     {
-      productId: { 
-        type: mongoose.Schema.Types.ObjectId, 
-        ref: "Listing", 
-        required: true 
+      productId: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Listing",
+        required: true,
       },
-      quantity: { 
-        type: Number, 
-        required: true 
+      name: {
+        type: String,
+        required: true,
+      },
+      price: {
+        type: Number,
+        required: true,
+      },
+      quantity: {
+        type: Number,
+        required: true,
       },
     },
   ],

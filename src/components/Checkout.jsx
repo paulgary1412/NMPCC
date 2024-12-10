@@ -33,6 +33,7 @@ const Checkout = () => {
     const cartData = JSON.parse(localStorage.getItem('cart')) || [];
     setSelectedProducts(cartData);
     
+    // Calculate the total initially
     const total = cartData.reduce((acc, product) => acc + product.price * product.quantity, 0);
     setTotalAmount(total);
   }, []);
@@ -42,6 +43,11 @@ const Checkout = () => {
     const updatedProducts = [...selectedProducts];
     updatedProducts[index].quantity = newQuantity;
     setSelectedProducts(updatedProducts);
+    
+    // Recalculate the total amount whenever the quantity changes
+    const newTotal = updatedProducts.reduce((acc, product) => acc + product.price * product.quantity, 0);
+    setTotalAmount(newTotal);
+
     updateCartToken(updatedProducts);  // Update the cart token when quantity changes
   };
 
@@ -49,6 +55,11 @@ const Checkout = () => {
   const handleDeleteProduct = (index) => {
     const updatedProducts = selectedProducts.filter((_, i) => i !== index);
     setSelectedProducts(updatedProducts);
+    
+    // Recalculate the total amount after deleting a product
+    const newTotal = updatedProducts.reduce((acc, product) => acc + product.price * product.quantity, 0);
+    setTotalAmount(newTotal);
+
     updateCartToken(updatedProducts);  // Update the cart token after deleting the product
   };
 
@@ -76,7 +87,7 @@ const Checkout = () => {
         totalAmount,
       };
 
-      const response = await axios.post("http://localhost:5000/checkout", checkoutData);
+      const response = await axios.post("http://192.168.1.110:5000/checkout", checkoutData);
       alert(response.data.message); // Display success message
       localStorage.removeItem('cart');  // Assuming the cart data is stored under 'cart' in localStorage
 
@@ -101,11 +112,10 @@ const Checkout = () => {
             selectedProducts.map((product, index) => (
               <div className="product-item" key={index}>
                 <img 
-  src={product.imageUrl || "default-image-url"} 
-  alt="Product" 
-  className="product-image" 
-/>
-
+                  src={product.imageUrl || "default-image-url"} 
+                  alt="Product" 
+                  className="product-image" 
+                />
                 <div className="product-details">
                   <h3 className="product-name">{product.name}</h3>
                   <p className="product-price">Price: ₱{product.price}</p>
@@ -163,7 +173,6 @@ const Checkout = () => {
               className="input-field"
               required
             />
-
             <h2>Delivery Method</h2>
             <select
               value={deliveryMethod}
@@ -175,7 +184,6 @@ const Checkout = () => {
               <option value="standard">Standard Delivery</option>
               <option value="express">Pick Off</option>
             </select>
-
             <h2>Payment Method</h2>
             <select
               value={paymentMethod}
@@ -189,7 +197,6 @@ const Checkout = () => {
               <option value="cod">Onsite Payment</option>
             </select>
           </form>
-
           <button onClick={handleConfirmation} className="confirm-button">
             Confirm Purchase
           </button>

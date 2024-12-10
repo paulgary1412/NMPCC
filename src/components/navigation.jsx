@@ -41,6 +41,7 @@ export const Navigation = () => {
       width: '100%',
       zIndex: 1000,
       top: '0px',
+     
     },
     navLink: {
       color: 'white',
@@ -48,6 +49,7 @@ export const Navigation = () => {
       cursor: 'pointer',
       padding: '15px 20px',
       display: 'block',
+      
     },
     dropdown: {
       position: 'absolute',

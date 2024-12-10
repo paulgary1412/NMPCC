@@ -23,7 +23,7 @@ const Orders = () => {
         const decodedToken = jwtDecode(token);
         const userId = decodedToken.id;
 
-        const response = await axios.get(`http://localhost:5000/checkout/${userId}`);
+        const response = await axios.get(`http://192.168.1.110:5000/checkout/${userId}`);
         setOrders(response.data.data); // Assuming `data` contains the list of orders
         setLoading(false);
       } catch (err) {
@@ -53,31 +53,47 @@ const Orders = () => {
         <p className="no-orders">You have no orders yet.</p>
       ) : (
         orders.map((order, index) => (
-          <div key={index} className="order-card">
-            <h2>Order #{index + 1}</h2>
+          <div key={index} className="order-card2">
+            <h2>Order ID #{index + 1}</h2>
             <p><strong>Name:</strong> {order.contactInfo.name}</p>
             <p><strong>Email:</strong> {order.contactInfo.email}</p>
             <p><strong>Phone:</strong> {order.contactInfo.phone}</p>
             <p><strong>Delivery Method:</strong> {order.deliveryMethod}</p>
             <p><strong>Payment Method:</strong> {order.paymentMethod}</p>
             <p><strong>Total Amount:</strong> ₱{order.totalAmount}</p>
-            {/* Add createdAt here */}
-<p><strong>Order Date:</strong> {new Date(order.createdAt).toLocaleDateString()}</p>
-<p><strong>Status:</strong> {order.statusOrder}</p>
-<p><strong>Information:</strong> {order.statusInfo}</p>
+                        {/* Add createdAt here */}
+            <p><strong>Order Date:</strong> {new Date(order.createdAt).toLocaleDateString()}</p>
+            <p><strong>Status:</strong> {order.statusOrder}</p>
+            <p><strong>Information:</strong> {order.statusInfo}</p>
             <h3>Products:</h3>
-            <ul>
+            <div className="productcontainer">
+               
+                        <ul>
               {order.selectedProducts.map((product, idx) => (
                 <li key={idx}>
+                  <div className="image-container2">
+                    <img src={product.imageUrl || "default-image-url"} alt="Package" />
+                  </div>
                   {product.name} - {product.quantity} x ₱{product.price}
-                </li>
-              ))}
-            </ul>
+                    </li>
+                  ))}
+                      
+                      {/* Calculate and display the total */}
+                    
+        </ul>
+        </div>
+        <div className="total-amount">
+                        <h3>      
+               Total Amount: ₱
+              {order.selectedProducts.reduce((total, product) => total + (product.price * product.quantity), 0)}
+               </h3>
+             
           </div>
-        ))
-      )}
+            </div>
+          ))
+        )}
 
-    </div>
+        </div>
     </div>
   );
 };

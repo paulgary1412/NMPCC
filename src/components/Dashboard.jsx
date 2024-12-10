@@ -90,7 +90,7 @@ const Dashboard = () => {
         // Update existing listing
         try {
           await axios.put(
-            `http://localhost:5000/listing/update/${editingListingId}`,
+            `http://192.168.1.110:5000/listing/update/${editingListingId}`,
             newProduct,
             {
               headers: {
@@ -107,7 +107,7 @@ const Dashboard = () => {
         // Create new listing
         try {
           await axios.post(
-            "http://localhost:5000/listing/create",
+            "http://192.168.1.110:5000/listing/create",
             newProduct,  // Include imageUrl in the payload
             {
               headers: {
@@ -135,7 +135,7 @@ const Dashboard = () => {
   const fetchListings = async () => {
     try {
       const token = localStorage.getItem("token");
-      const response = await axios.get("http://localhost:5000/listing", {
+      const response = await axios.get("http://192.168.1.110:5000/listing", {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -155,7 +155,7 @@ const Dashboard = () => {
   const handleDelete = async (id) => {
     try {
       const token = localStorage.getItem("token");
-      await axios.delete(`http://localhost:5000/listing/delete/${id}`, {
+      await axios.delete(`http://192.168.1.110:5000/listing/delete/${id}`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -179,7 +179,7 @@ const Dashboard = () => {
       {activeSection === "products" && (
         <>
           <div className="listing-container">
-            <h2 className="Title1">Pric</h2>
+            <h2 className="Title1">Products</h2>
             <button className="add-listing-button" onClick={handleAddProductClick}>
               + Add Product
             </button>

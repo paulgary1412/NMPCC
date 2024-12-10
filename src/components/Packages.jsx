@@ -26,7 +26,7 @@ const Packages = () => {
   const fetchProducts = async () => {
     try {
       const token = localStorage.getItem("token");
-      const response = await axios.get("http://localhost:5000/listing", {
+      const response = await axios.get("http://192.168.1.110:5000/listing", {
         headers: { Authorization: `Bearer ${token}` },
       });
       setProducts(response.data);
@@ -38,7 +38,7 @@ const Packages = () => {
   const fetchPackages = async () => {
     try {
       const token = localStorage.getItem("token");
-      const response = await axios.get("http://localhost:5000/package", {
+      const response = await axios.get("http://192.168.1.110:5000/package", {
         headers: { Authorization: `Bearer ${token}` },
       });
       setPackages(response.data);
@@ -61,21 +61,34 @@ const Packages = () => {
 
   const handleAddProduct = () => {
     const exists = selectedProducts.find((item) => item.productId === selectedProductId);
-    if (exists) {
-      setSelectedProducts((prev) =>
-        prev.map((item) =>
-          item.productId === selectedProductId
-            ? { ...item, quantity }
-            : item
-        )
-      );
-    } else {
-      setSelectedProducts((prev) => [...prev, { productId: selectedProductId, quantity }]);
+    const productData = products.find((item) => item._id === selectedProductId);
+  
+    if (productData) {
+      if (exists) {
+        setSelectedProducts((prev) =>
+          prev.map((item) =>
+            item.productId === selectedProductId
+              ? { ...item, quantity }
+              : item
+          )
+        );
+      } else {
+        setSelectedProducts((prev) => [
+          ...prev,
+          {
+            productId: selectedProductId,
+            quantity,
+            name: productData.name,  // Add product name here
+            price: productData.price, // Add product price here
+          },
+        ]);
+      }
     }
+  
     setSelectedProductId("");
     setQuantity(1);
   };
-
+  
   const handleRemoveProduct = (productId) => {
     setSelectedProducts((prev) => prev.filter((item) => item.productId !== productId));
   };
@@ -99,21 +112,22 @@ const Packages = () => {
     setPackageQuantity(1);
     setEditingPackage(null);
   };
-
   const handlePackageFormSubmit = async (e) => {
     e.preventDefault();
-
+  
     const token = localStorage.getItem("token");
     if (!token) {
       alert("You must be logged in to submit the form.");
       return;
     }
-
+  
     const items = selectedProducts.map((item) => ({
       productId: item.productId,
+      name: item.name,     // Include name
+      price: item.price,   // Include price
       quantity: item.quantity,
     }));
-
+  
     try {
       const packageData = {
         name: newPackageName,
@@ -123,9 +137,9 @@ const Packages = () => {
         description,
         imageUrl,
       };
-
+  
       if (editingPackage) {
-        await axios.put(`http://localhost:5000/package/update/${editingPackage._id}`, packageData, {
+        await axios.put(`http://192.168.1.110:5000/package/update/${editingPackage._id}`, packageData, {
           headers: { Authorization: `Bearer ${token}` },
         });
         alert("Package updated successfully!");
@@ -135,7 +149,7 @@ const Packages = () => {
         });
         alert("Package created successfully!");
       }
-
+  
       handleCancel();
       fetchPackages();
     } catch (error) {
@@ -143,6 +157,7 @@ const Packages = () => {
       alert("Error creating/updating package. Please try again.");
     }
   };
+  
 
   const handleUpdatePackage = (pkg) => {
     setEditingPackage(pkg);
@@ -161,7 +176,7 @@ const Packages = () => {
   const handleDeletePackage = async (pkgId) => {
     const token = localStorage.getItem("token");
     try {
-      await axios.delete(`http://localhost:5000/package/${pkgId}`, {
+      await axios.delete(`http://192.168.1.110:5000/package/${pkgId}`, {
         headers: { Authorization: `Bearer ${token}` },
       });
       alert("Package deleted successfully!");
@@ -315,27 +330,50 @@ const Packages = () => {
         </div>
       )}
   <h3>Existing Packages</h3>
-      <div className="packages-list">
-      
-        {packages.map((pkg) => (
-          <div key={pkg._id} className="package-item">
-            <h4>{pkg.name}</h4>
-            <div className="image-container2">
-              <img src={pkg.imageUrl || "default-image-url"} alt="Package" />
-            </div>
-            <p>Description :{pkg.description}</p>
-            <p>Price: ₱{pkg.price.toFixed(2)}</p>
-            <p>Quantity: {pkg.quantity}</p>
-            <p>Discount: {pkg.discount}</p>
-           
-            <div className="button-group">
-          </div>
-          
-          <button className="edit" onClick={() => handleUpdatePackage(pkg)}>Edit</button>
-            <button className="del"onClick={() => handleDeletePackage(pkg._id)}>Delete</button>
-            </div>
-        ))}
+  <div className="packages-list">
+  {packages.map((pkg) => (
+    <div key={pkg._id} className="package-item">
+      <h4>{pkg.name}</h4>
+      <div className="image-container2">
+        <img src={pkg.imageUrl || "default-image-url"} alt="Package" />
       </div>
+    
+      <p>Price: ₱{pkg.price.toFixed(2)}</p>
+      <p>Quantity: {pkg.quantity}</p>
+   
+      {/* Display the products inside the package */}
+      <div className="package-products">
+        <h5>Products Included in This Package:</h5>
+        <ul>
+          {pkg.items.map((item) => {
+            const productData = products.find((product) => product._id === item.productId);
+            return (
+              <li key={item.productId}>
+                {productData ? (
+                  <>
+                    {productData.name} - {item.quantity} pcs
+                  </>
+                ) : (
+                  "Product not found"
+                )}
+              </li>
+            );
+          })}
+        </ul>
+      </div>
+
+   
+        <button className="edit" onClick={() => handleUpdatePackage(pkg)}>
+          Edit
+        </button>
+        <button className="del" onClick={() => handleDeletePackage(pkg._id)}>
+          Delete
+        </button>
+     
+    </div>
+  ))}
+</div>
+
     </div>
   );
 };

@@ -23,7 +23,7 @@ const AdminOrders = () => {
         const decodedToken = jwtDecode(token);
         const userId = decodedToken.id;
 
-        const response = await axios.get("http://localhost:5000/checkout/");
+        const response = await axios.get("http://192.168.1.110:5000/checkout/");
         setOrders(response.data.data);
         setLoading(false);
       } catch (err) {
@@ -38,7 +38,7 @@ const AdminOrders = () => {
 
   const handleUpdate = async (orderId, newStatusOrder, newStatusInfo) => {
     try {
-      const response = await axios.put(`http://localhost:5000/checkout/update/${orderId}`, {
+      const response = await axios.put(`http://192.168.1.110:5000/checkout/update/${orderId}`, {
         statusOrder: newStatusOrder,
         statusInfo: newStatusInfo,
       });
@@ -56,7 +56,7 @@ const AdminOrders = () => {
 
   const handleDelete = async (orderId) => {
     try {
-      await axios.delete(`http://localhost:5000/checkout/delete/${orderId}`);
+      await axios.delete(`http://192.168.1.110:5000/checkout/delete/${orderId}`);
       setOrders(orders.filter(order => order._id !== orderId));
     } catch (err) {
       console.error("Error deleting order:", err);
@@ -131,6 +131,7 @@ const AdminOrders = () => {
             
             <p><strong>Order Date:</strong> {new Date(order.createdAt).toLocaleDateString()}</p>
             <h3>Products:</h3>
+            <div className="productcontainer2">
             <ul>
               {order.selectedProducts.map((product, idx) => (
                 <li key={idx}>
@@ -138,7 +139,7 @@ const AdminOrders = () => {
                 </li>
               ))}
             </ul>
-
+</div>
             {/* Dropdown for status update */}
             <select onChange={(event) => handleStatusChange(order._id, event)} defaultValue={order.statusOrder} className="status-select">
               <option value="Accepted">Accept</option>

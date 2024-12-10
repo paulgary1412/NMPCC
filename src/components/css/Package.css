@@ -140,7 +140,9 @@
     gap: 20px; /* Space between the columns */
   }
 
-
+  .package-products{
+    margin-top: -20px;
+  }
 
 
   .package-item {
@@ -148,7 +150,8 @@
     padding: 15px;
     border-radius: 8px;
     width: 380px;
-    height:325px;
+    height:390px;
+    position: relative;
     margin-bottom: 15px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   }
@@ -234,7 +237,7 @@
     height: 50px;
     width: 200px;
     margin-top: -50px;
-    margin-left: 166px;
+    margin-left: 165px;
     position: relative;
     border-top-right-radius: 0px;
     border-top-left-radius: 0px;
@@ -245,17 +248,15 @@
     color: white;
     height: 50px;
     width: 200px;
-    margin-left: -15px;
+    margin-left: -17px;
+    margin-top: -10px;
     border-radius: 5px;
     border: none;
     border-top-left-radius: 0px;
 
   }
-  .button-group{
-    border-radius: 5px;
-    border: none;
-    margin-top: 120px;
-  }
+  
+
   @media (max-width: 920px) {
     /* Main Container */
     .packages-container {

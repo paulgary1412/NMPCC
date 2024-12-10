@@ -39,7 +39,7 @@ export const Services = (props) => {
             <div key={index} className="col-md-4">
               {/* Only show the 'Database' link if the user is an admin */}
               {service.link === "/dashboard" && !checkAdminAccess() ? (
-                <p>You do not have permission to access this service.</p>
+                <p></p>
               ) : (
                 <Link to={service.link}>
                   <i className={`fa ${service.icon}`}></i>
