@@ -43,13 +43,19 @@
   margin: auto;
   max-height: 800px;
 }
-.productcontainer2 {
+.productcontainer {
   height: 100%;
-  max-height: 100px;  /* Set the maximum height */
+  max-height: 200px;  /* Set the maximum height */ 
   overflow-y: auto;   /* Enable vertical scrolling */
   padding: 10px;      /* Optional padding */
   border: 1px solid #ccc; /* Optional border */
   position: relative;
+}
+
+.img-container{
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .order-card:hover {

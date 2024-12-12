@@ -26,7 +26,7 @@ const Packages = () => {
   const fetchProducts = async () => {
     try {
       const token = localStorage.getItem("token");
-      const response = await axios.get("http://192.168.1.110:5000/listing", {
+      const response = await axios.get("http://localhost:5000/listing", {
         headers: { Authorization: `Bearer ${token}` },
       });
       setProducts(response.data);
@@ -38,7 +38,7 @@ const Packages = () => {
   const fetchPackages = async () => {
     try {
       const token = localStorage.getItem("token");
-      const response = await axios.get("http://192.168.1.110:5000/package", {
+      const response = await axios.get("http://localhost:5000/package", {
         headers: { Authorization: `Bearer ${token}` },
       });
       setPackages(response.data);
@@ -139,7 +139,7 @@ const Packages = () => {
       };
   
       if (editingPackage) {
-        await axios.put(`http://192.168.1.110:5000/package/update/${editingPackage._id}`, packageData, {
+        await axios.put(`http://localhost:5000/package/update/${editingPackage._id}`, packageData, {
           headers: { Authorization: `Bearer ${token}` },
         });
         alert("Package updated successfully!");
@@ -176,7 +176,7 @@ const Packages = () => {
   const handleDeletePackage = async (pkgId) => {
     const token = localStorage.getItem("token");
     try {
-      await axios.delete(`http://192.168.1.110:5000/package/${pkgId}`, {
+      await axios.delete(`http://localhost:5000/package/${pkgId}`, {
         headers: { Authorization: `Bearer ${token}` },
       });
       alert("Package deleted successfully!");

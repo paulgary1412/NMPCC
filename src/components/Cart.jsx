@@ -8,7 +8,6 @@ const Cart = () => {
   const [selectedIndexes, setSelectedIndexes] = useState([]);
   const navigate = useNavigate();
 
-
   useEffect(() => {
     const storedCart = JSON.parse(localStorage.getItem("cart")) || [];
     setSelectedProducts(storedCart);
@@ -53,11 +52,9 @@ const Cart = () => {
   return (
     <div className="cart-container">
       <div className="cart-content">
-        
         {/* Back Button */}
         <button className="back-btn" onClick={() => navigate(-1)}>
-        <h1>Shopping Cart</h1>
-      
+          <h1>Shopping Cart</h1>
         </button>
 
         {selectedProducts.length > 0 ? (
@@ -91,36 +88,40 @@ const Cart = () => {
                       />
                     </td>
                     <td>
-                    <img
-                    src={product.picture ? `http://192.168.1.110:5000/${product.picture}` : "https://via.placeholder.com/150"}
-                    alt={product.name || "Product"}
-                    style={{ width: '50px', height: '50px', objectFit: 'cover' }} 
-                  />
+                      <img
+                        src={product.imageUrl || "default-image-url"}
+                        alt={product.name || "Product"}
+                        style={{
+                          width: "50px",
+                          height: "50px",
+                          objectFit: "cover",
+                        }}
+                      />
                     </td>
                     <td>{product.name}</td>
                     <td>₱{product.price}</td>
                     <td>
                       <input
                         type="number"
-                        value={product.quantity || 1} 
+                        value={product.quantity || 1}
                         min="1"
-                        onChange={(e) => handleQuantityChange(index, e.target.value)}
+                        onChange={(e) =>
+                          handleQuantityChange(index, e.target.value)
+                        }
                         className="quantity-input"
                       />
                     </td>
                     <td>
-  ₱{
-    (() => {
-      const price = parseFloat(product.price);
-      const quantity = parseInt(product.quantity, 10);
-      // Only calculate the total if both price and quantity are valid numbers
-      if (!isNaN(price) && !isNaN(quantity)) {
-        return price * quantity;
-      }
-      return price; // Return 0 if either price or quantity is invalid
-    })()
-  }
-</td>
+                      ₱
+                      {(() => {
+                        const price = parseFloat(product.price);
+                        const quantity = parseInt(product.quantity, 10);
+                        if (!isNaN(price) && !isNaN(quantity)) {
+                          return price * quantity;
+                        }
+                        return price;
+                      })()}
+                    </td>
                     <td>
                       <button
                         onClick={() => handleDelete(index)}
@@ -135,20 +136,22 @@ const Cart = () => {
             </table>
 
             <div className="cart-footer">
-            
-              
               <h2>Total: ₱{totalPrice}</h2>
               <button
                 className="checkout-btn"
                 onClick={() =>
                   navigate("/checkout", {
-                    state: { selectedProducts: selectedIndexes.map((i) => selectedProducts[i]) },
+                    state: {
+                      selectedProducts: selectedIndexes.map(
+                        (i) => selectedProducts[i]
+                      ),
+                    },
                   })
                 }
+                disabled={selectedIndexes.length === 0} // Disable if no products are selected
               >
                 Proceed to Checkout
               </button>
-              
             </div>
           </>
         ) : (

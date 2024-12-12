@@ -1,9 +1,12 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { jwtDecode } from "jwt-decode"; // Correct import syntax
-
 import { useNavigate } from "react-router-dom"; // Import useNavigate for routing
 import "./css/Pharmacy.css";
+import { Button } from 'primereact/button';
+import 'primereact/resources/themes/saga-blue/theme.css'; // Theme CSS
+import 'primereact/resources/primereact.min.css';         // Core CSS  
+import Notification from "./Notifications";
 
 const Pharmacy = () => {
   const [data, setData] = useState({ products: [], packages: [] });
@@ -16,10 +19,14 @@ const Pharmacy = () => {
   const [userType, setUserType] = useState(null); // Track user type
   const [showPopup, setShowPopup] = useState(false); // Track popup visibility
   const navigate = useNavigate(); // Use navigate to redirect
+  // Snackbar state
+  const [notificationOpen, setNotificationOpen] = useState(false);
+  const [notificationMessage, setNotificationMessage] = useState("");
+  const [severity, setSeverity] = useState('success'); // State for severity
 
   useEffect(() => {
     axios
-      .get("http://192.168.1.110:5000/pharmacy")
+      .get("http://localhost:5000/pharmacy")
       .then((response) => setData(response.data))
       .catch(() => setError("Error fetching products and packages"));
 
@@ -38,6 +45,13 @@ const Pharmacy = () => {
       }
     }
   }, []);
+
+  // Snackbar close handler
+  const handleCloseNotification = () => {
+    setNotificationOpen(false);
+  };
+
+
 
   // Filter products based on name, price range, and category
   const filteredProducts = data.products.filter((product) => {
@@ -64,34 +78,31 @@ const Pharmacy = () => {
     return pkg.name.toLowerCase().includes(filterName.toLowerCase()) && inPriceRange;
   });
 
-  // Handle Buy Now
+  // Handle Buy Now for products
   const handleBuyNow = (product) => {
-   
-      const updatedCart = [...selectedProducts, product];
+    const updatedCart = [...selectedProducts, product];
 
-      // Save to localStorage to persist cart
-      localStorage.setItem("cart", JSON.stringify(updatedCart));
+    // Save to localStorage to persist cart
+    localStorage.setItem("cart", JSON.stringify(updatedCart));
 
-      // Show a built-in alert notification
-      alert(`${product.name} has been added to your cart!`);
-
-      // Navigate to checkout page
-      navigate("/checkout", { state: { selectedProducts: updatedCart } });
-   
+    // Show custom notification
+    setNotificationMessage(`${product.name} has been added to your cart!`);
+    setSeverity("success");
+    setNotificationOpen(true);
   };
-  // Handle Buy Now
+
+  // Handle Buy Now for packages
   const handleBuyNow2 = (pkg) => {
-    if (userType === "member"||userType==="admin") {
+    if (userType === "member" || userType === "admin") {
       const updatedCart = [...selectedProducts, pkg];
 
       // Save to localStorage to persist cart
       localStorage.setItem("cart", JSON.stringify(updatedCart));
 
-      // Show a built-in alert notification
-      alert(`${pkg.name} has been added to your cart!`);
-
-      // Navigate to checkout page
-      navigate("/checkout", { state: { selectedProducts: updatedCart } });
+      // Show custom notification
+      setNotificationMessage(`${pkg.name} has been added to your cart!`);
+      setSeverity("success");
+      setNotificationOpen(true);
     } else {
       // Show the membership popup
       setShowPopup(true);
@@ -102,7 +113,9 @@ const Pharmacy = () => {
   const handleUpgradeToMember = async () => {
     const token = localStorage.getItem("token");
     if (!token) {
-      alert("You need to be logged in to upgrade to a member.");
+      setNotificationMessage("You need to be logged in to upgrade to a member.");
+      setSeverity("error");
+      setNotificationOpen(true)
       return;
     }
   
@@ -120,25 +133,35 @@ const Pharmacy = () => {
     });
 
       if (response.status === 200) {
-        alert("Congratulations! You are now a member.");
+        setNotificationMessage("Congratulations! You are now a member.");
+        setNotificationOpen(true)
         setUserType("member"); // Update the local state to reflect membership
         setShowPopup(false); // Close the popup
       }
     } catch (error) {
       console.error("Error upgrading to member:", error);
-      alert("Failed to upgrade to a member. Please try again.");
+      setNotificationMessage("Failed to upgrade to a member. Please try again.");
+      setSeverity("error");
+      setNotificationOpen(true)
     }
   };
   
   const [email, setEmail] = useState("");
-const [contact, setContact] = useState("");
-const [paymentMethod, setPaymentMethod] = useState("");
-const [plan, setPlan] = useState("");
+  const [contact, setContact] = useState("");
+  const [paymentMethod, setPaymentMethod] = useState("");
+  const [plan, setPlan] = useState("");
 
 
   return (
     <div className="pharmacy-container">
       {error && <p className="error-message">{error}</p>}
+
+      <Notification
+        open={notificationOpen}
+        message={notificationMessage}
+        handleClose={handleCloseNotification}
+        severity={severity}
+      />
 
       <div className="filter-container">
         <h1>Filter</h1>
@@ -172,14 +195,15 @@ const [plan, setPlan] = useState("");
       </div>
 
       <div className="divider-container">
-        <p>Search</p>
+        <div>
         <input
           type="text"
           placeholder="Search Name"
-          className="filter-input"
+          style={{marginLeft: '700px'}}
           value={filterName}
           onChange={(e) => setFilterName(e.target.value)}
         />
+        </div>
 
         <div className="items-container">
           {filteredProducts.map((product) => (
@@ -187,18 +211,19 @@ const [plan, setPlan] = useState("");
               <div className="image-container">
                 <img src={product.imageUrl || "default-image-url"} alt="Product" />
                 <div className="item-details">
-                <h2 style={{ fontSize: '30px', color: 'black  ', }}>{product.name}</h2>
+                <h2 style={{ fontSize: '15px', color: 'black  '}}>{product.name}</h2>
                   <p><b>Price </b>: ₱{product.price}</p>
                   <p><b>Quantity:</b> {product.quantity}</p>
                   <p><b>Description :</b></p>
-                  <p>{product.description}</p>
+                  <p className="description">{product.description}</p>
                 </div>
-                <button
+                <Button
+                  severity="info"
                   className="buy-now-btn"
                   onClick={() => handleBuyNow(product)}
                 >
-                  Buy Now
-                </button>
+                  Add to Cart
+                </Button>
               </div>
             </div>
           ))}
@@ -208,19 +233,19 @@ const [plan, setPlan] = useState("");
               <div className="image-container">
                 <img src={pkg.imageUrl || "default-image-url"} alt="Package" />
                 <div className="item-details">
-                <h2 style={{ fontSize: '20px', color: 'blue', textAlign: 'center' }}>{pkg.name}</h2>
-
+                <h2 style={{ fontSize: '17px', color: 'blue'}}>{pkg.name}</h2>
                   <p><b>Price </b>: ₱{pkg.price}</p>
                   <p><b>Quantity:</b> {pkg.quantity}</p>
                   <p><b>Description :</b></p>
                   <p><b>{pkg.description}</b></p>
                 </div>
-                <button
+                <Button
+                  severity="info"
                   className="buy-now-btn"
                   onClick={() => handleBuyNow2(pkg)}
                 >
-                  Buy Now
-                </button>
+                  Add to Cart
+                </Button>
               </div>
             </div>
           ))}

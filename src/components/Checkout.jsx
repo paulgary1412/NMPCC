@@ -3,12 +3,18 @@ import { useLocation, useNavigate } from "react-router-dom";
 import "./css/Checkout.css";
 import axios from "axios";
 import { jwtDecode } from "jwt-decode"; // Correct import syntax
-
+import { Button } from 'primereact/button';
+import 'primereact/resources/themes/saga-blue/theme.css'; // Theme CSS
+import 'primereact/resources/primereact.min.css';         // Core CSS  
+import Notification from "./Notifications";
 const Checkout = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const [selectedProducts, setSelectedProducts] = useState([]);
   const [totalAmount, setTotalAmount] = useState(0);
+  const [notificationOpen, setNotificationOpen] = useState(false);
+  const [notificationMessage, setNotificationMessage] = useState("");
+  const [severity, setSeverity] = useState('success'); // State for severity
 
   // Contact Information
   const [contactInfo, setContactInfo] = useState({
@@ -87,19 +93,34 @@ const Checkout = () => {
         totalAmount,
       };
 
-      const response = await axios.post("http://192.168.1.110:5000/checkout", checkoutData);
-      alert(response.data.message); // Display success message
+      const response = await axios.post("http://localhost:5000/checkout", checkoutData);
+      setNotificationMessage(response.data.message); // Display success message
+      setSeverity("success");
+      setNotificationOpen(true);
       localStorage.removeItem('cart');  // Assuming the cart data is stored under 'cart' in localStorage
 
       navigate("/");
     } catch (error) {
       console.error("Error saving checkout data:", error);
-      alert("Failed to confirm purchase. Please try again.");
+      setNotificationMessage("Failed to confirm purchase. Please try again.");
+      setSeverity('error')
+      setNotificationOpen(true);
     }
+  };
+
+  // Snackbar close handler
+  const handleCloseNotification = () => {
+    setNotificationOpen(false);
   };
 
   return (
     <div className="checkout-page">
+      <Notification
+        open={notificationOpen}
+        message={notificationMessage}
+        handleClose={handleCloseNotification}
+        severity={severity}
+      />
       <div className="checkout-container">
         {/* Left Column - Products List */}
         <div className="left-column">
@@ -120,22 +141,15 @@ const Checkout = () => {
                   <h3 className="product-name">{product.name}</h3>
                   <p className="product-price">Price: ₱{product.price}</p>
                   <div className="quantity-container">
-                    <label htmlFor={`quantity-${index}`} className="quantity-label">Quantity:</label>
-                    <input
-                      id={`quantity-${index}`}
-                      type="number"
-                      min="1"
-                      value={product.quantity}
-                      onChange={(e) => handleQuantityChange(index, parseInt(e.target.value) || 1)}  // Prevent non-numeric input
-                      className="quantity-input"
-                    />
+                    <label htmlFor={`quantity-${index}`} className="quantity-label">Quantity: {product.quantity}</label>
                   </div>
-                  <button
+                  <Button
                     className="delete-btn"
+                    severity="danger"
                     onClick={() => handleDeleteProduct(index)}  // Delete product on button click
                   >
                     Delete
-                  </button>
+                  </Button>
                 </div>
               </div>
             ))

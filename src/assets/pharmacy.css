@@ -3,18 +3,23 @@
   display: flex;
   padding: 20px;
   margin-top: 50px;   
-
   width: 100%;
   height: auto;
 
 }
 
 .divider-container {
-  width: 100%;
-  margin-top: 40px;
-  
-  margin-left: 250px;
+  width: 100%; /* Ensure full-width inside its parent container */
+  margin-top: 30px;
+  margin-left: auto;
+  margin-right: auto;
   background-color: #fff;
+  display: flex; /* Add flex display to align child elements */
+  flex-direction: column; /* Stack child elements vertically */
+  align-items: center; /* Center the grid horizontally */
+  padding: 20px; /* Add some padding for better spacing */
+  box-sizing: border-box; /* Include padding and border in dimensions */
+  margin-left: 250px;
 }
 
 /* Filter Sidebar */
@@ -37,11 +42,11 @@
   margin-bottom: 15px;
   border: 1px solid #ccc;
   border-radius: 5px;
-  font-size: 14px;
+  font-size: 11px;
   margin-left:1060px;
 }
 .divider-container p{
-  font-size: 14px;
+  font-size: 11px;
   margin-left:1495px;
   margin-top: 20px;
   font-weight: bold;
@@ -54,6 +59,8 @@
   color: #333;
 }
 
+
+
 /* Filter Input Styles */
 .filter-container select,
 .filter-container input[type="number"],
@@ -63,22 +70,16 @@
   margin-bottom: 15px;
   border: 1px solid #ccc;
   border-radius: 5px;
-  font-size: 14px;
+  font-size: 11px;
 }
 
 .items-container {
-  position: relative;
-  margin-top: 50px;
-  margin-left: 60px;
-  /* Force 4 equal columns */
+  width: 100%; /* Make sure the grid spans the full width of the divider-container */
+  max-width: 1200px; /* Optional: Limit the grid width for better aesthetics */
+  margin: 0 auto; /* Center the grid inside the container */
   display: grid;
-  grid-template-columns: repeat(3, 1fr); /* Always 3 equal columns */
-  gap: 40px; /* Space between items */
-  
-  /* Let the number of rows grow based on content */
-  grid-auto-rows: auto; 
-  height: 100%; /* Allow container to grow vertically */
-  box-sizing: border-box;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); /* Responsive column count */
+  gap: 20px; /* Space between cards */
 }
 
 /* Ensure Item Cards Fit Within the Grid Without Overlap */
@@ -88,17 +89,17 @@
   flex-direction: column;
   justify-content: center;
   align-items: flex-start;
-
-  /* Allow the card's height to fit the content dynamically */
   height: auto;
   width: 100%;
+  max-width: 400px;  /* Limit the width of the card */
+  max-height: 400px; /* Limit the height of the card */
   box-sizing: border-box;
-
   border: 1px solid #ccc;
   border-radius: 8px;
   background-color: #fff;
   padding: 10px; /* Adjust padding for visual aesthetics */
   transition: transform 0.2s ease-in-out;
+  overflow: hidden; /* Prevents overflow of content */
 }
 
 /* Handle hover effects smoothly */
@@ -137,14 +138,25 @@ z-index: 100;
 /* Product Card */
 .item-card {
   display: flex;
+  flex-direction: column;
   border: 1px solid #ccc;
   border-radius: 8px;
   background-color: #fff;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-  width: 420px; /* Adjust width to fit content */
-  height: 260px;
+  margin: auto;
+  padding: 20px;
   position: relative;
 }
+
+.item-card .description {
+  display: -webkit-box;
+  -webkit-line-clamp: 3; /* Number of lines to show */
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis; /* Adds "..." to clipped text */
+  max-height: 100px; /* Adjust based on your line height */
+}
+
 .item-card2 {
   display: flex;
   border: 1px solid #ccc;
@@ -165,7 +177,6 @@ z-index: 100;
   position: relative;
 }
 .image-container3 {
-  
   flex: 1;
   display: flex;
   align-items: center;
@@ -173,7 +184,6 @@ z-index: 100;
   position: relative;
  
 }
-
 
 .item-card2 {
   display: flex;
@@ -188,18 +198,21 @@ z-index: 100;
 
 /* Product Image */
 .item-card img {
-  width: 175px;        /* Set a fixed width for all images */
-  height: 150px;       /* Set a fixed height for all images */
+  width: 100%;
+  max-width: 175px;
+  max-height: 100px;
   object-fit: cover;   /* Ensures the image covers the area, cropping if necessary */
   border-top-left-radius: 8px; /* Rounded top-left corner */
   border-top-right-radius: 0px; /* No rounded top-right corner */
-  margin-top: -110px;
+  margin-top: -50px;
   margin-left: -20px;
   margin-right: 20px;
 }
 .item-card2 img {
-  width: 175px;        /* Set a fixed width for all images */
-  height: 150px;       /* Set a fixed height for all images */
+  width: 100%;
+  max-width: 175px;        /* Set a fixed width for all images */
+  max-height: 100px;       /* Set a fixed height for all images */
+  height: auto;
   object-fit: cover;   /* Ensures the image covers the area, cropping if necessary */
   border-top-left-radius: 8px; /* Rounded top-left corner */
   border-top-right-radius: 0px; /* No rounded top-right corner */
@@ -226,7 +239,6 @@ z-index: 100;
   margin-top: -30px; /* Adjust margin to ensure spacing is correct */
   display: flex;
   flex-direction: column;
-  
   overflow-wrap: break-word;  /* Ensure text wraps correctly */
   word-wrap: break-word;  /* Ensure long words break and wrap */
   word-break: break-word;  /* Prevent words from overflowing */
@@ -247,21 +259,18 @@ z-index: 100;
 }
 /* Product Title */
 .item-card h4 {
-  font-size: 16px;
+  font-size: 18px;
+  font-weight: bold;
   color: #333;
-  margin-bottom: 8px;
-  white-space: normal;  /* Allow title to break if it's too long */
-}.item-card2 h4 {
-  font-size: 16px;
-  color: #333;
-  margin-bottom: 8px;
-  white-space: normal;  /* Allow title to break if it's too long */
+  margin-bottom: 10px;
+  text-align: left;
+  white-space: normal;  /* Allow title to break */
 }
 
 
 /* Product Price and Sales Info */
 .item-card p {
-  font-size: 14px;
+  font-size: 11px;
   color: #666;
   margin:  0;
   white-space: normal;  /* Allow paragraphs to break and wrap properly */
@@ -270,7 +279,7 @@ z-index: 100;
 }
 
 .item-card2 p {
-  font-size: 14px;
+  font-size: 11px;
   color: #666;
   margin: 5px 0;
   white-space: normal;  /* Allow paragraphs to break and wrap properly */
@@ -285,45 +294,22 @@ z-index: 100;
   margin-bottom: -100px;
 }
 
-/* Add to Cart and Buy Now Buttons */
-.add-to-cart-btn {
-  background-color: #007bff;
-  color: white;
-  border: none;
-  padding: 8px 15px;
-  border-radius: 5px;
-  cursor: pointer;
-  font-size: 14px;
-  transition: background-color 0.3s ease;
-}
 .item-card2 h2 {
   margin-top: 2rem;
   font-size: 1.3rem;
   color: #333;
   
 }
+
 .buy-now-btn {
-  background-color: green;
-  color: white;
-  border: none;
-    border-top-left-radius: 0px;
-  border-top-right-radius: 0px;
-  border-bottom-right-radius: 0px;
-  margin-top: 140px;
+  margin-top: 110px;
   margin-left: -20px;
-  margin-right: 20px;
-  cursor: pointer;
-  font-size: 14px;
-
-  width: 175px;
-  height: 120px;
-  z-index: 2;
-
-  transition: background-color 0.5s ease;
-
+  font-size: 10px;
+  text-align: center;
+  width: 100px;
+  height: 30px;
   position:absolute;
 }
-
 
 .buy-now-btn:hover {
   background-color: #0056b3; /* Change to a solid color on hover */
@@ -446,11 +432,11 @@ h6 {
     margin-bottom: 15px;
     border: 1px solid #ccc;
     border-radius: 5px;
-    font-size: 14px;
+    font-size: 11px;
     margin-left:60px;
   }
   .divider-container p{
-    font-size: 14px;
+    font-size: 11px;
     margin-left:65px;
     font-weight: bold;
     margin-top: 10px;
@@ -477,11 +463,11 @@ h6 {
     margin-bottom: 15px;
     border: 1px solid #ccc;
     border-radius: 5px;
-    font-size: 14px;
+    font-size: 11px;
     margin-left:60px;
   }
   .divider-container p{
-    font-size: 14px;
+    font-size: 11px;
     margin-left:65px;
     font-weight: bold;
     margin-top: 10px;
@@ -498,13 +484,13 @@ h6 {
   /* Filter container takes full width on small screens */
   .filter-container {
     width: 100%;
-    margin-left: 0;
+    margin-left: -100px;
     margin-top: 10px;
   }
 
   /* Adjust the filter and search inputs */
   .filter-input {
-    font-size: 14px;  /* Make text slightly smaller */
+    font-size: 11px;  /* Make text slightly smaller */
   }
 
   .divider-container {
