@@ -15,31 +15,35 @@ const Pharmacy = () => {
   const [selectedProducts, setSelectedProducts] = useState([]); // Track selected products
   const [userType, setUserType] = useState(null); // Track user type
   const [showPopup, setShowPopup] = useState(false); // Track popup visibility
+  const [email, setEmail] = useState("");
+  const [contact, setContact] = useState("");
+  const [paymentMethod, setPaymentMethod] = useState("");
+  const [plan, setPlan] = useState("");
   const navigate = useNavigate(); // Use navigate to redirect
 
+  // Fetch data and initialize cart and user type
   useEffect(() => {
     axios
-      .get("http://192.168.1.110:5000/pharmacy")
+      .get("http://192.168.1.45:5000/pharmacy")
       .then((response) => setData(response.data))
       .catch(() => setError("Error fetching products and packages"));
 
-    // Retrieve cart items from localStorage
     const storedCart = JSON.parse(localStorage.getItem("cart")) || [];
     setSelectedProducts(storedCart);
 
-    // Decode token to check user type
     const token = localStorage.getItem("token");
     if (token) {
       try {
         const decoded = jwtDecode(token);
         setUserType(decoded.usertype);
       } catch (error) {
-        console.error("Error decoding token:", error);
+        console.error("Invalid token:", error);
+        setUserType(null); // Reset userType if token is invalid
       }
     }
   }, []);
 
-  // Filter products based on name, price range, and category
+  // Filter products and packages
   const filteredProducts = data.products.filter((product) => {
     const inPriceRange =
       (minPrice === "" || product.price >= minPrice) &&
@@ -55,7 +59,6 @@ const Pharmacy = () => {
     );
   });
 
-  // Filter packages based on name and price range
   const filteredPackages = data.packages.filter((pkg) => {
     const inPriceRange =
       (minPrice === "" || pkg.price >= minPrice) &&
@@ -64,64 +67,56 @@ const Pharmacy = () => {
     return pkg.name.toLowerCase().includes(filterName.toLowerCase()) && inPriceRange;
   });
 
-  // Handle Buy Now
-  const handleBuyNow = (product) => {
-   
-      const updatedCart = [...selectedProducts, product];
-
-      // Save to localStorage to persist cart
-      localStorage.setItem("cart", JSON.stringify(updatedCart));
-
-      // Show a built-in alert notification
-      alert(`${product.name} has been added to your cart!`);
-
-      // Navigate to checkout page
-      navigate("/checkout", { state: { selectedProducts: updatedCart } });
-   
+  // Centralized redirection to checkout
+  const redirectToCheckout = (updatedCart) => {
+    localStorage.setItem("cart", JSON.stringify(updatedCart));
+    navigate("/checkout", { state: { selectedProducts: updatedCart } });
   };
-  // Handle Buy Now
-  const handleBuyNow2 = (pkg) => {
-    if (userType === "member"||userType==="admin") {
-      const updatedCart = [...selectedProducts, pkg];
 
-      // Save to localStorage to persist cart
-      localStorage.setItem("cart", JSON.stringify(updatedCart));
-
-      // Show a built-in alert notification
-      alert(`${pkg.name} has been added to your cart!`);
-
-      // Navigate to checkout page
-      navigate("/checkout", { state: { selectedProducts: updatedCart } });
+  // Handle "Buy Now" for products
+  const handleBuyNow = (product) => {
+    if (userType === "member" || userType === "admin") {
+      const updatedCart = [...selectedProducts, product];
+      redirectToCheckout(updatedCart);
+      alert(`${product.name} has been added to your cart!`);
     } else {
-      // Show the membership popup
-      setShowPopup(true);
+      setShowPopup(true); // Show membership popup
     }
   };
- 
-  
+
+  // Handle "Buy Now" for packages
+  const handleBuyNow2 = (pkg) => {
+    if (userType === "member" || userType === "admin") {
+      const updatedCart = [...selectedProducts, pkg];
+      redirectToCheckout(updatedCart);
+      alert(`${pkg.name} has been added to your cart!`);
+    } else {
+      setShowPopup(true); // Show membership popup
+    }
+  };
+
+  // Handle membership upgrade
   const handleUpgradeToMember = async () => {
     const token = localStorage.getItem("token");
     if (!token) {
       alert("You need to be logged in to upgrade to a member.");
       return;
     }
-  
+
     try {
-      // Decode the JWT token to extract the email
       const decoded = jwtDecode(token);
       const email = decoded.email; // Extract email from token
-  
-          const response = await axios.put("http://10.11.38.202:5000/update-usertype", {
-     
-      email,
-      contact,
-      paymentMethod,
-      plan,
-    });
+
+      const response = await axios.put("http://192.168.1.45:5000/update-usertype", {
+        email,
+        contact,
+        paymentMethod,
+        plan,
+      });
 
       if (response.status === 200) {
         alert("Congratulations! You are now a member.");
-        setUserType("member"); // Update the local state to reflect membership
+        setUserType("member"); // Update the local state
         setShowPopup(false); // Close the popup
       }
     } catch (error) {
@@ -129,12 +124,6 @@ const Pharmacy = () => {
       alert("Failed to upgrade to a member. Please try again.");
     }
   };
-  
-  const [email, setEmail] = useState("");
-const [contact, setContact] = useState("");
-const [paymentMethod, setPaymentMethod] = useState("");
-const [plan, setPlan] = useState("");
-
 
   return (
     <div className="pharmacy-container">
@@ -187,16 +176,13 @@ const [plan, setPlan] = useState("");
               <div className="image-container">
                 <img src={product.imageUrl || "default-image-url"} alt="Product" />
                 <div className="item-details">
-                <h2 style={{ fontSize: '30px', color: 'black  ', }}>{product.name}</h2>
-                  <p><b>Price </b>: ₱{product.price}</p>
-                  <p><b>Quantity:</b> {product.quantity}</p>
-                  <p><b>Description :</b></p>
+                  <h2>{product.name}</h2>
+                  <p><b>Price</b>: ₱{product.price}</p>
+                  <p><b>Quantity</b>: {product.quantity}</p>
+                  <p><b>Description</b>:</p>
                   <p>{product.description}</p>
                 </div>
-                <button
-                  className="buy-now-btn"
-                  onClick={() => handleBuyNow(product)}
-                >
+                <button className="buy-now-btn" onClick={() => handleBuyNow(product)}>
                   Buy Now
                 </button>
               </div>
@@ -208,17 +194,13 @@ const [plan, setPlan] = useState("");
               <div className="image-container">
                 <img src={pkg.imageUrl || "default-image-url"} alt="Package" />
                 <div className="item-details">
-                <h2 style={{ fontSize: '20px', color: 'blue', textAlign: 'center' }}>{pkg.name}</h2>
-
-                  <p><b>Price </b>: ₱{pkg.price}</p>
-                  <p><b>Quantity:</b> {pkg.quantity}</p>
-                  <p><b>Description :</b></p>
-                  <p><b>{pkg.description}</b></p>
+                  <h2>{pkg.name}</h2>
+                  <p><b>Price</b>: ₱{pkg.price}</p>
+                  <p><b>Quantity</b>: {pkg.quantity}</p>
+                  <p><b>Description</b>:</p>
+                  <p>{pkg.description}</p>
                 </div>
-                <button
-                  className="buy-now-btn"
-                  onClick={() => handleBuyNow2(pkg)}
-                >
+                <button className="buy-now-btn" onClick={() => handleBuyNow2(pkg)}>
                   Buy Now
                 </button>
               </div>
@@ -228,72 +210,43 @@ const [plan, setPlan] = useState("");
       </div>
 
       {showPopup && (
-  <div className="popup">
-    <div className="popup-content">
-      <h2>Be a Member</h2>
-      <p>Only members can purchase items. Please sign up or upgrade your account.</p>
-      
-      <form onSubmit={handleUpgradeToMember}>
-        {/* Email Input */}
-      
-        
-        {/* Contact Input */}
-        <div className="form-group">
-          <label htmlFor="contact">Contact Number:</label>
-          <input 
-            type="text" 
-            id="contact" 
-            name="contact"
-            placeholder="Enter your contact number"
-            required
-            value={contact}
-            onChange={(e) => setContact(e.target.value)}
-          />
-        </div>
-        
-        {/* Payment Method Input */}
-        <div className="form-group">
-          <label htmlFor="paymentMethod">Payment Method:</label>
-          <select 
-            id="paymentMethod" 
-            name="paymentMethod" 
-            required
-            value={paymentMethod}
-            onChange={(e) => setPaymentMethod(e.target.value)}
-          >
-            <option value="">Select Payment Method</option>
-            <option value="gcash">GCash</option>
-            <option value="landbank">Landbank</option>
-          </select>
-        </div>
+        <div className="popup" onClick={(e) => e.target.className === "popup" && setShowPopup(false)}>
+          <div className="popup-content">
+            <h2>Be a Member</h2>
+            <p>Only members can purchase items. Please sign up or upgrade your account.</p>
 
-        {/* Plans Input */}
-        <div className="form-group">
-          <label htmlFor="plan">Choose Your Plan:</label>
-          <select 
-            id="plan" 
-            name="plan" 
-            required
-            value={plan}
-            onChange={(e) => setPlan(e.target.value)}
-          >
-            <option value="">Select Plan</option>
-            <option value="Plan A">Plan A (3 months = 100 PHP)</option>
-            <option value="Plan B">Plan B (6 months = 180 PHP)</option>
-          </select>
+            <div className="form-group">
+              <label>Contact Number:</label>
+              <input
+                type="text"
+                value={contact}
+                onChange={(e) => setContact(e.target.value)}
+              />
+            </div>
+
+            <div className="form-group">
+              <label>Payment Method:</label>
+              <select value={paymentMethod} onChange={(e) => setPaymentMethod(e.target.value)}>
+                <option value="">Select Payment Method</option>
+                <option value="gcash">GCash</option>
+                <option value="landbank">Landbank</option>
+              </select>
+            </div>
+
+            <div className="form-group">
+              <label>Choose Your Plan:</label>
+              <select value={plan} onChange={(e) => setPlan(e.target.value)}>
+                <option value="">Select Plan</option>
+                <option value="Plan A">Plan A (3 months = 100 PHP)</option>
+                <option value="Plan B">Plan B (6 months = 180 PHP)</option>
+              </select>
+            </div>
+
+            <button onClick={handleUpgradeToMember}>Upgrade to Member</button>
+            <button onClick={() => setShowPopup(false)}>Close</button>
+          </div>
         </div>
-
-        {/* Submit Button */}
-        <div className="popupbutton">
-          <button type="submit">Upgrade to Member</button>
-          <button type="button" onClick={() => setShowPopup(false)}>Close</button>
-        </div>
-      </form>
-    </div>
-  </div>
-)}
-
-
+      )}
     </div>
   );
 };

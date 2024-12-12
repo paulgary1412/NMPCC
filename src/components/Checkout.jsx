@@ -87,7 +87,7 @@ const Checkout = () => {
         totalAmount,
       };
 
-      const response = await axios.post("http://192.168.1.110:5000/checkout", checkoutData);
+      const response = await axios.post("http://192.168.1.45:5000/checkout", checkoutData);
       alert(response.data.message); // Display success message
       localStorage.removeItem('cart');  // Assuming the cart data is stored under 'cart' in localStorage
 

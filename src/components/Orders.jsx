@@ -23,7 +23,7 @@ const Orders = () => {
         const decodedToken = jwtDecode(token);
         const userId = decodedToken.id;
 
-        const response = await axios.get(`http://192.168.1.110:5000/checkout/${userId}`);
+        const response = await axios.get(`http://localhost:5000/checkout/${userId}`);
         setOrders(response.data.data); // Assuming `data` contains the list of orders
         setLoading(false);
       } catch (err) {

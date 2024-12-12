@@ -26,7 +26,7 @@ const Packages = () => {
   const fetchProducts = async () => {
     try {
       const token = localStorage.getItem("token");
-      const response = await axios.get("http://192.168.1.110:5000/listing", {
+      const response = await axios.get("http://localhost:5000/listing", {
         headers: { Authorization: `Bearer ${token}` },
       });
       setProducts(response.data);
@@ -38,7 +38,7 @@ const Packages = () => {
   const fetchPackages = async () => {
     try {
       const token = localStorage.getItem("token");
-      const response = await axios.get("http://192.168.1.110:5000/package", {
+      const response = await axios.get("http://localhost:5000/package", {
         headers: { Authorization: `Bearer ${token}` },
       });
       setPackages(response.data);
@@ -139,7 +139,7 @@ const Packages = () => {
       };
   
       if (editingPackage) {
-        await axios.put(`http://192.168.1.110:5000/package/update/${editingPackage._id}`, packageData, {
+        await axios.put(`http://localhost:5000/package/update/${editingPackage._id}`, packageData, {
           headers: { Authorization: `Bearer ${token}` },
         });
         alert("Package updated successfully!");
@@ -176,7 +176,7 @@ const Packages = () => {
   const handleDeletePackage = async (pkgId) => {
     const token = localStorage.getItem("token");
     try {
-      await axios.delete(`http://192.168.1.110:5000/package/${pkgId}`, {
+      await axios.delete(`http://localhost:5000/package/${pkgId}`, {
         headers: { Authorization: `Bearer ${token}` },
       });
       alert("Package deleted successfully!");
@@ -220,115 +220,138 @@ const Packages = () => {
       </button>
 
       {showPackageForm && (
-        <div className="package-overlay">
-          <form onSubmit={handlePackageFormSubmit} className="package-form">
-            <h2>{editingPackage ? "Edit Package" : "Create New Package"}</h2>
-            
-            <label>
-              Package Name:
-              <input
-                type="text"
-                value={newPackageName}
-                onChange={(e) => setNewPackageName(e.target.value)}
-                required
-              />
-            </label>
+  <div className="package-overlay">
+    <form onSubmit={handlePackageFormSubmit} className="package-form">
+      <h2>{editingPackage ? "Edit Package" : "Create New Package"}</h2>
+      
+      <div className="form-group">
+        <label htmlFor="package-name">Package Name:</label>
+        <input
+          id="package-name"
+          type="text"
+          value={newPackageName}
+          onChange={(e) => setNewPackageName(e.target.value)}
+          required
+          className="form-input"
+        />
+      </div>
 
-            <label>
-              Package Description:
-              <textarea
-                value={description}
-                onChange={(e) => setDescription(e.target.value)}
-                required
-              />
-            </label>
+      <div className="form-group">
+        <label htmlFor="package-description">Package Description:</label>
+        <textarea
+          id="package-description"
+          value={description}
+          onChange={(e) => setDescription(e.target.value)}
+          required
+          className="form-textarea"
+        />
+      </div>
 
-            <label>
-              Package Quantity:
-              <input
-                type="number"
-                min="1"
-                value={packageQuantity}
-                onChange={(e) => setPackageQuantity(parseInt(e.target.value) || 1)}
-                required
-              />
-            </label>
+      <div className="form-group">
+        <label htmlFor="package-quantity">Package Quantity:</label>
+        <input
+          id="package-quantity"
+          type="number"
+          min="1"
+          value={packageQuantity}
+          onChange={(e) => setPackageQuantity(parseInt(e.target.value) || 1)}
+          required
+          className="form-input"
+        />
+      </div>
 
-            <label>
-              Select Product:
-              <select
-                value={selectedProductId}
-                onChange={(e) => setSelectedProductId(e.target.value)}
-                required
-              >
-                <option value="">-- Select a Product --</option>
-                {products.map((product) => (
-                  <option key={product._id} value={product._id}>
-                    {product.name} - ₱{product.price.toFixed(2)}
-                  </option>
-                ))}
-              </select>
-            </label>
+      <div className="form-group">
+        <label htmlFor="product-select">Select Product:</label>
+        <select
+          id="product-select"
+          value={selectedProductId}
+          onChange={(e) => setSelectedProductId(e.target.value)}
+          required
+          className="form-select"
+        >
+          <option value="">-- Select a Product --</option>
+          {products.map((product) => (
+            <option key={product._id} value={product._id}>
+              {product.name} - ₱{product.price.toFixed(2)}
+            </option>
+          ))}
+        </select>
+      </div>
 
-            <label>
-              Quantity:
-              <input
-                type="number"
-                min="1"
-                value={quantity}
-                onChange={(e) => setQuantity(parseInt(e.target.value))}
-                required
-              />
-            </label>
-            <button
-              type="button"
-              className="add-product-button"
-              onClick={handleAddProduct}
-              disabled={!selectedProductId}
-            >
-              Add Product
-            </button>
+      <div className="form-group">
+        <label htmlFor="product-quantity">Quantity:</label>
+        <input
+          id="product-quantity"
+          type="number"
+          min="1"
+          value={quantity}
+          onChange={(e) => setQuantity(parseInt(e.target.value))}
+          required
+          className="form-input"
+        />
+      </div>
 
-            <div className="selected-products-list">
-              <h3>Selected Products</h3>
-              <ul>
-                {selectedProducts.map((item) => (
-                  <li key={item.productId}>
-                    {products.find((p) => p._id === item.productId)?.name} - {item.quantity} pcs
-                    <button onClick={() => handleRemoveProduct(item.productId)}>Remove</button>
-                  </li>
-                ))}
-              </ul>
-            </div>
+      <button
+        type="button"
+        className="add-product-button"
+        onClick={handleAddProduct}
+        disabled={!selectedProductId}
+      >
+        Add Product
+      </button>
 
-            <div>
-              <label>
-                Discount:
-                <input
-                  type="number"
-                  min="0"
-                  value={discount}
-                  onChange={(e) => setDiscount(parseFloat(e.target.value))}
-                />
-              </label>
-            </div>
-
-            <label>
-              Upload Image:
-              <input type="file" accept="image/*" onChange={handleImageChange} />
-            </label>
-
-            <div className="form-buttons">
-              <button type="submit" className="submit-package-button">
-                {editingPackage ? "Update Package" : "Create Package"}
-              </button>
-              <button type="button" className="cancel-package-button" onClick={handleCancel}>
-                Cancel
-              </button>
-            </div>
-          </form>
+      {/* Scrollable section for selected products */}
+      <div className="selected-products-list">
+        <h3>Selected Products</h3>
+        <div className="scrollable-list">
+          <ul>
+            {selectedProducts.map((item) => (
+              <li key={item.productId}>
+                {products.find((p) => p._id === item.productId)?.name} - {item.quantity} pcs
+                <button onClick={() => handleRemoveProduct(item.productId)} className="remove-button">
+                  Remove
+                </button>
+              </li>
+            ))}
+          </ul>
         </div>
-      )}
+      </div>
+
+      <div className="form-group">
+        <label htmlFor="discount">Discount:</label>
+        <input
+          id="discount"
+          type="number"
+          min="0"
+          value={discount}
+          onChange={(e) => setDiscount(parseFloat(e.target.value))}
+          className="form-input"
+        />
+      </div>
+
+      <div className="form-group">
+        <label htmlFor="image-upload">Upload Image:</label>
+        <input
+          id="image-upload"
+          type="file"
+          accept="image/*"
+          onChange={handleImageChange}
+          className="form-input"
+        />
+      </div>
+
+      <div className="form-buttons">
+        <button type="submit" className="submit-package-button">
+          {editingPackage ? "Update Package" : "Create Package"}
+        </button>
+        <button type="button" className="cancel-package-button" onClick={handleCancel}>
+          Cancel
+        </button>
+      </div>
+    </form>
+  </div>
+)}
+
   <h3>Existing Packages</h3>
   <div className="packages-list">
   {packages.map((pkg) => (
@@ -338,7 +361,7 @@ const Packages = () => {
         <img src={pkg.imageUrl || "default-image-url"} alt="Package" />
       </div>
     
-      <p>Price: ₱{pkg.price.toFixed(2)}</p>
+      <h5>Price: ₱{pkg.price.toFixed(2)}</h5>
       <p>Quantity: {pkg.quantity}</p>
    
       {/* Display the products inside the package */}
@@ -360,16 +383,17 @@ const Packages = () => {
             );
           })}
         </ul>
-      </div>
 
-   
         <button className="edit" onClick={() => handleUpdatePackage(pkg)}>
           Edit
         </button>
         <button className="del" onClick={() => handleDeletePackage(pkg._id)}>
           Delete
         </button>
-     
+      </div>
+
+   
+        
     </div>
   ))}
 </div>

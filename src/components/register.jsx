@@ -33,7 +33,7 @@ const handleSignUp = async (e) => {
     const userId = uuidv4();
 
     // Send the registration request with the userId
-    const response = await axios.post("http://192.168.1.110:5000/register", {
+    const response = await axios.post("http://192.168.1.45:5000/register", {
       userId: userId,  // Include the generated userId
       username: formData.username,
       email: formData.email,

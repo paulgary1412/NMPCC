@@ -90,7 +90,7 @@ const Dashboard = () => {
         // Update existing listing
         try {
           await axios.put(
-            `http://192.168.1.110:5000/listing/update/${editingListingId}`,
+            `http://192.168.1.45:5000/listing/update/${editingListingId}`,
             newProduct,
             {
               headers: {
@@ -107,7 +107,7 @@ const Dashboard = () => {
         // Create new listing
         try {
           await axios.post(
-            "http://192.168.1.110:5000/listing/create",
+            "http://192.168.1.45:5000/listing/create",
             newProduct,  // Include imageUrl in the payload
             {
               headers: {
@@ -135,7 +135,7 @@ const Dashboard = () => {
   const fetchListings = async () => {
     try {
       const token = localStorage.getItem("token");
-      const response = await axios.get("http://192.168.1.110:5000/listing", {
+      const response = await axios.get("http://192.168.1.45:5000/listing", {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -155,7 +155,7 @@ const Dashboard = () => {
   const handleDelete = async (id) => {
     try {
       const token = localStorage.getItem("token");
-      await axios.delete(`http://192.168.1.110:5000/listing/delete/${id}`, {
+      await axios.delete(`http://192.168.1.45:5000/listing/delete/${id}`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -270,16 +270,15 @@ const Dashboard = () => {
                     <h4>{listing.name}</h4>
                     
                     <img src={listing.imageUrl || "default-image-url"} alt="Product" />
+                    <h5><strong>Price:</strong> ₱{listing.price}</h5>
                     <p><strong>Quantity:</strong> {listing.quantity}</p>
                     <p><strong>Type:</strong> {listing.type}</p>
-                    <p><strong>Price:</strong> ₱{listing.price}</p>
                     <div className="button-group2">
-            </div>
+                  </div>
           
                     <button className="update-button" onClick={() => handleUpdate(listing._id, listing)}>
-                  Update
-                  
-                </button>
+                    Update
+                    </button>
                   
                   <button className="delete-button" onClick={() => handleDelete(listing._id)}>
                   Delete

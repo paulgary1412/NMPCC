@@ -22,23 +22,24 @@
 }
 /* Card container adjustments */
 .card {
+  display: flex;
+  flex-direction: column; /* Stack elements vertically */
+  align-items: center; /* Center elements horizontally */
+  justify-content: center; /* Center elements vertically */
   background-color: #fff;
   border-radius: 10px;
   padding: 20px;
   width: 300px;
-  height: 325px;
+  height: auto;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
- 
-  z-index: 1;
 }
 
 /* Paragraph adjustments */
 .card p {
   font-size: 16px;
-  margin-bottom: 8px;
+  margin: 5px 0; /* Add spacing between text elements */
   color: #555;
-  word-wrap: break-word; /* Ensures text wraps and doesn't overflow */
-  overflow: hidden; /* Prevents overlap */
+  text-align: center; /* Center-align the text */
 }
 
 
@@ -181,15 +182,15 @@ select{
 
 
 .card img {
-  width: 100px;
-  height: 100px;
-  margin-top: 0px;
-  border-radius: 5px;
- 
+  width: 250px;
+  height: 120px;
+  object-fit: cover;
+  border-radius: 8px;
+  margin-bottom: 15px; /* Space between the image and descriptions */
 }
 
 .listing-image {
-  width: 150px;
+  width: 200px;
   height: 150px;
   object-fit: cover;
   border-radius: 8px;
@@ -211,39 +212,35 @@ select{
 }
 
 .update-button {
-  background-color: #FFC107;
+  background-color: #007BFF;
   color: white;
-  height: 60px;
-  width: 155px;
-  z-index: 5;
- position: relative;
- margin-left: -24px;
- border: none;
-
-border-top-right-radius: 0px;
-border-bottom-right-radius: 0px;
+  padding: 10px 15px;
+  font-size: 14px;
+  cursor: pointer;
+  border-radius: 5px;
+  border: none;
+  width: 100px; /* Fixed width for alignment */
+  margin-right: 50px; /* Space between buttons */
 }
+
 .button-group2 {
   display: flex;
-  
-  margin-bottom: 20px;
+  justify-content: center; /* Center the buttons horizontally */
+  width: 100%; /* Make buttons take full width of the card */
 }
 .update-button:hover {
-  background-color: #FF9800;
+  background-color: #0056b3;
 }
 
 .delete-button {
   background-color: #f44336;
   color: white;
-  height: 60px;
-  width: 150px;
-  z-index: 5;
-  position:relative;
-  margin-left: 130px;
-  margin-top: -60px;
-  border-top-left-radius: 0px;
-  border-bottom-left-radius: 0px;
-  
+  padding: 10px 15px;
+  font-size: 14px;
+  cursor: pointer;
+  border-radius: 5px;
+  border: none;
+  width: 100px; /* Fixed width for alignment */
 }
 
 .delete-button:hover {

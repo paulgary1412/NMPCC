@@ -1,360 +1,531 @@
-  /* General Styles */
-  body {
-    font-family: Arial, sans-serif;
-    background-color: #f4f4f9;
-    margin: 0;
-    padding: 0;
-    width: 90%;
-  }
+/* General Styles */
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f4f4f9;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+}
 
+.package-form-container {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+  width: 100%;
+}
+
+.package-form {
+  background: #ffffff;
+  padding: 2rem;
+  border-radius: 10px;
+  width: 60%;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  max-height: 80vh;  /* Max height for scrolling */
+  overflow-y: auto;  /* Scrollable if content exceeds */
+  border: 1px solid #ddd;
+}
+
+.package-form h2 {
+  text-align: center;
+  margin-bottom: 1.5rem;
+  font-size: 1.8rem;
+  color: #333;
+}
+
+.form-group {
+  margin-bottom: 1.2rem;
+}
+
+.form-group label {
+  display: block;
+  font-weight: 600;
+  font-size: 1rem;
+  margin-bottom: 0.5rem;
+  color: #333;
+}
+
+.form-input,
+.form-textarea,
+.form-select {
+  width: 100%;
+  padding: 0.8rem;
+  margin-top: 0.5rem;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  font-size: 1rem;
+  color: #555;
+  background-color: #f9f9f9;
+}
+
+.form-input:focus,
+.form-textarea:focus,
+.form-select:focus {
+  border-color: #4CAF50;
+  outline: none;
+}
+
+.form-textarea {
+  height: 150px;
+}
+
+.add-product-button {
+  background-color: #4CAF50;
+  color: white;
+  padding: 0.8rem 2rem;
+  font-size: 1rem;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  width: 100%;
+  margin-top: 1rem;
+}
+
+.add-product-button:hover {
+  background-color: #45a049;
+}
+
+.selected-products-list {
+  width: 100%;
+  background-color: #f8f9fa;
+  padding: 1rem;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  max-height: 50vh;  /* Optional: Set max height for selected products list */
+  overflow-y: auto;
+  margin-top: 1.5rem;
+}
+
+.selected-products-list ul {
+  list-style-type: none;
+  padding-left: 0;
+}
+
+.selected-products-list li {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.8rem;
+  border-bottom: 1px solid #ddd;
+  color: #555;
+}
+
+.selected-products-list li button {
+  background-color: #dc3545;
+  color: white;
+  padding: 5px 10px;
+  font-size: 12px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.selected-products-list li button:hover {
+  background-color: #c82333;
+}
+
+.form-buttons {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-top: 1.5rem;
+}
+
+.submit-package-button,
+.cancel-package-button {
+  padding: 0.8rem 1.5rem;
+  font-size: 1rem;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  width: 48%;
+}
+
+.submit-package-button {
+  background-color: #007bff;
+  color: white;
+}
+
+.submit-package-button:hover {
+  background-color: #0056b3;
+}
+
+.cancel-package-button {
+  background-color: #6c757d;
+  color: white;
+}
+
+.cancel-package-button:hover {
+  background-color: #5a6268;
+}
+
+.package-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.6);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 999;
+}
+
+
+/* Main Container */
+.packages-container {
+  display: flex;
+  flex-direction: column;
+  height: auto;
+  background-color: #fff; /* White background for the main container */
+  padding: 20px;
+  font-family: 'Arial', sans-serif;
+  justify-content: flex-start;
+  margin: 0 auto; /* Center the container */
+  width: 80%; /* Set a max width for better layout control */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Optional: Add a shadow for emphasis */
+  margin-top: 50px;
+}
+
+
+
+/* Title */
+.Title1 {
+  font-size: 28px;
+  color: #333;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+/* Add Package Button */
+.add-package-button {
+  display: block;
+  margin: 0 auto 20px auto;
+  padding: 10px 20px;
+  background-color: #007bff;
+  color: #fff;
+  font-size: 16px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.add-package-button:hover {
+  background-color: #0056b3;
+}
+
+/* Overlay for Form */
+.package-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.6);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 999;
+}
+
+/* Package Form */
+.package-form {
+  background: #fff;
+  padding: 20px 30px;
+  border-radius: 8px;
+  width: 90%;
+  max-width: 600px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.package-form h2 {
+  color: #333;
+  margin-bottom: 15px;
+  font-size: 24px;
+}
+
+/* Form Inputs */
+.package-form label {
+  display: block;
+  font-size: 14px;
+  margin: 10px 0 5px;
+  color: #555;
+}
+
+.package-form input,
+.package-form select,
+.package-form textarea {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 15px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 14px;
+}
+
+/* Buttons */
+.add-product-button,
+.submit-package-button,
+.cancel-package-button {
+  margin-top: 10px;
+  padding: 10px 15px;
+  font-size: 14px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.add-product-button {
+  background-color: #28a745;
+  color: #fff;
+}
+
+.add-product-button:hover {
+  background-color: #218838;
+}
+
+.submit-package-button {
+  background-color: #007bff;
+  color: #fff;
+}
+
+.submit-package-button:hover {
+  background-color: #0056b3;
+}
+
+.cancel-package-button {
+  background-color: #dc3545;
+  color: #fff;
+}
+
+.cancel-package-button:hover {
+  background-color: #c82333;
+}
+
+/* Packages List */
+.packages-list {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr); /* Four equal columns */
+  gap: 20px; /* Space between the columns */
+  margin-top: 20px;
+}
+
+.package-products {
+  margin-top: 20px;
+}
+
+.package-item {
+  background-color: #f8f9fa;
+  padding: 15px;
+  border-radius: 8px;
+  width: 380px; /* Fixed width for consistent layout */
+  min-height: 150px; /* Ensure a minimum height */
+  position: relative;
+  margin-bottom: 20px; /* Add space between items */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column; /* Ensure content stacks vertically */
+  justify-content: space-between; /* Space out content */
+}
+
+.package-item h4 {
+  margin: 0 0 10px;
+  font-size: 18px;
+  color: #333;
+}
+
+.image-container2 img {
+  width: 300px; /* Increase the image size */
+  height: 200px; /* Maintain aspect ratio */
+  border-radius: 4px; /* Optional: round the image corners */
+  margin-left: 20px;
+}
+
+/* Package Details */
+.package-item p {
+  font-size: 14px;
+  color: #555;
+  margin: 5px 0;
+}
+
+.edit {
+  background-color: #007BFF;
+  padding: 10px 15px;
+  font-size: 14px;
+  cursor: pointer;
+  border-radius: 5px;
+  border: none;
+  width: 120px; /* Fixed width for alignment */
+  height: 40px;
+  margin-left: 30px; 
+}
+
+.del {
+  background-color: #f44336;
+  color: white;
+  padding: 10px 15px;
+  font-size: 14px;
+  cursor: pointer;
+  border-radius: 5px;
+  border: none;
+  width: 120px;
+  height: 40px;
+}
+
+.package-item button {
+  margin-right: 40px;
+  padding: 5px 10px;
+  font-size: 14px;
+  border: none;
+  cursor: pointer;
+  word-break: break-word; /* Prevent button text from overflowing */
+}
+
+.package-item button:first-of-type {
+  background-color: #007BFF;
+  color: #e8e5e5;
+  opacity: 1;
+}
+
+.package-item button:first-of-type:hover {
+  background-color: #2c15d7;
+}
+
+.package-item button:last-of-type {
+  background-color: #dc3545;
+  opacity: 1;
+  color: #fff;
+}
+
+.package-item button:last-of-type:hover {
+  background-color: #c82333;
+}
+
+/* Selected Products List */
+.selected-products-list ul {
+  list-style: none;
+  padding: 0;
+}
+
+.selected-products-list li {
+  font-size: 14px;
+  margin-bottom: 10px;
+}
+
+.selected-products-list li button {
+  margin-left: 10px;
+  padding: 5px 10px;
+  background-color: #dc3545;
+  color: #fff;
+  font-size: 12px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.selected-products-list li button:hover {
+  background-color: #c82333;
+}
+
+
+
+
+
+/* Media Query for Responsiveness */
+@media (max-width: 920px) {
   /* Main Container */
-  .packages-container {
-    width: 90%;
-    
-    margin: 100px auto;
-    margin-left: 150px;
-    padding: 20px;
-    background-color: #ffffff;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  }
+ 
+.packages-container {
+  display: flex;
+  flex-direction: column;
+  background-color: #f4f4f4;
+  padding: 20px;
+  font-family: 'Arial', sans-serif;
+  height: auto; /* Allow the container to expand with content */
+  min-height: 100vh; /* Ensure it takes at least the full viewport height */
+}
+
 
   /* Title */
   .Title1 {
-    font-size: 28px;
-    color: #333;
-    margin-bottom: 20px;
-    text-align: center;
-  }
-
-  /* Add Package Button */
-  .add-package-button {
-    display: block;
-    margin: 0 auto 20px auto;
-    padding: 10px 20px;
-    background-color: #007bff;
-    color: #fff;
-    font-size: 16px;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-  }
-
-  .add-package-button:hover {
-    background-color: #0056b3;
-  }
-
-  /* Overlay for Form */
-  .package-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.6);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 999;
-  }
-
-  /* Package Form */
-  .package-form {
-    background: #fff;
-    padding: 20px 30px;
-    border-radius: 8px;
-    width: 90%;
-    max-width: 600px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  }
-
-  .package-form h2 {
-    color: #333;
-    margin-bottom: 15px;
     font-size: 24px;
-  }
-
-  /* Form Inputs */
-  .package-form label {
-    display: block;
-    font-size: 14px;
-    margin: 10px 0 5px;
-    color: #555;
-  }
-
-  .package-form input,
-  .package-form select,
-  .package-form textarea {
-    width: 100%;
-    padding: 10px;
-    margin-bottom: 15px;
-    border: 1px solid #ddd;
-    border-radius: 4px;
-    font-size: 14px;
-  }
-
-  /* Buttons */
-  .add-product-button,
-  .submit-package-button,
-  .cancel-package-button {
-    margin-top: 10px;
-    padding: 10px 15px;
-    font-size: 14px;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-  }
-
-  .add-product-button {
-    background-color: #28a745;
-    color: #fff;
-  }
-
-  .add-product-button:hover {
-    background-color: #218838;
-  }
-
-  .submit-package-button {
-    background-color: #007bff;
-    color: #fff;
-  }
-
-  .submit-package-button:hover {
-    background-color: #0056b3;
-  }
-
-  .cancel-package-button {
-    background-color: #dc3545;
-    color: #fff;
-  }
-
-  .cancel-package-button:hover {
-    background-color: #c82333;
   }
 
   /* Packages List */
   .packages-list {
     display: grid;
-    grid-template-columns: repeat(4, 1fr); /* Three equal columns */
-    gap: 20px; /* Space between the columns */
+    grid-template-columns: repeat(2, 1fr); /* Two equal columns */
+    gap: 20px;
   }
 
-  .package-products{
-    margin-top: -20px;
-  }
-
-
+  /* Package Item */
   .package-item {
-    background-color: #f8f9fa;
+    width: 350px;
+    height: 300px;
+    margin: 0 auto 20px; /* Ensure the product items have consistent margin */
+  }
+
+  /* Package Form */
+  .package-form {
+    width: 100%;
     padding: 15px;
-    border-radius: 8px;
-    width: 380px;
-    height:390px;
-    position: relative;
-    margin-bottom: 15px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   }
 
-  .package-item h4 {
-    margin: 0 0 10px;
-    font-size: 18px;
-    color: #333;
+  .package-form h2 {
+    font-size: 22px;
   }
 
-  .image-container2 img {
-    max-width: 100px;
-    height: 100px;
-    border-radius: 4px;
-    margin-bottom: 10px;
+  /* Form Inputs */
+  .package-form input,
+  .package-form select,
+  .package-form textarea {
+    font-size: 13px;
   }
 
-  /* Package Details */
-  .package-item p {
+  /* Buttons */
+  .add-product-button,
+  .submit-package-button,
+  .cancel-package-button,
+  .add-package-button {
+    padding: 8px 15px;
+    font-size: 12px;
+  }
+
+  .add-package-button {
     font-size: 14px;
-    color: #555;
-    margin: 5px 0;
   }
 
-  .package-item button {
-    margin-right: 10px;
-    padding: 5px 10px;
-    font-size: 14px;
-    border: none;
-
-    cursor: pointer;
-  }
-
-  .package-item button:first-of-type {
-    background-color: #ffc107;
-    color: #333;
-    opacity: 1;
-  }
-
-  .package-item button:first-of-type:hover {
-    background-color: #e0a800;
-  }
-
-  .package-item button:last-of-type {
-    background-color: #dc3545;
-    opacity: 1;
-    color: #fff;
-  }
-
-  .package-item button:last-of-type:hover {
-    background-color: #c82333;
+  /* Image Container */
+  .image-container2 {
+    display: flex; /* Use flexbox to center the image */
+    justify-content: center; /* Center horizontally */
+    align-items: center; /* Center vertically */
+    height: 150px; /* Set a height for better alignment */
+    width: 200px;
   }
 
   /* Selected Products List */
-  .selected-products-list ul {
-    list-style: none;
-    padding: 0;
-  }
-
   .selected-products-list li {
-    font-size: 14px;
-    margin-bottom: 10px;
+    font-size: 12px;
   }
 
   .selected-products-list li button {
-    margin-left: 10px;
-    padding: 5px 10px;
-    background-color: #dc3545;
-    color: #fff;
-    font-size: 12px;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
+    padding: 5px 8px;
+    font-size: 11px;
   }
 
-  .selected-products-list li button:hover {
-    background-color: #c82333;
-  }
-
-  .del{
-    background-color: #f44336;
-    color: white;
-    height: 50px;
-    width: 200px;
-    margin-top: -50px;
-    margin-left: 165px;
-    position: relative;
-    border-top-right-radius: 0px;
-    border-top-left-radius: 0px;
-    border-bottom-left-radius: 0px;
-  }
-  .edit{
-    background-color: #FFC107;
-    color: white;
-    height: 50px;
-    width: 200px;
-    margin-left: -17px;
-    margin-top: -10px;
-    border-radius: 5px;
-    border: none;
-    border-top-left-radius: 0px;
-
-  }
+  /* Delete Button */
   
 
-  @media (max-width: 920px) {
-    /* Main Container */
-    .packages-container {
-      width: 100%;
-      margin-left: 0px;
-      margin-right: 20px;
-      margin-top: 200px;
-    }
+  /* Edit Button */
   
-    /* Title */
-    .Title1 {
-      font-size: 24px;
-    }
-  
-    /* Packages List */
-    .packages-list {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr); /* Two equal columns */
-      gap: 20px;
-    }
-  
-    /* Package Item */
-    .package-item {
-      width: 350px;
-      height: 300px;
-    }
-  
-    /* Package Form */
-    .package-form {
-      width: 100%;
-      padding: 15px;
-    }
-  
-    .package-form h2 {
-      font-size: 22px;
-    }
-  
-    /* Form Inputs */
-    .package-form input,
-    .package-form select,
-    .package-form textarea {
-      font-size: 13px;
-    }
-  
-    /* Buttons */
-    .add-product-button,
-    .submit-package-button,
-    .cancel-package-button,
-    .add-package-button {
-      padding: 8px 15px;
-      font-size: 12px;
-    }
-  
-    .add-package-button {
-      font-size: 14px;
-    }
-  
-    /* Image Container */
-    .image-container2 img {
-      max-width: 80px;
-      height: 80px;
-    }
-  
-    /* Selected Products List */
-    .selected-products-list li {
-      font-size: 12px;
-    }
-  
-    .selected-products-list li button {
-      padding: 5px 8px;
-      font-size: 11px;
-    }
-  
-    /* Delete Button */
-    .del {
-      width: 200px;
-      margin-left: auto;
-      margin-right: auto;
-      position: fixed;
-      margin-top: 70px;
-      border-bottom-right-radius: 15px;
-      margin-left: 135px;
-    }
-  
-    /* Edit Button */
-    .edit {
-      width: 200px;
-      margin-left: auto;
-      margin-right: auto;
-      position: fixed;
-      margin-left: -20px;
-    margin-top: 70px;
-border-bottom-left-radius: 15px;
-    }
-  
-    /* Button Group */
-    .button-group {
-      margin-top: 50px;
-    }
+
+  /* Button Group */
+  .button-group {
+    margin-top: 50px;
   }
-  
+}

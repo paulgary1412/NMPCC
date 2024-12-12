@@ -92,7 +92,7 @@ const Cart = () => {
                     </td>
                     <td>
                     <img
-                    src={product.picture ? `http://192.168.1.110:5000/${product.picture}` : "https://via.placeholder.com/150"}
+                    src={product.picture ? `http://192.168.1.45:5000/${product.picture}` : "https://via.placeholder.com/150"}
                     alt={product.name || "Product"}
                     style={{ width: '50px', height: '50px', objectFit: 'cover' }} 
                   />
