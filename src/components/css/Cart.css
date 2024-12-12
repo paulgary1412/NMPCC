@@ -1,250 +1,245 @@
   /* Back Button Styling */
-.back-btn {
-  background-color: transparent;
-  border: none;
-  color: #000000;
-  font-size: 20px;
-  font-weight: bold;
-  cursor: pointer;
-  display: inline-flex;
-  align-items: center;
-}
-
-.back-btn:hover {
-  color: #c0392b;
-}
-
-.back-btn:before {
-  content: "←";
-  margin-right: 10px;
-  font-size: 40px;
-}
+  .back-btn {
+    background-color: transparent;
+    border: none;
+    color: #000000;
+    font-size: 20px;
+    font-weight: bold;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+  }
   
-  /* Table Styling */
-  .cart-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 100vh; /* Ensure it takes full viewport height */
-    background: rgb(236, 235, 235); /* Light background for contrast */
-    padding: 20px; /* Space around the content */
-    padding-top: 100px;
+  .back-btn:hover {
+    color: #c0392b;
   }
-
-  .cart-content {
-    width: 100%;
-    max-width: 1000px; /* Restrict maximum width for readability */
-    background-color: #fff;
-    border-radius: 10px;
-    box-shadow: 0 6px 10px rgba(0, 0, 0, 0.2); /* Subtle shadow for depth */
-    padding: 20px; /* Padding inside the container */
-    overflow-x: auto; /* Allow horizontal scrolling for smaller screens */
+  
+  .back-btn:before {
+    content: "←";
+    margin-right: 10px;
+    font-size: 40px;
   }
-
-  /* Table Styling */
-  .cart-table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-top: 20px;
-    border-radius: 10px;
-    overflow: hidden;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Add subtle shadow */
-  }
-
-  .cart-table th,
-  .cart-table td {
-    padding: 15px;
-    text-align: center;
-    vertical-align: middle;
-  }
-
-  .cart-table th {
-    background-color: #Ae2029; /* Modern purple header */
-    color: #fff;
-    font-size: 16px;
-    font-weight: bold;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-  }
-
-  .cart-table tbody tr {
-    background-color: #fff;
-    transition: background-color 0.3s ease;
-  }
-
-  .cart-table tbody tr:nth-child(even) {
-    background-color: #f9f9f9; /* Alternating row colors */
-  }
-
-  .cart-table tbody tr:hover {
-    background-color: #f4f4ff; /* Subtle hover effect */
-  }
-
-  .cart-table td {
-    color: #333;
-    font-size: 15px;
-  }
-
-  .cart-table td img.product-image {
-    width: 60px;
-    height: 60px;
-    object-fit: cover;
-    border-radius: 8px;
-    border: 1px solid #ddd;
-  }
-
-  .cart-table td input[type="checkbox"] {
-    cursor: pointer;
-    transform: scale(1.2); /* Slightly larger checkboxes */
-  }
-
-  .quantity-input {
-    width: 50px;
-    height: 30px;
-    text-align: center;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    font-size: 14px;
-    outline: none;
-    transition: border-color 0.3s ease;
-  }
-
-  .quantity-input:focus {
-    border-color: #6c63ff;
-  }
-
-  .cart-footer {
-    display: flex;
-    justify-content: flex-end;
-    align-items: center;
-    margin-top: 20px;
-  }
-
-  .cart-footer h2 {
-    display: flex;
-    justify-content: flex-end;
-    align-items: center;
-    margin-top: 20px;
-    margin-right: 20px;
-  }
-
-  .checkout-btn {
-    padding: 15px 30px;
-    font-size: 18px;
-    font-weight: bold;
-    background-color: #22cbff;
-    color: white;
-    border: none;
-   
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-  }
-
-  .checkout-btn:hover {
-    background-color: #e64a19;
-  }
-  .browse-again {
     
-    
-    padding: 15px 30px;
-    font-size: 18px;
-    font-weight: bold;
-    background-color: #22cbff;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-  }
-
-  .browse-again:hover {
-    background-color: #e64a19;
-  }
-
-  .cart-table td .delete-btn {
-    padding: 8px 12px;
-    background-color: #Ae2029;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    font-size: 14px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-  }
-
-  .cart-table td .delete-btn:hover {
-    background-color: #c0392b;
-  }
-
-  /* Checkbox Header */
-  .cart-table th:first-child input[type="checkbox"] {
-    transform: scale(1.5); /* Larger 'Select All' checkbox */
-    cursor: pointer;
-  }
-
-  /* Responsive Design */
-  @media (max-width: 768px) {
-    /* Container and Content */
-    .cart-content {
-      padding: 10px; /* Less padding for small screens */
-      max-width: 100%; /* Full width */
-    }
-
     /* Table Styling */
+    .cart-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh; /* Ensure it takes full viewport height */
+      background: rgb(236, 235, 235); /* Light background for contrast */
+      padding: 20px; /* Space around the content */
+      padding-top: 100px;
+    }
+  
+    .cart-content {
+      width: 100%;
+      max-width: 1000px; /* Restrict maximum width for readability */
+      background-color: #fff;
+      border-radius: 10px;
+      box-shadow: 0 6px 10px rgba(0, 0, 0, 0.2); /* Subtle shadow for depth */
+      padding: 20px; /* Padding inside the container */
+      overflow-x: auto; /* Allow horizontal scrolling for smaller screens */
+    }
+  
+    /* Table Styling */
+    .cart-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 20px;
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Add subtle shadow */
+    }
+  
     .cart-table th,
     .cart-table td {
-      font-size: 14px; /* Smaller font size */
-      padding: 10px; /* Reduced padding */
+      padding: 15px;
+      text-align: center;
+      vertical-align: middle;
     }
-
+  
+    .cart-table th {
+      background-color: #Ae2029; /* Modern purple header */
+      color: #fff;
+      font-size: 16px;
+      font-weight: bold;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+  
+    .cart-table tbody tr {
+      background-color: #fff;
+      transition: background-color 0.3s ease;
+    }
+  
+    .cart-table tbody tr:nth-child(even) {
+      background-color: #f9f9f9; /* Alternating row colors */
+    }
+  
+    .cart-table tbody tr:hover {
+      background-color: #f4f4ff; /* Subtle hover effect */
+    }
+  
+    .cart-table td {
+      color: #333;
+      font-size: 15px;
+    }
+  
     .cart-table td img.product-image {
-      width: 50px; /* Smaller image */
-      height: 50px;
+      width: 60px;
+      height: 60px;
+      object-fit: cover;
+      border-radius: 8px;
+      border: 1px solid #ddd;
     }
-
-    /* Quantity Input */
+  
+    .cart-table td input[type="checkbox"] {
+      cursor: pointer;
+      transform: scale(1.2); /* Slightly larger checkboxes */
+    }
+  
     .quantity-input {
-      width: 40px; /* Smaller width for quantity input */
+      width: 50px;
+      height: 30px;
+      text-align: center;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      font-size: 14px;
+      outline: none;
+      transition: border-color 0.3s ease;
     }
-
-    /* Checkout Button */
-    .checkout-btn {
-      width: 100%; /* Full-width button on small screens */
-      font-size: 16px; /* Slightly smaller font size */
+  
+    .quantity-input:focus {
+      border-color: #6c63ff;
     }
-
-    /* Footer */
+  
     .cart-footer {
-      flex-direction: column; /* Stack footer content vertically */
-      justify-content: center; /* Center the button */
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+      margin-top: 20px;
     }
-
+  
     .cart-footer h2 {
-      margin-top: 10px; /* Less margin */
-      margin-right: 0; /* Remove right margin */
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+      margin-top: 20px;
+      margin-right: 20px;
     }
-  }
-
-  /* Very small screens */
-  @media (max-width: 480px) {
-    .cart-table th,
-    .cart-table td {
-      font-size: 12px; /* Smaller font size for very small screens */
-      padding: 8px; /* Further reduced padding */
-    }
-
-    .cart-table td img.product-image {
-      width: 40px; /* Even smaller image */
-      height: 40px;
-    }
-
-    .quantity-input {
-      width: 35px; /* Smaller input */
-    }
-
+  
     .checkout-btn {
-      font-size: 14px; /* Further reduced font size */
-      padding: 12px; /* Smaller padding */
+      padding: 15px 30px;
+      font-size: 18px;
+      font-weight: bold;
+      background-color: rgb(5, 186, 5);
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
     }
-  }
+  
+    .browse-again {  
+      padding: 15px 30px;
+      font-size: 18px;
+      font-weight: bold;
+      background-color: #22cbff;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+  
+    .browse-again:hover {
+      background-color: #e64a19;
+    }
+  
+    .cart-table td .delete-btn {
+      padding: 8px 12px;
+      background-color: #Ae2029;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      font-size: 14px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+  
+    .cart-table td .delete-btn:hover {
+      background-color: #c0392b;
+    }
+  
+    /* Checkbox Header */
+    .cart-table th:first-child input[type="checkbox"] {
+      transform: scale(1.5); /* Larger 'Select All' checkbox */
+      cursor: pointer;
+    }
+  
+    /* Responsive Design */
+    @media (max-width: 768px) {
+      /* Container and Content */
+      .cart-content {
+        padding: 10px; /* Less padding for small screens */
+        max-width: 100%; /* Full width */
+      }
+  
+      /* Table Styling */
+      .cart-table th,
+      .cart-table td {
+        font-size: 14px; /* Smaller font size */
+        padding: 10px; /* Reduced padding */
+      }
+  
+      .cart-table td img.product-image {
+        width: 50px; /* Smaller image */
+        height: 50px;
+      }
+  
+      /* Quantity Input */
+      .quantity-input {
+        width: 40px; /* Smaller width for quantity input */
+      }
+  
+      /* Checkout Button */
+      .checkout-btn {
+        width: 100%; /* Full-width button on small screens */
+        font-size: 16px; /* Slightly smaller font size */
+      }
+  
+      /* Footer */
+      .cart-footer {
+        flex-direction: column; /* Stack footer content vertically */
+        justify-content: center; /* Center the button */
+      }
+  
+      .cart-footer h2 {
+        margin-top: 10px; /* Less margin */
+        margin-right: 0; /* Remove right margin */
+      }
+    }
+  
+    /* Very small screens */
+    @media (max-width: 480px) {
+      .cart-table th,
+      .cart-table td {
+        font-size: 12px; /* Smaller font size for very small screens */
+        padding: 8px; /* Further reduced padding */
+      }
+  
+      .cart-table td img.product-image {
+        width: 40px; /* Even smaller image */
+        height: 40px;
+      }
+  
+      .quantity-input {
+        width: 35px; /* Smaller input */
+      }
+  
+      .checkout-btn {
+        font-size: 14px; /* Further reduced font size */
+        padding: 12px; /* Smaller padding */
+      }
+    }
+  

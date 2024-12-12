@@ -67,15 +67,17 @@
   width: 100px;
 }
 .product-image {
-  width: 100px;  /* Set a fixed width for the image */
-  height: 150px; /* Set a fixed height for the image */
+  width: 100%;  /* Set a fixed width for the image */
+  height: auto; /* Set a fixed height for the image */
+  max-width: 100px;
+  max-height: 100px;
   object-fit: cover; /* Make sure the image fits the box without stretching */
   margin-right: 1rem;  /* Add space between the image and the text */
   border-radius: 5px; /* Optional: for rounded corners */
 }
 
 .product-details {
-  margin-bottom: 1rem;
+  margin-bottom: 0;
 }
 
 .product-name {
