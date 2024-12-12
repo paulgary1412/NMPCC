@@ -1,0 +1,540 @@
+/* Main Container for Pharmacy Page */
+.pharmacy-container {
+  display: flex;
+  padding: 20px;
+  margin-top: 50px;   
+
+  width: 100%;
+  height: auto;
+
+}
+
+.divider-container {
+  width: 100%;
+  margin-top: 40px;
+  
+  margin-left: 250px;
+  background-color: #fff;
+}
+
+/* Filter Sidebar */
+.filter-container {
+  width: 250px; /* Width for the sidebar */
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background-color: #ffffff;
+  margin-left: -20px;
+  margin-top: 18px;
+  height: 100%;
+  position: fixed;
+  z-index: 2;
+  margin-right: 200px;
+}
+.divider-container input[type="text"]{
+  width: 30%;
+  padding: 10px;
+  margin-bottom: 15px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 14px;
+  margin-left:1060px;
+}
+.divider-container p{
+  font-size: 14px;
+  margin-left:1495px;
+  margin-top: 20px;
+  font-weight: bold;
+}
+
+/* Filter Title */
+.filter-container h4 {
+  margin-bottom: 0;
+  font-size: 18px;
+  color: #333;
+}
+
+/* Filter Input Styles */
+.filter-container select,
+.filter-container input[type="number"],
+.filter-container input[type="text"] {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 15px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 14px;
+}
+
+.items-container {
+  position: relative;
+  margin-top: 50px;
+  margin-left: 60px;
+  /* Force 4 equal columns */
+  display: grid;
+  grid-template-columns: repeat(3, 1fr); /* Always 3 equal columns */
+  gap: 40px; /* Space between items */
+  
+  /* Let the number of rows grow based on content */
+  grid-auto-rows: auto; 
+  height: 100%; /* Allow container to grow vertically */
+  box-sizing: border-box;
+}
+
+/* Ensure Item Cards Fit Within the Grid Without Overlap */
+.item-card,
+.item-card2 {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+
+  /* Allow the card's height to fit the content dynamically */
+  height: auto;
+  width: 100%;
+  box-sizing: border-box;
+
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  background-color: #fff;
+  padding: 10px; /* Adjust padding for visual aesthetics */
+  transition: transform 0.2s ease-in-out;
+}
+
+/* Handle hover effects smoothly */
+.item-card:hover,
+.item-card2:hover {
+  transform: scale(1.05);
+}
+.popup{
+position: fixed;
+margin: auto;
+margin-left: 750px;
+margin-top: 250px;
+background-color:whitesmoke;
+padding: 20px;
+border-radius: 25px;
+z-index: 100;
+}
+/* Responsive Media Queries */
+@media (max-width: 768px) {
+  .items-container {
+      grid-template-columns: repeat(2, 1fr); /* Adapt for smaller screens */
+  }
+}
+
+@media (max-width: 480px) {
+  .items-container {
+      grid-template-columns: 1fr; /* Single column for very small screens */
+  }
+}
+
+/* Divider Styles */
+.divider {
+  margin-left: 50px;
+}
+
+/* Product Card */
+.item-card {
+  display: flex;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  background-color: #fff;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  width: 420px; /* Adjust width to fit content */
+  height: 260px;
+  position: relative;
+}
+.item-card2 {
+  display: flex;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  background-color: #fff;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  width: 420px; /* Adjust width to fit content */
+  height: 260px;
+  position: relative;
+}
+
+
+.image-container {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  position: relative;
+}
+.image-container3 {
+  
+  flex: 1;
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  position: relative;
+ 
+}
+
+
+.item-card2 {
+  display: flex;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  background-color: #fff;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  width: 420px; /* Adjust width to fit content */
+  height: 260px;
+  position: relative;
+}
+
+/* Product Image */
+.item-card img {
+  width: 175px;        /* Set a fixed width for all images */
+  height: 150px;       /* Set a fixed height for all images */
+  object-fit: cover;   /* Ensures the image covers the area, cropping if necessary */
+  border-top-left-radius: 8px; /* Rounded top-left corner */
+  border-top-right-radius: 0px; /* No rounded top-right corner */
+  margin-top: -110px;
+  margin-left: -20px;
+  margin-right: 20px;
+}
+.item-card2 img {
+  width: 175px;        /* Set a fixed width for all images */
+  height: 150px;       /* Set a fixed height for all images */
+  object-fit: cover;   /* Ensures the image covers the area, cropping if necessary */
+  border-top-left-radius: 8px; /* Rounded top-left corner */
+  border-top-right-radius: 0px; /* No rounded top-right corner */
+  margin-top: -110px;
+  margin-left: -20px;
+  margin-right: 20px;
+}
+
+
+.item-image {
+
+  margin-top: 0px;
+  background-color: #666;
+}
+.item-image2 {
+
+  margin-top: 0px;
+  background-color: #666;
+}
+
+/* Product Details */
+.item-details {
+  flex: 2;
+  margin-top: -30px; /* Adjust margin to ensure spacing is correct */
+  display: flex;
+  flex-direction: column;
+  
+  overflow-wrap: break-word;  /* Ensure text wraps correctly */
+  word-wrap: break-word;  /* Ensure long words break and wrap */
+  word-break: break-word;  /* Prevent words from overflowing */
+  width: 100%; /* Allow it to take full width inside the card */
+  white-space: normal;  /* Allow text to wrap */
+}
+.item-details2 {
+  flex: 2;
+  margin-top: -70px; /* Adjust margin to ensure spacing is correct */
+  display: flex;
+  flex-direction: column;
+
+  overflow-wrap: break-word;  /* Ensure text wraps correctly */
+  word-wrap: break-word;  /* Ensure long words break and wrap */
+  word-break: break-word;  /* Prevent words from overflowing */
+  width: 100%; /* Allow it to take full width inside the card */
+  white-space: normal;  /* Allow text to wrap */
+}
+/* Product Title */
+.item-card h4 {
+  font-size: 16px;
+  color: #333;
+  margin-bottom: 8px;
+  white-space: normal;  /* Allow title to break if it's too long */
+}.item-card2 h4 {
+  font-size: 16px;
+  color: #333;
+  margin-bottom: 8px;
+  white-space: normal;  /* Allow title to break if it's too long */
+}
+
+
+/* Product Price and Sales Info */
+.item-card p {
+  font-size: 14px;
+  color: #666;
+  margin:  0;
+  white-space: normal;  /* Allow paragraphs to break and wrap properly */
+  overflow-wrap: break-word;  /* Ensures no content overflow */
+  word-break: break-word;  /* Handle long words breaking */
+}
+
+.item-card2 p {
+  font-size: 14px;
+  color: #666;
+  margin: 5px 0;
+  white-space: normal;  /* Allow paragraphs to break and wrap properly */
+  overflow-wrap: break-word;  /* Ensures no content overflow */
+  
+  word-break: break-word;  /* Handle long words breaking */
+}
+/* Buttons Container in Product Card */
+.button-group {
+  display: flex;
+  
+  margin-bottom: -100px;
+}
+
+/* Add to Cart and Buy Now Buttons */
+.add-to-cart-btn {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 8px 15px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: background-color 0.3s ease;
+}
+.item-card2 h2 {
+  margin-top: 2rem;
+  font-size: 1.3rem;
+  color: #333;
+  
+}
+.buy-now-btn {
+  background-color: green;
+  color: white;
+  border: none;
+    border-top-left-radius: 0px;
+  border-top-right-radius: 0px;
+  border-bottom-right-radius: 0px;
+  margin-top: 140px;
+  margin-left: -20px;
+  margin-right: 20px;
+  cursor: pointer;
+  font-size: 14px;
+
+  width: 175px;
+  height: 120px;
+  z-index: 2;
+
+  transition: background-color 0.5s ease;
+
+  position:absolute;
+}
+
+
+.buy-now-btn:hover {
+  background-color: #0056b3; /* Change to a solid color on hover */
+  opacity: 1; /* Optional: Ensure the button does not become transparent */
+}
+/* Headings */
+h5 {
+  margin-top: 50px;
+  font-size: larger;
+  color: maroon;
+}
+
+h6 {
+  margin-top: 0px;
+  font-size: larger;
+  color: maroon;
+  font-weight: bold;
+  margin-bottom: 50px;
+}
+
+/* Cart Button */
+.cart_button2 {
+  background: transparent; /* Makes button background transparent */
+  border: none; /* Removes the border */
+  padding: 0; /* Removes padding */
+  display: flex;
+  align-items: center;
+  position: absolute;
+  justify-content: center;
+  cursor: pointer; /* Pointer cursor on hover */
+  width: 50px; /* Set button width */
+  height: 50px; /* Set button height */
+  margin-top: -45px;
+  margin-left: 55px;
+}
+
+.cart_button2 svg {
+  font-size: 35px; /* Resize the cart icon */
+  color: silver;
+}
+
+.cart_button2:hover svg {
+  color: #f39c12; /* Change icon color on hover (optional) */
+}
+
+.product-image2 {
+  width: 60px;  /* Set a fixed width for the image */
+  height: 60px; /* Set a fixed height for the image */
+  object-fit: cover; /* Make sure the image fits the box without stretching */
+  margin-right: 1rem;  /* Add space between the image and the text */
+  border-radius: 5px; /* Optional: for rounded corners */
+}
+/* Responsive Media Queries */
+
+/* For screens 768px or smaller (tablets and below) */
+@media (max-width: 1368px) {
+  .pharmacy-container {
+    flex-direction: column; /* Stack items vertically */
+    padding: 10px;
+    margin-top: 250px;
+    
+  }
+  .buy-now-btn {
+    font-size: 12px; /* Make buttons smaller */
+    width: 150px; /* Reduce button width */
+    margin-top: 150px;
+    height: 100px;
+  }
+
+  /* Adjust filter container */
+  .filter-container {
+    position: relative; /* Make the filter container relative to screen */
+    width: 90%; /* Full width */
+    
+    margin: auto;
+  }
+
+  .divider-container {
+    margin-left: 0;
+    margin-top: 20px;
+  }
+
+  /* Items grid */
+  .items-container {
+    grid-template-columns: repeat(2, 1fr); /* 2 columns instead of 3 */
+    gap: 50px; /* Reduce gap between items */
+  }
+
+  .item-card {
+    width: 100%; /* Make item cards full-width for smaller screens */
+    height:250px;
+    margin-left:-30px;
+  }
+
+  .item-card2 {
+    width: 100%; /* Make item cards full-width for smaller screens */
+    height:250px;
+    margin-left:-30px;
+  }
+  .item-card img {
+    width: 150px;  /* Smaller image */
+    height: 150px; /* Adjust image height */
+    margin-top: -100px;
+  }
+  
+  .item-card2 img {
+    width: 150px;  /* Smaller image */
+    height: 150px; /* Adjust image height */
+    margin-top: -100px;
+  }
+  .item-details2 {
+    margin-top: -50px; /* Adjust margins for mobile */
+  }
+  .item-details {
+    margin-top: -50px; /* Adjust margins for mobile */
+  }
+  .divider-container input[type="text"]{
+    width: 30%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 14px;
+    margin-left:60px;
+  }
+  .divider-container p{
+    font-size: 14px;
+    margin-left:65px;
+    font-weight: bold;
+    margin-top: 10px;
+  }
+  
+  .item-card2 {
+    width: 100%; /* Make item cards full-width for smaller screens */
+    height: auto;
+    margin-left:-30px;
+  }
+
+  .item-card2 img {
+    width: 150px;  /* Smaller image */
+    height: 120px; /* Adjust image height */
+    margin-top: -130px;
+  }
+
+  .item-details2 {
+    margin-top: -50px; /* Adjust margins for mobile */
+  }
+  .divider-container input[type="text"]{
+    width: 30%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 14px;
+    margin-left:60px;
+  }
+  .divider-container p{
+    font-size: 14px;
+    margin-left:65px;
+    font-weight: bold;
+    margin-top: 10px;
+  }
+}
+
+/* For screens 480px or smaller (phones and below) */
+@media (max-width: 480px) {
+  .pharmacy-container {
+    flex-direction: column; /* Stack everything vertically */
+    padding: 10px;
+  }
+
+  /* Filter container takes full width on small screens */
+  .filter-container {
+    width: 100%;
+    margin-left: 0;
+    margin-top: 10px;
+  }
+
+  /* Adjust the filter and search inputs */
+  .filter-input {
+    font-size: 14px;  /* Make text slightly smaller */
+  }
+
+  .divider-container {
+    margin-left: 0;
+    margin-top: 20px;
+  }
+
+  /* Adjust items grid */
+  .items-container {
+    grid-template-columns: 1fr; /* Single column layout */
+    gap: 15px; /* Smaller gap between items */
+  }
+
+  .item-card {
+    width: 100%; /* Make cards full width */
+    height: auto;
+  }
+
+  .item-card img {
+    width: 120px;  /* Smaller image size */
+    height: 100px; /* Adjust image height */
+  }
+
+  .item-details {
+    margin-top: -40px; /* Adjust margins for very small screens */
+  }
+
+  /* Adjust button size */
+  .buy-now-btn {
+    font-size: 12px; /* Make buttons smaller */
+    width: 120px; /* Reduce button width */
+  }
+}

@@ -1,0 +1,117 @@
+/* DashboardNavigation.css */
+
+.dashboard-nav-buttons {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 100%;
+  width: 200px;
+  background-color: #800000; /* Dark red background */
+  padding: 10px 0;
+  height: 100vh;
+  transition: width 0.3s ease;
+  border-radius: 0;
+  padding-left: 10px;
+  padding-right: 10px;
+  position: fixed; /* Fix sidebar position */
+  left: 0; /* Align to the left */
+  top: 0; /* Align to the top */
+  z-index: 10001; /* Ensure it's above other elements */
+}
+
+span {
+  color: whitesmoke;
+}
+
+.dashboard-nav-buttons.collapsed {
+  width: 100px; /* Reduce the sidebar width */
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
+span.collapsed {
+  color: whitesmoke;
+}
+
+.dashboard-nav-buttons button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 90%;
+  padding: 10px;
+  background-color: #d3d3d3; /* Light grey button color */
+  color: #800000; /* Dark red text color */
+  border: none;
+  border-radius: 5px;
+  font-weight: bold;
+  cursor: pointer;
+  margin: 10px 0;
+  transition: background-color 0.3s ease;
+}
+
+.dashboard-nav-buttons button:hover {
+  background-color: #b0b0b0; /* Slightly darker grey on hover */
+}
+
+.dashboard-nav-buttons button .icon {
+  display: none;
+}
+
+.dashboard-nav-buttons.collapsed button .icon {
+  display: inline; /* Show icon when collapsed */
+}
+
+.dashboard-nav-buttons.collapsed button {
+  justify-content: center;
+}
+
+.dashboard-nav-buttons button:hover {
+  background-color: #b0b0b0; /* Slightly darker grey on hover */
+}
+
+/* Main content adjustments */
+.main-content {
+  margin-left: 200px; /* Offset by sidebar width */
+  transition: margin-left 0.3s ease;
+}
+
+.main-content.collapsed {
+  margin-left: 100px; /* Adjust for collapsed sidebar */
+}
+
+/* Media query for max-width: 920px */
+/* Media query for max-width: 920px */
+@media (max-width: 920px) {
+  /* Make the navigation horizontal and at the top on smaller screens */
+  .dashboard-nav-buttons {
+    position: static; /* Remove fixed position */
+    flex-direction: row; /* Display buttons horizontally */
+    justify-content: space-around; /* Space buttons evenly */
+    width: 50%;
+    height: 70px; /* Adjust height */
+    margin-top: 250px;
+    position: fixed;
+    background-color: transparent; /* Remove background */
+    padding: 0; /* Remove padding */
+  }
+
+  .dashboard-nav-buttons button {
+    width: auto; /* Allow button width to auto adjust */
+    margin: 5px; /* Reduce the margin between buttons */
+  }
+
+  /* For collapsed state, reduce height */
+  .dashboard-nav-buttons.collapsed {
+    height: 50px;
+  }
+
+  /* Optional: Hide text in collapsed state on mobile */
+  .dashboard-nav-buttons.collapsed button span {
+    display: none;
+  }
+
+  /* Show icon only in collapsed state */
+  .dashboard-nav-buttons.collapsed button .icon {
+    display: inline; /* Show icon */
+  }
+}

@@ -1,0 +1,447 @@
+/* Dashboard Container */
+.dashboard-container {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  
+  background-color: #f4f4f4;
+  padding: 20px;
+  font-family: 'Arial', sans-serif;
+}
+
+.listing-container {
+  background-color: white;
+ 
+  border-radius: 10px;
+  margin: auto;
+  margin-top: 100px;
+  width: 90%;
+  padding: 20px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  margin-left: 150px;
+}
+/* Card container adjustments */
+.card {
+  display: flex;
+  flex-direction: column; /* Stack elements vertically */
+  align-items: center; /* Center elements horizontally */
+  justify-content: center; /* Center elements vertically */
+  background-color: #fff;
+  border-radius: 10px;
+  padding: 20px;
+  width: 300px;
+  height: auto;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Paragraph adjustments */
+.card p {
+  font-size: 16px;
+  margin: 5px 0; /* Add spacing between text elements */
+  color: #555;
+  text-align: center; /* Center-align the text */
+}
+
+
+h2 {
+  color: #333;
+  margin-bottom: 15px;
+}
+
+/* Add Product Button */
+.add-listing-button {
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  font-size: 16px;
+  cursor: pointer;
+  border-radius: 5px;
+  margin-bottom: 20px;
+}
+
+.add-listing-button:hover {
+  background-color: #45a049;
+}
+
+/* Form */
+.listing-form2 {
+
+  border-radius: 25px;
+  background-color:white;
+  display: flex;
+  padding: 20px;
+  border-color: black;
+  flex-direction: column;
+  margin: auto;
+  max-width: 480px;
+  margin-bottom: 20px;
+  margin-top: 10px;
+  margin-left: 10px;
+}
+.formcontainer{
+  border-color: black;
+  background-color:whitesmoke;
+  border-radius: 25px; /* Keep only one border-radius value */
+  height: 730px;
+  width: 500px;
+  margin: auto;
+  margin-top: -90;
+  z-index: 3;
+  margin-left: 30%;
+  position: absolute;
+}
+
+.listing-form2 label {
+ z-index: 4;
+  margin-bottom: 10px;
+  color:black;
+  margin-left: -5px;
+}
+
+.listing-form2 input[type="number"],
+.listing-form2 input[type="text"],
+.listing-form2 input[type="file"],
+.listing-form2 input[type="textarea"],
+.listing-form2 select {
+
+  padding: 8px;
+  margin: auto;
+  margin-left: 5px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 16px;
+  width: 100%;
+  height: 100%;
+}
+textarea{
+  width: 100%;
+  height: 100px;
+  margin-left: 5px;
+}
+select{
+  width: 400%;
+}
+.listing-form2 input:focus,
+.listing-form2 select:focus {
+  outline: none;
+  border-color: #4CAF50;
+}
+
+.submit-button1 {
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  font-size: 16px;
+  cursor: pointer;
+  border-radius: 5px;
+  margin-top: 10px;
+}
+
+.submit-button1:hover {
+  background-color: #45a049;
+}
+
+.cancel-button23 {
+  background-color: #f44336;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  font-size: 16px;
+  cursor: pointer;
+  border-radius: 5px;
+  margin-top: 10px;
+}
+
+.cancel-button23:hover {
+  background-color: #e53935;
+}
+.card-container {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);  /* Creates 3 equal-width columns */
+  gap: 20px;
+  row-gap:100px ;
+  justify-items: center;  /* Centers items horizontally */
+  align-items: center;    /* Centers items vertically */
+  width: 100%;            /* Ensures it takes full width */
+   /* Limits the width if needed */
+  margin: 0 auto;         /* Centers the grid container */
+}
+
+/* Product Listings */
+
+
+
+
+.card h4 {
+  font-size: 18px;
+  color: #333;
+  margin-bottom: 10px;
+}
+
+
+.card img {
+  width: 250px;
+  height: 120px;
+  object-fit: cover;
+  border-radius: 8px;
+  margin-bottom: 15px; /* Space between the image and descriptions */
+}
+
+.listing-image {
+  width: 200px;
+  height: 150px;
+  object-fit: cover;
+  border-radius: 8px;
+}
+
+
+.card button {
+  padding: 10px 15px;
+ 
+  bottom:10px;
+
+  
+  font-size: 14px;
+  cursor: pointer;
+  z-index: 2;
+
+ 
+ 
+}
+
+.update-button {
+  background-color: #007BFF;
+  color: white;
+  padding: 10px 15px;
+  font-size: 14px;
+  cursor: pointer;
+  border-radius: 5px;
+  border: none;
+  width: 100px; /* Fixed width for alignment */
+  margin-right: 50px; /* Space between buttons */
+}
+
+.button-group2 {
+  display: flex;
+  justify-content: center; /* Center the buttons horizontally */
+  width: 100%; /* Make buttons take full width of the card */
+}
+.update-button:hover {
+  background-color: #0056b3;
+}
+
+.delete-button {
+  background-color: #f44336;
+  color: white;
+  padding: 10px 15px;
+  font-size: 14px;
+  cursor: pointer;
+  border-radius: 5px;
+  border: none;
+  width: 100px; /* Fixed width for alignment */
+}
+
+.delete-button:hover {
+  background-color: #e53935;
+}
+
+/* Modal */
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+}
+
+.modal-content {
+  background-color: white;
+  padding: 30px;
+  border-radius: 10px;
+  width: 500px;
+}
+
+.modal-content h2 {
+  color: #333;
+  margin-bottom: 20px;
+}
+
+.modal-content input,
+.modal-content select {
+  padding: 10px;
+  width: 100%;
+  margin-bottom: 20px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  font-size: 16px;
+}
+
+.modal-content button {
+  padding: 10px 15px;
+  font-size: 16px;
+  border-radius: 5px;
+  border: none;
+  cursor: pointer;
+}
+
+.modal-content .submit-button {
+  background-color: #4CAF50;
+  color: white;
+}
+
+.modal-content .submit-button:hover {
+  background-color: #45a049;
+}
+
+.modal-content .cancel-button {
+  background-color: #f44336;
+  color: white;
+  margin-left: 10px;
+}
+
+.modal-content .cancel-button:hover {
+  background-color: #e53935;
+}
+/* Adjust form and cards for responsiveness */
+@media screen and (max-width: 928px) {
+  .formcontainer {
+    width: 90%;
+  margin: auto;
+    position: relative;
+  }
+
+  .listing-container {
+    margin-top: 200px;
+    margin-left: 50px;
+    padding: 10px;
+  }
+
+  .card-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .card {
+    width: 100%;
+    max-width: 300px;
+    margin: 10px;
+  }
+
+  .listing-form2 input,
+  .listing-form2 select,
+  .listing-form2 textarea {
+    width: 100%;
+  }
+  .add-listing-button {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 5px;
+    margin-left: 300px;
+  }
+  
+.listing-form2 {
+
+  border-radius: 25px;
+  background-color:white;
+  display: flex;
+  padding: 20px;
+  border-color: black;
+  flex-direction: column;
+  margin: auto;
+  max-width: 480px;
+  margin-bottom: 20px;
+  margin-top: 10px;
+  margin-left: 10px;
+}
+.formcontainer{
+  margin: auto;
+  border-color: black;
+  background-color:whitesmoke;
+  border-radius: 25px; /* Keep only one border-radius value */
+  height: 730px;
+  width: 500px;
+  margin: auto;
+  margin-top: -90;
+  z-index: 3;
+  margin-left: 10%;
+  position: absolute;
+}
+
+.listing-form2 label {
+ z-index: 4;
+  margin-bottom: 10px;
+  color:black;
+  margin-left: -5px;
+}
+
+.listing-form2 input[type="number"],
+.listing-form2 input[type="text"],
+.listing-form2 input[type="file"],
+.listing-form2 input[type="textarea"],
+.listing-form2 select {
+
+  padding: 8px;
+  margin: auto;
+  margin-left: 5px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 16px;
+  width: 100%;
+  height: 100%;
+}
+textarea{
+  width: 100%;
+  height: 100px;
+  margin-left: 5px;
+}
+select{
+  width: 400%;
+}
+.listing-form2 input:focus,
+.listing-form2 select:focus {
+  outline: none;
+  border-color: #4CAF50;
+}
+
+.submit-button1 {
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  font-size: 16px;
+  cursor: pointer;
+  border-radius: 5px;
+  margin-top: 10px;
+}
+
+.submit-button1:hover {
+  background-color: #45a049;
+}
+
+.cancel-button23 {
+  background-color: #f44336;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  font-size: 16px;
+  cursor: pointer;
+  border-radius: 5px;
+  margin-top: 10px;
+}
+
+.cancel-button23:hover {
+  background-color: #e53935;
+}
+}
